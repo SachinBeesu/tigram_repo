@@ -1,0 +1,297 @@
+/*{% load static %}*/
+.body{
+  background-image: url('../images/i2.jpg');
+  background-size: cover;
+}
+
+header{
+  background-color:white; /*rgb(245, 237, 237);*/
+  margin-top: -20px;
+  padding: 60px;
+  text-align: center;
+  font-size: 35px;
+}
+
+footer{
+  background-color: rgb(245, 237, 237);
+  padding: 60px;
+  text-align: center;
+  font-size: 35px;
+}
+
+.login-page{
+  width:400px;
+  padding:15% 0 0;
+  margin:auto;
+  
+}
+.login-form {
+  max-width: 0 auto 100px;;
+  height: 380px;
+  /*height: 520px;*/
+  text-align: center;
+  background: rgba(248, 248, 248, 0.527);
+  opacity: 1;
+  padding: 45px;
+  position: relative;
+  margin:0 auto 100px;
+  z-index: 1;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  }
+  
+input[type=email], input[type=password] {
+    
+    border: 1px solid #000000;
+    padding: 5px; 
+    width: 250px;
+    height:40px;
+    border-radius: 10px;
+    color: rgb(26, 25, 25);
+    font-size: 100%;
+    font-family:'Salsa';
+    
+  }
+
+  #but{
+    border-radius: 10px;
+    width: 100px;
+    background-color: #6eec1aec;
+    font-family: 'Salsa';
+    height: 40px;
+    transition: all 0.2s;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  }
+
+.psw{
+  font-size:100%;
+   color: rgb(26, 25, 25);
+}
+
+#mainCaptcha{
+  border: 1px solid #f0eded;
+  padding: 3px; 
+  width: 110px;
+  height: 25px;
+  border-radius: 10px;
+  color: rgb(0, 0, 0);
+  font-size: 100%;
+  font-family: 'Salsa';
+  position:relative; 
+  left:-30px; 
+  top:2px;
+  margin-top: 9px; 
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+#refresh{
+  
+  width: 80px;
+  background-color: #8a8f89ec;
+  font-family: 'Salsa';
+  position:relative; 
+  height: 25px;
+  left:-25px; 
+  border-radius: 10px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+#capt{
+  border: 2px solid #f0eded;
+  padding: 3px; 
+  width: 140px;
+  height: 25px;
+  opacity: 1;
+  color: rgb(0, 0, 0);
+  font-size: 100%;
+  font-family: 'Salsa';
+  position:relative; 
+  left:-55px; 
+  margin-top: 9px; 
+  border-radius: 10px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+#Button1{
+  border-radius: 10px;
+  width: 80px;
+  background-color: #8a8f89ec;
+  font-family: 'Salsa';
+  position:relative; 
+  height: 25px;
+  left:-85px; 
+  margin-top: 9px; 
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+#label{
+  background-color: aliceblue;
+  padding-top: 10px;
+  padding-bottom: 10px;
+margin-left: 2%;
+margin-right: 2%; 
+margin: auto;
+text-align: center;
+box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+border-radius: 10px;
+font-family: 'Salsa';
+}
+
+.nav{
+  overflow: hidden;
+  background-color: rgb(221, 214, 214);
+  margin:auto;
+  font-family: 'Salsa';
+
+}
+
+.nav a{
+  float: left;
+  color: #000000;
+  text-align: center;
+  padding: 10px 10px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.right{
+  float: right;
+}
+
+.b1{
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin:auto;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 55;
+  font-style: bold;
+  font-family: 'Unlock';
+  color: #ffffff;
+  transform: translate(-50%, -50%);
+  
+}
+div.centered {
+  text-align:left;
+  top:65%
+}
+
+#txtb{
+  max-width:auto;
+  background: rgb(255, 245, 245);
+  opacity: 0.8;
+  padding: 45px;
+  margin:0 auto 100px;
+  z-index: 1;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.d1{
+  background-color: #ffffff;
+  opacity: 0.8;
+}
+#lbl{
+  font-size: 35;
+  color: rgb(40, 196, 40);
+  font-size: bold;
+  font-family:'Salsa';
+  text-align: justify;
+  opacity: 1;
+}
+#lbl1{
+  font-size: 15;
+  opacity: 1;
+  color: #3d1313;
+  text-align:justify;
+  font-size: bold;
+  opacity: 1;
+  font-family: 'Paprika';
+}
+
+#lbl2{
+  font-size:25;
+  opacity: 1;
+  color:  rgb(40, 196, 40);
+  font-family:'Salsa';
+  font-size: bold;
+  text-align: justify;
+}
+
+#lbl3{
+  font-size: 15;
+  opacity: 1;
+  color: #3d1313;
+  text-align:justify;
+  font-size: bold;
+  opacity: 1;
+  font-family: 'Paprika';
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+ width: 25%;
+  padding: 0 0px;
+}
+
+.row {margin: 0 0px;
+}
+
+.column{
+  font-size: bold;
+  font-family: 'Salsa';
+  padding: 11px;
+  text-align: center;
+  background-color: rgb(77, 24, 24);
+  color: white;
+  font-size: 30;
+}
+
+.button{
+  background-color: #461913;
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-family: 'Salsa';
+}
+
+
+.call{
+  position: absolute;
+text-align: justify;
+  font-style: bold;
+  font-family:  'Salsa';
+  color: #000000;
+  background-color: #f0eded;
+  opacity: 0.5;
+top: 320%;
+width: 100%;
+height: 40%;
+}
+
+.f1{
+  font-size: 40;
+  font-family:'Paprika';
+}
+
+.f2{
+font-size: 20;
+}
+
+.adjust-for-reg{
+  margin-top: -32px;
+}

@@ -1,0 +1,101 @@
+{% load static %}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+
+body{
+  background: #3f3f3f;
+}
+.form_box{
+width:300px;
+margin:auto;
+margin-top:calc(50vh - 140px);
+}
+.form_box .logo{
+width:250px;
+margin:auto;
+margin-bottom:25px;
+}
+.form_box .logo img{
+width:100%;
+}
+.form_box input{
+width:100%;
+background: #222;
+    box-shadow: 1px 1px 1px #000;
+    color: #fff;
+	border:none;
+	border-radius: 5px;
+	height:40px;
+	margin-bottom:20px;
+	outline:none;
+	padding:0px 15px;
+	padding-left:40px;
+	font-size:14px;
+}
+.form_box button{
+	width:100%;
+	border:none;
+	background:transparent;
+	border-radius: 5px;
+    box-shadow: 1px 1px 4px #000;
+	height:40px;
+	cursor:pointer;
+	color:#fff;
+	font-size:14px;
+	text-transform:uppercase;
+	letter-spacing:2px;
+	margin-top:5px;
+}
+.form_box button:hover{
+background:#000;
+}
+
+.user_name,.password{
+position:relative;
+}
+.user_name .fa,.password .fa{
+position:absolute;
+left:14px;
+top:11px;
+color:#000;
+font-size:20px;
+}
+.password .fa{
+transform:rotate(268deg);
+}
+</style>
+
+
+
+</head>
+
+<body>
+	<div class="form_box">
+		<form action="{% url 'admin_login' %}" method="POST">
+			{% csrf_token %}
+		<div class="logo">
+			<img src="{% static 'images/admin_logo.png' %}">
+		</div>
+		<div class="user_name"><input type="text" name="uname" placeholder="User Name" />
+			<i class="fa  fa-user"></i>
+		</div>
+		<div class="password"><input type="password" name="psw" placeholder="password" />
+		<i class="fa  fa-key"></i>
+		</div>
+		<button id="log-btn" >Login</button>
+		<!-- <div class="user_name">
+		<label>{{context.message}}</label>
+	</div> -->
+		</form>
+	</div>
+</body>
+<script type="text/javascript">
+	var msg='{{message}}';
+	// alert(msg);
+	$('#log-btn').before("<label style='color:red;'>"+msg+"</label>");
+</script>
+</html>

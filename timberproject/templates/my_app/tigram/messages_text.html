@@ -1,0 +1,11 @@
+{% load static %}
+<script type="{% static 'materialize/js/materialize.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'materialize/css/materialize.css' %}">
+{% if messages %}
+        <!-- <ul > -->
+        {% for message in messages %}
+        <!-- <li style="color: red;">{{ message }}</li> -->
+        <script>M.toast({html: "{{message}}", classes: 'green rounded', displayLength:2000});</script>
+        {% endfor %}
+        <!-- </ul> -->
+ {% endif %}

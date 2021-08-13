@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'css/query.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    </head>
+    <body>
+        <nav class=nav>
+            <div class="right">
+                <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+                <a href="{% url 'view_profile' request.user.id %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+            </div>
+        </nav>
+        <div class="div1">
+            <h3>
+            <span>Need HELP???</span><br>
+            We're HERE for YOU....<br>
+            </h3>
+            <div class="images">
+                <img src="{% static 'images/q1.jpg' %}" class="img1">
+            </div>
+            <div class="images1">
+                <img src="{% static 'images/q3.jpg' %}" class="img2">
+            </div>
+            <div class="images2">
+                <img src="{% static 'images/q2.jpg' %}" class="img3">
+            </div>
+        </div>
+        <div class="div2">
+            <div class="inner">
+            <span class="info">
+            <i class="fa fa-user-circle"></i>&nbsp;&nbsp;Address:<br><span class="inter">
+            &nbsp;&nbsp;&nbsp;&nbsp;210504, State Name, Area-colony-residence, 
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;Cityname-6764000.
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;India.<br><br></span>
+            <i class="fa fa-phone"></i>&nbsp;&nbsp;Phone Number:<br><span class="inter">
+            &nbsp;&nbsp;&nbsp;&nbsp;77862634627<br><br></span>
+            <i class="fa fa-envelope"></i>&nbsp;&nbsp;Email:<br><span class="inter">
+            &nbsp;&nbsp;&nbsp;&nbsp;dummy.address@gmail.com<br><br></span>
+        </span>
+        </div>
+        </div>
+        <div class="div3">
+            <div class="form">
+            <form action="">
+                <textarea id="message" name="message" rows="5" cols="70" placeholder="Enter your query...."></textarea>
+                <br><br>
+                <input type="submit" value="Submit" id="button">
+              </form>
+              </div>
+        
+        </div>
+        
+    </body>
+</html>

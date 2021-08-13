@@ -1,0 +1,518 @@
+{% extends 'my_app/tigram/top_band_cont.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/viewapplication.css' %}">
+	<!-- <link rel="stylesheet" href="css/viewapplication.css"> -->
+    <!-- <link rel="stylesheet" href="css/dash.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css' %}">
+    <script type="text/javascript" src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js' %}"></script> -->
+	
+	<style>
+	.vd_head {
+display:flex;
+justify-content:space-between;
+}
+	.edit_btn {
+    background: #efefef;
+    padding: 5px 10px;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px #ccc;
+	border:1px solid #ccc;
+}
+.edit_btn:hover{
+background:#000;
+color:#fff;
+}
+.view_mode input{
+background:transparent !important;
+border:none !important;
+} 
+	</style>
+</head>
+
+<body>
+    <!-- <nav class="nav">
+        <a href="{% url 'officer_dashboard' %}" class="h6-button" id="icon"><i class="fa fa-chevron-circle-left"></i>&nbsp;&nbsp;Back</a>
+            <div class="right">
+                <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+                <a href="{% url 'view_profile' request.user.id %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+            </div>
+        </nav> -->
+	<div class="cont_sec cont nice_scroll">	
+		<div class="wrap">
+        <!-- <h1>Application Details</h1> -->
+        <h1 style="text-align: center;">Application Details</h1>
+    
+    <table class="table2">
+        <tr>
+            <td class="head">Name:</td>
+            <td>{{applications.0.name}}</td>
+        </tr>
+        <tr>
+            <td class="head">Address:</td>
+            <td>{{applications.0.address}}</td>
+        </tr>
+        <tr>
+            <td class="head">Survey No. and extent of the field or fields on which the tree or trees proposed to be
+                cut,uprooted or burnt stand:</td>
+            <td>{{applications.0.survey_no}}</td>
+        </tr>
+        <tr>
+            <td class="head">Name of the Village/Taluka/Block and District where the land on which the tree or trees
+                stand/lie:</td>
+            <td>{{applications.0.village}}</td>
+        </tr>
+        <tr>
+            <td class="head">Proof of ownership of the trees:</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="head">List showing the species of tree or trees proposed to be cut,etc:</td>
+            <td>{{applications.0.species_of_trees}}</td>
+        </tr>
+        <tr>
+            <td class="head">Purpose for which trees are proposed to be cut,etc:</td>
+            <td>{{applications.0.purpose}}</td>
+        </tr>
+        <tr>
+            <td class="head">Details of generation proposed:</td>
+            <td></td>
+        </tr>
+    </table>
+	<br/>
+	<br/>
+   {% if not timber_log %}
+           <h3><strong> Log Details : Not Entered </strong></h3>
+        {% endif %}
+
+    <div class="{% if not timber_log %} hide {% endif %}">
+        <span id="center"><b>VOLUME DESCRIPTIONS</b></span>
+        <br>
+        <table class="table3">
+            <thead>
+                
+            <tr>
+                <th id="vol">Sr. No.</th>
+                <th id="vol">Length</th>
+                <th id="vol">Breadth</th>
+                <th id="vol">Volume</th>
+                <th id="vol">Latitude</th>
+                <th id="vol">Longitude</th>
+            </tr>
+            </thead>
+                <!-- <td>11</td>
+                <td>12</td>
+                <td>13</td>
+                <td>14</td>
+
+                {% for each in timber_log %} -->
+            <tr>
+                <td>{{forloop.counter }}</td>
+                <td>{{each.length}}</td>
+                <td>{{each.breadth}}</td>
+                <td>{{each.volume}}</td>
+                <td>{{each.latitude}}</td>
+                <td>{{each.longitude}}</td>
+            </tr>
+                 <!--  {% endfor %} -->
+            <!-- <tr>
+                <td colspan="3" id="end"><b>Total</b></td>
+                <td><b>144</b></td>
+            </tr> -->
+        </table><br><br><br>
+		
+		<div class="img_gal">
+		<span id="center" style="text-transform:uppercase"><b>Attachments Gallery</b></span>
+		<br/>
+			<div class="row">
+   {% if applications.0.is_noc == False %}
+ <div class="column">
+    <img  class="img-gallery1" src="{% static '/media/upload/proof_of_ownership/' %}{{ applications.0.proof_of_ownership_of_tree }}" style="width:100;" onclick="openModal();currentSlide(1)" class="hover-shadow cursor" />
+   <div class="txt">Proof of Ownership</div>
+  </div>
+  <div class="column">
+    <img  class="img-gallery1" src="{% static '/media/upload/revenue_application/' %}{{ image_documents.revenue_application }}" style="width:100;" onclick="openModal();currentSlide(2)" class="hover-shadow cursor" />
+   <div class="txt">Revenue Application</div>
+  </div>
+  <div class="column">
+    <img class="img-gallery1" src="{% static '/media/upload/revenue_approval/' %}{{ image_documents.revenue_approval }}" style="width:100;" onclick="openModal();currentSlide(3)" class="hover-shadow cursor" />
+  <div class="txt">Revenue Approval</div>
+  </div>
+  <div class="column">
+    <img class="img-gallery1" src="{% static '/media/upload/declaration/' %}{{ image_documents.declaration }}" style="width:100%" onclick="openModal();currentSlide(4)" class="hover-shadow cursor" />
+  <div class="txt">Declaration</div>
+  </div>
+  <div class="column">
+    <img class="img-gallery1" src="{% static '/media/upload/location_sketch/' %}{{ image_documents.location_sktech }}" style="width:100%" onclick="openModal();currentSlide(5)" class="hover-shadow cursor" />
+  <div class="txt">Location Sketch</div>
+  </div>
+  <div class="column">
+    <img class="img-gallery1" src="{% static '/media/upload/tree_ownership/' %}{{ image_documents.tree_ownership_detail }}"style="width:100%" onclick="openModal();currentSlide(6)" class="hover-shadow cursor" />
+  <div class="txt">Tree Ownership Details</div>
+  </div>
+  {% endif %}
+  <div class="column">
+    <img class="img-gallery1" src="{% static '/media/upload/aadhar_card/' %}{{ image_documents.aadhar_detail }}" style="width:100%" onclick="openModal();currentSlide(7)" class="hover-shadow cursor" />
+  <div class="txt">Photo Proof</div>
+  </div>
+</div>
+
+<div id="myModal" class="modal">
+  <span class="close cursor" onclick="closeModal()">&times;</span>
+  <div class="modal-content">
+
+    <div class="mySlides">
+      <div class="numbertext">Proof of Ownership</div>
+      <img src="{% static '/media/upload/proof_of_ownership/' %}{{ applications.0.proof_of_ownership_of_tree }}" style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">Revenue Application</div>
+      <img src="{% static '/media/upload/revenue_application/' %}{{ image_documents.revenue_application }}" style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">Revenue Approval</div>
+      <img src="{% static '/media/upload/revenue_approval/' %}{{ image_documents.revenue_approval }}" style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">Declaration</div>
+      <img src="{% static '/media/upload/declaration/' %}{{ image_documents.declaration }}" style="width:100%">
+    </div>
+    
+    <div class="mySlides">
+      <div class="numbertext">Location Sketch</div>
+      <img src="{% static '/media/upload/location_sketch/' %}{{ image_documents.location_sktech }}" style="width:100%">
+    </div>
+  
+  <div class="mySlides">
+      <div class="numbertext">Tree Ownership</div>
+      <img src="{% static '/media/upload/tree_ownership/' %}{{ image_documents.tree_ownership_detail }}" style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">Photo Proof</div>
+      <img src="{% static '/media/upload/aadhar_card/' %}{{ image_documents.aadhar_detail }}" style="width:100%">
+    </div>
+    
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    <div class="caption-container">
+      <p id="caption"></p>
+    </div>
+
+
+   
+  </div>
+</div>
+
+<script>
+function openModal() {
+  document.getElementById("myModal").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("myModal").style.display = "none";
+}
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  var captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+</script>
+		</div>
+		
+		<br>
+		
+        <table class="table4 hide">
+            <tr>
+                <td class="img">Revenue Application:</td>
+                <td><img src="{% static '/media/upload/revenue_application/' %}{{ image_documents.revenue_application }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="img">Revenue Approval:</td>
+                <td><img src="{% static '/media/upload/revenue_approval/' %}{{ image_documents.revenue_approval }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="img">Declaration:</td>
+                <td><img src="{% static '/media/upload/declaration/' %}{{ image_documents.declaration }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="img">Location Sketch:</td>
+                <td><img src="{% static '/media/upload/location_sketch/' %}{{ image_documents.location_sktech }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="img">Tree Ownership Details:</td>
+                <td><img src="{% static '/media/upload/tree_ownership/' %}{{ image_documents.tree_ownership_detail }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="img">Adhar Card:</td>
+                <td><img src="{% static '/media/upload/aadhar_card/' %}{{ image_documents.aadhar_detail }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="head">Destination Details:</td>
+                <td></td>
+            </tr>
+        </table>
+        </div>
+		<br>
+		<br>
+
+		<div class="vehicle_details">
+            <div class="vd_head"><span id=""><b>VEHICLE DETAILS</b></span><div class="vd_head">
+{% if applications.0.is_noc == False %}
+             <span class="edit_btn" id="veh-cancel-btn">Cancel</span><span class="edit_btn" id="veh-edit-btn">Edit</span>
+{% endif %}
+         </div></div>
+            <table class="table2 vd_form view_mode">
+                <tr>
+                    <td class="head">Vehicle Registration Number:</td>
+                    <td><input type="text" value="{{vehicle.vehicle_reg_no}}" placeholder="Not Applicable" name="veh_reg" /></td>
+                </tr>
+                <tr>
+                    <td class="head">Name of the driver:</td>
+                    <td><input type="text" value="{{vehicle.driver_name}}" placeholder="Not Applicable" name="driver_name" /></td>
+                </tr>
+                <tr>
+                    <td class="head">Phone Number of the Driver:</td>
+					<td><input type="text" value="{{vehicle.driver_phone}}" name="phn" placeholder="Not Applicable" id="phone_num"  pattern="(?=.*[0-9]).{10}" title="Phone Number Must contain 10 number" onchange="return phoneValidation();" /><label id="phone_no-error" style="color: red;"></label></td>
+                    
+                </tr>
+                <tr>
+                    <td class="head">Mode of Transportation:</td>
+                    <td><input type="text" value="{{vehicle.mode_of_transport}}" name="mode" placeholder="Not Applicable" /></td>
+                </tr>
+                <tr>
+                    {% if applications.0.is_noc == False %}
+                    <td >License Image:<br>
+						<img src="{% static '/media/upload/license/' %}{{ vehicle.license_image }}" alt="Not Applicable" id="lic_img_clk"  width="200px" ><input type="file" hidden name="lic_img" value="{{ vehicle.license_image }}"></img>
+					</td>
+                    <td >Signature of Applicant:<br>
+						<img src="{% static '/media/upload/signature/' %}{{ image_documents.signature_img }}"  width="200px" />
+					</td>
+                    {% else %}
+                    <td >Signature of Applicant:
+                    </td>
+                    <td >
+                        <img src="{% static '/media/upload/signature/' %}{{ image_documents.signature_img }}"  width="200px" />
+                    </td>
+                    {% endif %}
+                </tr>
+               
+            </table>
+        </div>
+
+        
+        <form action="{% url 'update_vehicle' applications.0.id %}" id="contactForm1" method="POST">
+    </form>
+</div>
+	</div>
+</body>
+<script type="text/javascript">
+$('#lic_img_clk').click(function(){
+  $('input[name="lic_img"]').click();
+});
+      function saveVehicle(){
+       
+    var veh_reg = $('input[name="veh_reg"]').val();
+    var driver_name = $('input[name="driver_name"]').val();
+    var phn = $('input[name="phn"]').val();
+    var mode = $('input[name="mode"]').val();
+    var lic_img = $('input[name="lic_img"]').prop('files')[0];
+    var lic_img_val = $('input[name="lic_img"]').val();
+    // //change start
+    // var formData = new FormData();
+
+    // // Select only the first file from the input array
+    // var file = files[0]; 
+
+    // // Check the file type
+    // if (!file.type.match('image.*')) {
+    //     statusP.innerHTML = 'The file selected is not an image.';
+    //     return;
+    // }
+
+    // // Add the file to the AJAX request
+    // formData.append('fileAjax', file, file.name);
+    // //Ch
+    var token = '{{csrf_token}}';
+    var formData = new FormData();
+    
+    formData.append('lic_img_val', lic_img_val);
+    formData.append('lic_img', lic_img);
+    formData.append('veh_reg', veh_reg);
+    formData.append('driver_name', driver_name);
+    formData.append('phn', phn);
+    formData.append('mode', mode);
+    fetch("{% url 'update_vehicle' applications.0.id %}", {
+        method: 'POST',
+        body: formData,
+        cache: 'default',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": token,
+        }
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        if(data.status === '200') {
+            if (data.pic_url!=''){
+
+            document.getElementById('lic_img_clk').src ="{% static '/media/upload/license/' %}"+data.pic_url;
+            }
+            alert("Vehicle Details updated successfully!");
+        } else {
+            console.log(data.message);
+        }
+    });
+    // $.ajax(
+    //         headers: { "X-CSRFToken": token },
+    //         type: frm.attr('method'),
+    //         url: frm.attr('action'),
+    //         data: {'veh_reg':veh_reg,
+    //           'driver_name':driver_name,
+    //           'phn':phn,
+    //           'mode':mode,
+    //           // 'lic_img':lic_img,
+    //         },
+    //         // processData: false,
+    //         // contentType: 'application/json',
+    //         // enctype:"multipart/form-data",
+    //         success: function (data) {
+    //             // alert(data.message);
+    //             $('#message').text(data.message);
+    //             alert(data.message);
+    //             if (data.success){
+    //             $(".vehicle_details").load(".vehicle_details");
+    // }
+    //             // $('.couldapprove').hide();
+    //             // console.log(data);
+    //         },
+    //         error: function (data) {
+    //             // console.log('An error occurred.');
+    //             alert(data.message);
+    //             // console.log(data);
+    //         },
+    //     });
+    }
+    function phoneValidation()
+{
+  var phone_no = document.getElementById('phone_num').value;
+  var format = '[0-9]{10}';
+  
+  if (phone_no == ''){
+      document.getElementById("phone_no-error").innerHTML = "Phone Number must not be empty";
+      $("#veh-edit-btn").hide()
+      return false;
+  }
+   else if(phone_no != '') {    
+    if (phone_no.length > 10){
+      document.getElementById("phone_no-error").innerHTML = "Phone Number must only contain 10 number";
+      $("#veh-edit-btn").hide()
+      return false;
+    }
+    else if (phone_no.length != 10){
+      document.getElementById("phone_no-error").innerHTML = "Phone Number must only contain 10 number";
+      $("#veh-edit-btn").hide()
+      return false;
+    }
+    else if( !$('#phone_num').val().match('[0-9]{10}')){
+      document.getElementById("phone_no-error").innerHTML = "Phone Number must only numbers";
+      $("#veh-edit-btn").hide()
+      return false;
+    }
+    else{
+      document.getElementById("phone_no-error").innerHTML = "";
+      $("#veh-edit-btn").show();
+      return true;
+    }
+  }
+}
+$(document).ready(function(){
+  $('#veh-cancel-btn').hide();
+  $('#veh-cancel-btn').click(function(){
+    $(".vd_form").toggleClass("view_mode");
+     $("#veh-edit-btn").text('Edit');
+      $(".view_mode input").each(function(){
+      $(this).attr('readonly',true);
+      document.getElementById("phone_no-error").innerHTML = "";
+      $("#veh-edit-btn").show();
+    });
+      $('#veh-cancel-btn').hide();
+  });
+   $(".vd_form input").each(function(){
+      $(this).attr('readonly',true);
+    });
+  $("#veh-edit-btn").click(function(){
+    if($("#veh-edit-btn").text()=='Save'){
+    saveVehicle();
+    }
+    $(".vd_form").toggleClass("view_mode");
+    if ($(".vd_form").hasClass("view_mode")){
+    $(".view_mode input").each(function(){
+      $(this).attr('readonly',true);
+    });
+      $('#veh-cancel-btn').hide();
+    $("#veh-edit-btn").text('Edit');
+    }
+    else{
+      $(".vd_form input").each(function(){
+      $(this).attr('readonly',false);
+    });
+    $('#veh-cancel-btn').show();
+    $("#veh-edit-btn").text('Save');
+
+
+    }
+  });
+  // $(".view_mode input").attr("href", "{% static 'js/jquery-3.6.0.js' %}");
+  document.getElementByClassName("view_mode").disabled = true;
+});
+
+
+    if ('{{transit_pass_exist}}' == 'True'){
+        $('.couldapprove').hide( );
+        // $("#reason").hide();
+    }
+    var frm = $('#contactForm1');
+    // $('.couldapprove').click(function(){
+</script>
+</html>
+{% endblock %}

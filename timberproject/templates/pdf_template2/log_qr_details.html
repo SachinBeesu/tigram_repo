@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <style type="text/css">
+ table,th,tr,td{
+    /* border:1px ; */
+    /* border-solid; */
+    background-color:  #ffffff; 
+    border-collapse: collapse;
+    padding:2px;
+    /* padding-left: 10px; */
+}
+.table1{
+    width: 100%;
+    /* margin-left:auto; */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    /* border:none; */
+}
+.table2{
+    width: 100%;
+    margin-left:auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    background-color:  rgba(255,255,255,0.9);
+    border:1px solid black;
+}
+.table3{
+    width: 100%;
+    margin-left:auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    background-color:  rgba(255,255,255,0.9);
+    border:1px solid black;
+}
+#qr{
+    height: 120px;
+}
+.layout{
+    display: none;
+}
+#main{
+    height: 100px;
+}
+span{
+    display: block;
+    text-align: center;
+}
+#th1{
+    width:150px;
+    height: 120px;
+}
+.head{
+    font-size: 16px;
+    text-align: left;
+    padding-top: 7px;
+}
+.tb_cont{
+    font-size: 16px;
+    text-align: left;
+    padding-top: 7px;
+}
+.tb_cont span{
+    display: block;
+    text-align: left;
+}
+.headl{
+    margin-left: 0px;
+    /* width:400px; */
+    /* padding:8px; */
+}
+.sig{
+    padding-top: 80px;
+    padding-right:20px;
+    float:right;
+    border:none;
+}
+.head1{
+    height: 100px;
+}
+.sig2{
+    float:right;
+    padding-right:30px;
+}
+.auth{
+    float:right;
+    padding-right: 30px;
+}
+#end{
+    font-size: 20px;
+    font-weight: bold;
+}
+.table4{
+    width:100%;
+}
+.col2{
+    font-weight: bold;
+    font-weight:700;
+    font-size: 80px;
+}
+.sign_img{
+    width:300px !important;
+}
+.qr_img{
+    width:200px !important;
+}
+    </style>
+</head>
+
+<body>
+
+   
+        <body>
+    <table class="table1" style="margin:0px; padding:0px;">
+        <!-- <tr class="layout">
+            <th id="th1"><img src="{{logo1}}" width="70" /></th>
+            <th id="col2">TIGRAM</th>
+            <th></th>
+            <th id="th1"><img src="{{logo1}}" width="70" /></th>
+        </tr> -->
+         <tr id="main" style="display:flex; justify-content:space-between; margin:0px; padding:0px;">
+                            <td style="width:33.33%; text-align:left;" id="th1"><img src="{{logo1}}" width="180px" height="90px" style="width:180px; height:90px"/></td>
+           
+            <td   style="width:33.33%; text-align:center;" id="col2"><img src="{{logo3}}" width="190px" height="40px" style="width:190px; height:40px;" /></td>
+            <td style="width:33.33%; text-align:right;" id="th1"><img src="{{logo2}}" width="120px" height="80px" style="width:120px; height:80px;" /></td>
+        </tr>
+    </table>
+    
+    <hr width="100%" color="#012a6c" size="5" style="margin:0px; padding:0px;" />
+<hr width="100%" color="#c4113b" size="5" style="margin:0px; padding:0px;" />
+    <br>
+        <h1 style="font-size: 20px; font-weight: bold; margin-bottom: 0px; margin-top: 15px; color: #c4113b; padding-left:10px;">Log Details</h1>
+       <table style="margin-left: 30px;margin-right: 30px;width:150px;border:1px solid rgb(231, 228, 228);">
+        <!-- <tr>
+          <th>Firstname</th>
+          <th>Lastname</th> 
+          <th>Age</th>
+        </tr> -->
+        <tr>
+            <td class="head" style="border-spacing: 0px;"><p style="font-weight:lighter;color:#615f5f;">Log ID</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{log_details.id}}</p></td>
+          
+        </tr>
+        <tr>
+            <td class="head"><p style="font-weight:lighter;color:#615f5f;">Tree Species of Log</p></td>
+            <td class="tb_cont"><span ><p id="italize_species" style="font-weight:bold; color:#012a6c;">{{log_details.species_of_tree}}</p></span></td>
+        </tr>
+        <tr>
+            <td class="head"><p style="font-weight:lighter;color:#615f5f;">Length(cm)</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{log_details.length}}</p></td>
+        </tr>
+      
+        <tr>
+            <td class="head"><p style="font-weight:lighter;color:#615f5f;">Girth(cm)</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{log_details.breadth}}</p></td>
+        </tr>
+        <tr>
+            <td class="head"><p style="font-weight:lighter;color:#615f5f;">Volume(cm<sup>3</sup>)</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{log_details.volume}}</p></td>
+        </tr>
+        <tr>
+            <td class="head" style="border-spacing: 0px;"><p style="font-weight:lighter;color:#615f5f;">Associated Application No.</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{log_details.appform.application_no}}</p></td>
+          
+        </tr>
+        <tr>
+            <td class="head"><p style="font-weight:lighter;color:#615f5f;">Latitude</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{log_details.latitude}}</p></td>
+        </tr>
+        <tr>
+            <td class="head"><p style="font-weight:lighter;color:#615f5f;">Longitude</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{log_details.longitude}}</p></td>
+        </tr>
+        <tr>
+            <td class="head"><p style="font-weight:lighter;color:#615f5f;">Destination:</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{log_details.appform.destination_details}}</p></td>
+        </tr>
+        <tr>
+            <td class="head"><p style="font-weight:lighter;color:#615f5f;">Date of TP issued:</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{log_details.appform.transit_pass_created_date}}</p></td>
+        </tr>
+        <tr>
+            <!-- <td class="head">Signature:<br><br>
+                <img class="sign_img" src="{{signature_img}}" /> 
+            </td> -->
+            <td class="tb_cont"><p style="font-weight:lighter;color:#615f5f;">QR Code:</p><br><br></td>
+                <td>
+                <img class="qr_img" src="{{qr_img}}" /></td>
+            
+
+        </tr>
+    
+      </table>
+<br>
+
+    </div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function(){
+$("#italize_species").html(function(i, h){
+                            return h.replace(/\(([^\)]+)\)/, "(<i>$1</i>)");
+                    });
+    });
+</script>
+</html>

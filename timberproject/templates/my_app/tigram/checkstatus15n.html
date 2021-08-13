@@ -1,0 +1,494 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/checkstatus.css' %}">
+	 <!-- <link rel="stylesheet" href="css/checkstatus.css">  -->
+    <!-- <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+	
+	
+    <link rel="stylesheet" type="text/css" href="{% static 'js/DataTables/datatables.css' %}">
+    <script type="text/javascript" charset="utf8" src="{% static 'js/DataTables/datatables.js' %}"></script>
+    
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/datatables.min.css">
+	<link rel="stylesheet" type="text/css" href="css/datatables.css">
+	<script type="text/javascript" charset="utf8" src="js/datatables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="js/datatables.js"></script> -->
+	
+	<style>
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+
+body{
+font-family: 'Roboto', sans-serif;
+}
+
+.bg_orange{
+background:orange;
+}
+.div2{
+margin-bottom:30px;
+padding:10px;
+}
+#myTable01,#myTable02{
+border-top:1px solid #ccc;
+border-left:1px solid #ccc;
+margin-top:10px;
+display:block;
+font-family: 'Roboto', sans-serif;
+}
+
+#myTable01 tr:nth-child(even),#myTable02 tr:nth-child(even){
+background: #f8f7f7;
+}
+#myTable thead{
+border-top:1px solid #ccc;
+}
+
+.pending_approve{
+display:flex;
+}
+.pending_approve div{
+
+padding:10px 20px;
+color:#222;
+cursor:pointer;
+font-size:16px;
+border-radius:10px 10px 0px 0px;
+background:#efefef;
+opacity:0.8;
+}
+.pending_approve .pending_btn.active{
+background:orange;
+color:#fff;
+font-weight:bold;
+opacity:1;
+}
+.pending_approve .approve_btn.active{
+background:green;
+color:#fff;
+font-weight:bold;
+opacity:1;
+}
+.pending_table thead tr{
+background:orange;
+color:#fff;
+}
+.approve_table{
+}
+.approved_table thead tr{
+background:green;
+color:#fff;
+}
+.pending_table, .approved_table{
+position:relative;
+}
+
+.hide{
+display:none !important;
+}
+.dataTables_filter{
+margin-bottom:10px;
+}
+.dataTables_filter input{
+width:250px;
+}
+.dataTables_length select{
+margin:0px 4px;
+}
+.dataTables_wrapper .dataTables_paginate{
+margin-top:7px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+padding: 3px 1em !important;
+}
+.select_filter{
+position:absolute;
+left:200px;
+top:10px;
+z-index:1000;
+}
+.select_filter select{
+width:170px;
+margin-left:10px;
+padding:5px;
+border:1px solid #ccc;
+border-radius:3px;
+
+}
+.table{
+/*height:406px;*/
+height:506px;
+overflow-y:scroll;
+}
+
+table thead tr th:nth-child(1){
+min-width:50px;
+}
+table thead tr th:nth-child(2){
+min-width:50px;
+}
+table thead tr th:nth-child(3){
+min-width:150px;
+}
+table thead tr th:nth-child(4){
+min-width:50px;
+}
+table thead tr th:nth-child(5){
+min-width:50px;
+}
+table thead tr th:nth-child(6){
+min-width:70px;
+}
+table thead tr th:nth-child(7){
+min-width:120px;
+}
+table thead tr th:nth-child(8){
+min-width:70px;
+}
+table thead tr th:nth-child(9){
+min-width:90px;
+}
+/*table thead tr th:nth-child(10){
+min-width:90px;
+}*/
+table thead tr th:nth-child(10){
+min-width:250px;
+}
+table thead tr th:nth-child(11){
+min-width:70px;
+text-align:left;
+}
+/*table thead tr th:nth-child(11){
+min-width:250px;
+text-align:left;
+}*/
+/*table tbody tr td:nth-child(11){
+text-align:left;
+}*/
+table thead tr th:nth-child(12){
+min-width:70px;
+}
+
+
+.down_btn{
+padding:5px 8px;
+padding-bottom:4px;
+border:none;
+border:1px solid #000;
+color:#000;
+background:#fff;
+cursor:pointer;
+}
+.down_btn:hover{
+border:1px solid blue;
+color:blue;
+}
+.view_app,.qr_code{
+color:#000;
+}
+.view_app:hover,.qr_code:hover{
+color:blue;
+}
+table{
+color:#000 !important;
+}
+.cont {
+    background-image: url('{% static "images/image5.jpg" %}');
+    background-size: cover;
+    background-attachment: fixed;
+    padding-top: 90px;
+    padding-bottom: 50px;
+}
+.cont .wrap {
+    width: 80%;
+    margin: auto;
+}
+.div2{
+background:#fff;
+}
+.div2 tr th, .div2 tr td {
+    border-right: 1px solid #ccc;
+    border-left: none;
+    font-size: 14px;
+    line-height: 18px;
+}
+</style>
+	
+</head>
+<body class="body">
+    
+    <nav class="nav">
+        <div class="left">
+            <a href="{% url 'dashboard' %}" class="h7-button" ><i class="fa fa-chevron-left"></i>&nbsp;&nbsp;Back</a>
+            <a href="{% url  'index'   %}" class="h7-button"><i class="fas fa-home"></i>Home</a>
+        </div>
+        <div class="right">
+            <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+            <a href="{% url  'view_profile' request.user.id  %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+        </div>
+    </nav>
+	<div class="cont">
+		<div class="wrap">
+<!--      <div class="pending_approve">
+	<div class="pending_btn active">Pending</div><div class="approve_btn">Approved</div>
+  </div> -->
+<!--     <div class="div2  pending_table" >
+		 
+        <table id="myTable01" class="table nice_scroll" style="">
+			<div class="select_filter">
+			<select>
+				<option>Applicant No</option>
+				<option>Applicant No 01</option>
+				<option>Applicant No 02</option>
+			</select>
+			<select>
+				<option>Applicant Name</option>
+				<option>abc</option>
+				<option>xyz</option>
+			</select>
+			<select>
+				<option>Applicant Date</option>
+				<option>22/04/2021</option>
+				<option>23/04/2021</option>
+			</select>
+			</div>
+            <thead>
+                
+                <tr style="">
+                    <th>Sr.No</th>
+                    <th>Application No.</th>
+                    <th>Applicant Name</th>
+                    <th>Application Date</th>
+                    <th>Current Status</th>
+                    <th>Approved Date</th>
+                    <th>Action</th>
+                    <th>Download TP</th>
+                    <th>Download Report</th>
+                    <th>Get QR Codes</th>
+                    <th id="remark">Remark</th>
+    				<th>Remark Date</th>
+                </tr>
+            </thead>
+    <tbody>
+<tr>
+<td>01</td>
+<td>56478</td>
+<td>Wasim Shaikh</td>
+<td>20/04/2021</td>
+<td>Pending</td>
+<td>22/04/2021</td>
+<td><a href="#" class="view_app"><i class="fa fa-eye"></i> View Application</a></td>
+<td><button class="down_btn"><i class="fa fa-download"></i> Download</button></td>
+<td><button class="down_btn"><i class="fa fa-download"></i> Download</button></td>
+<td><a href="#" class="qr_code"><i class="fa fa-qrcode"></i> QR Code</a></td>
+<td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</td>
+<td>22/04/2021</td>
+</tr>
+<tr>
+<td>02</td>
+<td>124784</td>
+<td>ABC</td>
+<td>18/04/2021</td>
+<td>Pending</td>
+<td>20/04/2021</td>
+<td><a href="#" class="view_app"><i class="fa fa-eye"></i> View Application</a></td>
+<td><button class="down_btn"><i class="fa fa-download"></i> Download</button></td>
+<td><button class="down_btn"><i class="fa fa-download"></i> Download</button></td>
+<td><a href="#" class="qr_code"><i class="fa fa-qrcode"></i> QR Code</a></td>
+<td>Pending</td>
+<td>20/04/2021</td>
+</tr>
+<tr>
+<td>03</td>
+<td>555</td>
+<td>XYZ</td>
+<td>16/04/2021</td>
+<td>Pending</td>
+<td>18/04/2021</td>
+<td><a href="#" class="view_app"><i class="fa fa-eye"></i> View Application</a></td>
+<td><button class="down_btn"><i class="fa fa-download"></i> Download</button></td>
+<td><button class="down_btn"><i class="fa fa-download"></i> Download</button></td>
+<td><a href="#" class="qr_code"><i class="fa fa-qrcode"></i> QR Code</a></td>
+<td>Pending</td>
+<td>18/04/2021</td>
+</tr>
+
+           
+    </tbody>
+        </table>
+
+    </div>
+	
+ -->	
+	<div class="div2 nice_scroll approved_table " >
+		 
+        <table id="myTable02" class="table" style=" ">
+			<div class="select_filter hide">
+			<select>
+				<option>Applicant No</option>
+				<option>Applicant No 01</option>
+				<option>Applicant No 02</option>
+			</select>
+			<select>
+				<option>Applicant Name</option>
+				<option>abc</option>
+				<option>xyz</option>
+			</select>
+			<select>
+				<option>Applicant Date</option>
+				<option>22/04/2021</option>
+				<option>23/04/2021</option>
+			</select>
+			</div>
+            <thead>
+                
+                <tr style="">
+                     <th>Sr.No</th>
+                    <th>Application No.</th> 
+                    <th>Application Date</th>
+                    <th>Application Status</th>
+                    <th>Current Status</th>
+                    <th>TP Status</th>
+                    <th>TP Issuing Date</th>
+                    <th>TP Number</th>
+                    <th>No. of days left </th>
+                    <th id="remark">Remark</th>
+                    <th>Download Tp</th>
+                    <th>Download Report</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+    <tbody>
+<!-- <tr>
+<td>01</td>
+<td>A</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+</tr>
+<tr>
+<td>02</td>
+<td>B</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+</tr>
+<tr>
+<td>03</td>
+<td>C</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+</tr>
+<tr>
+<td>04</td>
+<td>D</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+</tr> -->
+            {% for each in application %}
+                <tr>
+                <td>{{each.sr}}</td>
+                <td>{{each.application_no}}</td>
+                <td>{{each.created_date}}</td>
+                <td>{{each.application_status}}</td>
+                <td>{{each.current_status}}</td>
+                <td>{{each.verification_status}}</td>
+                <td>{{each.tp_issue_date}}</td>
+                <td>{{each.tp_number}}</td>
+                <td>{{each.tp_days}}</td>
+                <td>{{each.remark}}</td>
+                <!-- <td></td>  -->
+                <!-- <td></td> -->
+                {% if each.application_status == 'Approved' %}
+                <td> <button class="down_btn"><a href="{% url 'transit_pass_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+
+                <td><button class="down_btn"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                <td> <a href="{% url 'application_userview' each.applicant_no  %}" class="view_app"><i class="fa fa-eye"></i> View Application</a></td>
+                {% else %}
+<!--                 <td><button class="btn" style="width:90px" disabled="disabled"><i class="fa fa-download"></i> Download</button></td>
+                <td><button class="btn" style="width:90px" disabled="disabled"><i class="fa fa-download"></i> Download</button></td> -->
+                <td></td>
+                <td></td>
+                <td></td>
+                {% endif %}
+                </tr>
+              {% endfor %}
+    </tbody>
+        </table>
+
+    </div>
+	 </div>
+	  </div>
+	
+   
+</body>
+
+
+
+<script type="text/javascript">
+    var message = "{{message}}";
+    if(message.length>0)
+    {
+        alert(message);
+    }
+    $(document).ready(function(){
+	
+	  $('#myTable01').DataTable();
+	  $('#myTable02').DataTable();
+	
+		$(".pending_btn").click(function(){
+  $(".pending_table").removeClass("hide");
+  $(".approved_table").addClass("hide");
+  $(".pending_btn").addClass("active");
+  $(".approve_btn").removeClass("active");
+});	
+$(".approve_btn").click(function(){
+  $(".approved_table").removeClass("hide");
+  $(".pending_table").addClass("hide");
+  $(".approve_btn").addClass("active");
+  $(".pending_btn").removeClass("active");
+});	
+	
+	
+      
+    });
+</script>
+
+</html>

@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Application Details</title>
+	<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css' %}">
+	<script type="text/javascript" src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+	<h3 style="text-align: center;color:red; " id="message"></h3>
+	<h2>Application Details</h2>
+	<div > 
+	<table border="1" style="text-align: center;" >
+		<thead>
+			<th>Sr no.</th>
+			<th>Name</th>
+			<th>Detail</th>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Name</td>
+				<td>{{applications.0.name}}</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Survey No</td>
+				<td>{{applications.0.survey_no}}</td>
+			</tr>
+			<tr>
+				<td>3<td>
+				<td>{{applicant.}}</td>
+				<td></td>
+			</tr>
+
+		</tbody>
+	</table>
+	</div>
+		<h3>List Of Documents Submitted</h3>
+		<!-- <div style="width: 1000px; height: 600px;"> -->
+			<!-- <img src="{% static '/media/upload/declaration/' %}{{ image_documents.declaration }}"  width="50%" height="50%" /> -->
+	<div style="width: 700px; height: 300px;">
+		<label> Aadhar Card</label>
+		<img src="{% static '/media/upload/aadhar_card/' %}{{ image_documents.aadhar_detail }}"  width="50%" height="80%" />
+	</div>
+	<div style="width: 700px; height: 300px;">
+		<label>Declaration</label>
+		<img src="{% static '/media/upload/declaration/' %}{{ image_documents.declaration }}"  width="50%" height="80%" />
+	</div>
+	<div style="width: 700px; height: 300px;">
+		<label>License</label>
+		<img src="{% static '/media/upload/license/' %}{{ image_documents.license_image }}"  width="50%" height="80%" />
+	</div>
+	<div style="width: 700px; height: 300px;">
+		<label> Revenue Application</label>
+		<img src="{% static '/media/upload/revenue_application/' %}{{ image_documents.revenue_application }}"  width="50%" height="80%" />
+	</div>
+	<label>Comment/Reason:</label>
+	<textarea name="comment" id="reason" placeholder="Comments"></textarea>
+	<!-- <a id="approve" class="btn btn-primary couldapprove" href="{% url 'approve_transit_pass' applications.0.id %}">Approve</a> -->
+	<button type="submit" id="approve" class="btn btn-primary couldapprove" name="approve" > Approve </button>
+	<button type="submit" id="disapprove" class="btn btn-danger couldapprove">Disapprove</button>
+	<form action="{% url 'approve_transit_pass' applications.0.id %}" id="contactForm1" method="POST">
+	</form>
+<!-- {{applications}} -->
+</body>
+<script type="text/javascript">
+	if ('{{transit_pass_exist}}' == 'True'){
+		$('.couldapprove').hide( );
+	}
+	var frm = $('#contactForm1');
+	$('.couldapprove').click(function(){
+	var reason = $('#reason').val();
+	console.log($(this).text()+"---here");
+	var type_approve = $(this).text();
+	var token = '{{csrf_token}}';
+	$.ajax({
+			headers: { "X-CSRFToken": token },
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: {'reason':reason,'type':type_approve},
+            success: function (data) {
+                // alert(data.message);
+                $('#message').text(data.message);
+                // console.log(data);
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                // console.log(data);
+            },
+        });
+	});
+</script>
+</html>
+

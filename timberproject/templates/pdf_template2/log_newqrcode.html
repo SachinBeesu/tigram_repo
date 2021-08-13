@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <style type="text/css">
+ table,th,tr,td{
+    /* border:1px ; */
+    /* border-solid; */
+    background-color:  #ffffff; 
+    border-collapse: collapse;
+    padding:2px;
+    /* padding-left: 10px; */
+}
+.table1{
+    width: 100%;
+    /* margin-left:auto; */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    /* border:none; */
+}
+.table2{
+    width: 100%;
+    margin-left:auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    background-color:  rgba(255,255,255,0.9);
+    border:1px solid black;
+}
+.table3{
+    width: 100%;
+    margin-left:auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    background-color:  rgba(255,255,255,0.9);
+    border:1px solid black;
+}
+#qr{
+    height: 120px;
+}
+.layout{
+    display: none;
+}
+#main{
+    height: 100px;
+}
+span{
+    display: block;
+    text-align: center;
+}
+#th1{
+    width:150px;
+    height: 120px;
+}
+.head{
+    font-size: 16px;
+    text-align: left;
+    padding-top: 7px;
+}
+.tb_cont{
+    font-size: 16px;
+    text-align: left;
+    padding-top: 7px;
+}
+.tb_cont span{
+    display: block;
+    text-align: left;
+}
+.headl{
+    margin-left: 0px;
+    /* width:400px; */
+    /* padding:8px; */
+}
+.sig{
+    padding-top: 80px;
+    padding-right:20px;
+    float:right;
+    border:none;
+}
+.head1{
+    height: 100px;
+}
+.sig2{
+    float:right;
+    padding-right:30px;
+}
+.auth{
+    float:right;
+    padding-right: 30px;
+}
+#end{
+    font-size: 20px;
+    font-weight: bold;
+}
+.table4{
+    width:100%;
+}
+.col2{
+    font-weight: bold;
+    font-weight:700;
+    font-size: 80px;
+}
+.sign_img{
+    width:300px !important;
+}
+.qr_img{
+    width:200px !important;
+}
+    </style>
+</head>
+
+<body>
+
+          <table class="table1" style="margin:0px; padding:0px;">
+  
+        
+         <tr id="main" style="display:flex; justify-content:space-between; margin:0px; padding:0px;">
+                            <td style="width:33.33%; text-align:left;" id="th1"><img src="{{logo1}}" width="180px" height="90px" style="width:180px; height:90px"/></td>
+           
+            <td   style="width:33.33%; text-align:center;" id="col2"><img src="{{logo3}}" width="190px" height="40px" style="width:190px; height:40px;" /></td>
+            <td style="width:33.33%; text-align:right;" id="th1"><img src="{{logo2}}" width="120px" height="80px" style="width:120px; height:80px;" /></td>
+
+        </tr>
+    </table>
+
+<hr width="100%" color="#012a6c" size="5" style="margin:0px; padding:0px;" />
+<hr width="100%" color="#c4113b" size="5" style="margin:0px; padding:0px;" />
+   <br>
+<h1 style="font-size: 20px; font-weight: bold; margin-bottom: 0px; margin-top: 15px; color: #c4113b; padding-left:10px;">Log Description</h1>
+
+    <table style="border: 1px solid gray;">
+        <tr>
+         
+          <th  style="width: 45px;padding-top: 7px; background-color: #012a6c;font-size: 15px;"><p style="color: white;">Sr.NO</p></th>
+          <th style="width: 300px; padding-top: 7px; background-color: #012a6c;font-size: 15px"><p style="color: white;">Species of Log</p></th>
+          <th style="padding-top: 7px; background-color: #012a6c;font-size: 15px"><p style="color: white;">Length(cm)</p></th>
+          <th style="padding-top: 7px; background-color: #012a6c;font-size: 15px"><p style="color: white;">Girth(cm)</p></th>
+          <th style="padding-top: 7px; background-color: #012a6c;font-size: 15px"><p style="color: white;">Volume(cm<sup>3</sup>)</p></th>
+          <th style="padding-top: 7px; background-color: #012a6c;font-size: 15px"><p style="color: white;">QR Code</p></th>
+          <!-- <th style="padding-top: 7px; background-color: black;font-size: 15px"><p style="color: white;">Longitude</p></th> -->
+        </tr>
+        {% for each in log_details %}
+        <tr>
+        
+          <td style="text-align: center;font-size: 16px;color:#615f5f">{{forloop.counter}}</td>
+          <td style="width :300px !important; text-align: center;font-size: 16px;color:#615f5f">{{each.species_of_tree}}</td>
+          <td style="text-align: center;font-size: 16px;color:#615f5f">{{each.length}}</td>
+          <td style="text-align: center;font-size: 16px;color:#615f5f">{{each.breadth}}</td>
+          <td style="text-align: center;font-size: 16px;color:#615f5f">{{each.volume}}</td>
+          <!-- <td style="text-align: center;font-size: 16px">{{each.latitude}}</td> -->
+          <!-- <td><img class="qr_img" src="{{main_url}}{{each.log_qr_code_img}}" /></td> -->
+
+          <td><img class="qr_img" src="http://65.1.132.43:8080/static/media/qr_code/{{each.log_qr_code_img}}" /></td>
+          <!-- <td style="text-align: center;font-size: 16px">{{each.longitude}}</td> -->
+          
+        </tr>
+        {% endfor %}
+
+
+      </table>
+
+
+ 
+
+ 
+    </div>
+</body>
+
+</html>

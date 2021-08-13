@@ -1,0 +1,765 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/officerdash.css' %}">
+	 <!-- <link rel="stylesheet" href="css/officerdash.css"> -->
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Jquery -->
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css" href="{% static 'js/DataTables/datatables.css' %}">
+    <script type="text/javascript" charset="utf8" src="{% static 'js/DataTables/datatables.js' %}"></script>
+	
+	<!-- <link rel="stylesheet" type="text/css" href="css/datatables.min.css">
+	<link rel="stylesheet" type="text/css" href="css/datatables.css">
+	<script type="text/javascript" charset="utf8" src="js/datatables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="js/datatables.js"></script> -->
+	
+	
+<style>
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+
+body{
+font-family: 'Roboto', sans-serif;
+}
+
+.bg_orange{
+background:orange;
+}
+.div2{
+margin-bottom:30px;
+padding:10px;
+}
+#myTable01,#myTable02{
+border-top:1px solid #ccc;
+border-left:1px solid #ccc;
+margin-top:10px;
+display:block;
+font-family: 'Roboto', sans-serif;
+}
+
+#myTable01 tr:nth-child(even),#myTable02 tr:nth-child(even){
+background: #f8f7f7;
+}
+#myTable thead{
+border-top:1px solid #ccc;
+}
+
+.pending_approve{
+display:flex;
+}
+.pending_approve div{
+
+padding:10px 20px;
+color:#222;
+cursor:pointer;
+font-size:16px;
+border-radius:10px 10px 0px 0px;
+background:#efefef;
+opacity:0.8;
+}
+.pending_approve .pending_btn.active{
+background:orange;
+color:#fff;
+font-weight:bold;
+opacity:1;
+}
+.pending_approve .approve_btn.active{
+background:green;
+color:#fff;
+font-weight:bold;
+opacity:1;
+}
+.pending_table thead tr{
+background:orange;
+color:#fff;
+}
+.approve_table{
+}
+.approved_table thead tr{
+background:green;
+color:#fff;
+}
+.pending_table, .approved_table{
+position:relative;
+}
+
+.hide{
+display:none !important;
+}
+.dataTables_filter{
+margin-bottom:10px;
+}
+.dataTables_filter input{
+width:250px;
+}
+.dataTables_length select{
+margin:0px 4px;
+}
+.dataTables_wrapper .dataTables_paginate{
+margin-top:7px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+padding: 3px 1em !important;
+}
+.select_filter{
+position:absolute;
+left:200px;
+top:10px;
+z-index:1000;
+}
+.select_filter select{
+width:170px;
+margin-left:10px;
+padding:5px;
+border:1px solid #ccc;
+border-radius:3px;
+
+}
+.table{
+height:406px;
+overflow-y:scroll;
+}
+
+table thead tr th:nth-child(1){
+min-width:50px;
+}
+table thead tr th:nth-child(2){
+min-width:50px;
+}
+table thead tr th:nth-child(3){
+min-width:150px;
+}
+table thead tr th:nth-child(4){
+min-width:50px;
+}
+table thead tr th:nth-child(5){
+min-width:50px;
+}
+table thead tr th:nth-child(6){
+min-width:70px;
+}
+table thead tr th:nth-child(7){
+min-width:120px;
+}
+table thead tr th:nth-child(8){
+min-width:90px;
+}
+table thead tr th:nth-child(9){
+min-width:90px;
+}
+table thead tr th:nth-child(10){
+min-width:70px;
+}
+table thead tr th:nth-child(11){
+min-width:250px;
+text-align:left;
+}
+table tbody tr td:nth-child(11){
+text-align:left;
+}
+table thead tr th:nth-child(12){
+min-width:70px;
+}
+
+
+.down_btn{
+padding:5px 8px;
+padding-bottom:4px;
+border:none;
+border:1px solid #000;
+color:#000;
+background:#fff;
+cursor:pointer;
+}
+.down_btn:hover{
+border:1px solid blue;
+color:blue;
+}
+.view_app,.qr_code{
+color:#000;
+}
+.view_app:hover,.qr_code:hover{
+color:blue;
+}
+table{
+color:#000 !important;
+}
+</style>	
+</head>
+
+<body>
+    
+    <nav class=nav>
+        <h2>{{text_show}}  Dashboard</h2>
+        <div class="right">
+            <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+            <a href="{% url 'view_profile' request.user.id %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+        </div>
+    </nav>
+	<div class="cont">
+		<div class="wrap">
+	 <div class="pending_approve">
+	<div class="pending_btn active">Pending</div><div class="approve_btn">Approved/Rejected</div>
+  </div>
+    <div class="div2  pending_table" >
+		 
+        <table id="myTable01" class="table nice_scroll" style="">
+			<div class="select_filter">
+			
+            <select id="sel_application_no1" name=1 class="select-application01">
+                <option value="">Select Application No. </option>
+                {% for no in pending_application_no %}
+                <option>{{no}}</option>
+                <!-- <option>Applicant No 02</option> -->
+                {% endfor %}
+            </select>
+            <select id="sel_application_name1" name=2 class="select-application01">
+                <option value="">Select Application Name </option>
+                {% for name in pending_application_names %}
+                <option>{{name}}</option>
+                <!-- <option>Applicant No 02</option> -->
+                {% endfor %}
+            </select>
+            <select id="sel_application_date1" name=3 class="select-application01">
+                <option value="">Select Application Date </option>
+                {% for each in pending_application_date %}
+                <option>{{each}}</option>
+                <!-- <option>Applicant No 02</option> -->
+                {% endfor %}
+            </select>
+			
+			</div>
+            <thead>
+                
+                <tr style="">
+                    <th>Sr.No</th>
+                    <th>Application No.</th>
+                    <th>Applicant Name</th>
+                    <th>Application Date</th>
+                    <!-- <th id="query">Query</th> -->
+                    <th>Current Status</th>
+                    <th>Approved Date</th>
+                    <th>Action</th>
+                    <th>Download TP</th>
+                    <th>Download Report</th>
+                    <th>Get QR Codes</th>
+                    <th id="remark">Remark</th>
+    				<th>Remark Date</th>
+                </tr>
+            </thead>
+    <tbody class="applications_list">
+<!-- <tr>
+<td>01</td>
+<td>56478</td>
+<td>Wasim Shaikh</td>
+<td>20/04/2021</td>
+<td>Pending</td>
+<td>22/04/2021</td>
+<td><a href="#" class="view_app"><i class="fa fa-eye"></i> View Application</a></td>
+<td><button class="down_btn"><i class="fa fa-download"></i> Download</button></td>
+<td><button class="down_btn"><i class="fa fa-download"></i> Download</button></td>
+<td><a href="#" class="qr_code"><i class="fa fa-qrcode"></i> QR Code</a></td>
+<td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</td>
+<td>22/04/2021</td>
+</tr>
+<tr>
+<td>02</td>
+<td>124784</td>
+<td>ABC</td>
+<td>18/04/2021</td>
+<td>Pending</td>
+<td>20/04/2021</td>
+<td><a href="#" class="view_app"><i class="fa fa-eye"></i> View Application</a></td>
+<td><button class="down_btn"><i class="fa fa-download"></i> Download</button></td>
+<td><button class="down_btn"><i class="fa fa-download"></i> Download</button></td>
+<td><a href="#" class="qr_code"><i class="fa fa-qrcode"></i> QR Code</a></td>
+<td>Pending</td>
+<td>20/04/2021</td>
+</tr>
+<tr>
+<td>03</td>
+<td>555</td>
+<td>XYZ</td>
+<td>16/04/2021</td>
+<td>Pending</td>
+<td>18/04/2021</td>
+<td><a href="#" class="view_app"><i class="fa fa-eye"></i> View Application</a></td>
+<td><button class="down_btn"><i class="fa fa-download"></i> Download</button></td>
+<td><button class="down_btn"><i class="fa fa-download"></i> Download</button></td>
+<td><a href="#" class="qr_code"><i class="fa fa-qrcode"></i> QR Code</a></td>
+<td>Pending</td>
+<td>18/04/2021</td>
+</tr>
+<tr>
+<td>04</td>
+<td>D</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+</tr> -->
+<!-- <tr>
+<td>04</td>
+<td>D</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+</tr>
+<tr>
+<td>05</td>
+<td>E</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+</tr>
+<tr>
+<td>06</td>
+<td>F</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+</tr>
+<tr>
+<td>07</td>
+<td>A</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+</tr>
+<tr>
+<td>08</td>
+<td>B</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+</tr>
+<tr>
+<td>09</td>
+<td>C</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+</tr>
+<tr>
+<td>10</td>
+<td>D</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+</tr>
+<tr>
+<td>11</td>
+<td>E</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+</tr>
+<tr>
+<td>12</td>
+<td>F</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+<td>Current Status</td>
+</tr> -->
+           {% for each in pending_applicant %}
+                <tr>
+                    <td>{{each.sr}}</td>
+                    <!-- <td>{{each.applicant_no}}</td> -->
+                    <td>{{each.application_no}}</td>
+                    <td>{{each.applicant_name}}</td>
+                    <td>{{each.created_date}}</td>
+                    <!-- <td>{{each.query}}</td> -->
+                    <td>{{each.current_status}}</td>
+                    <td>{{each.tp_issue_date}}</td>
+                    <td>
+                        <!-- <a href="{% url 'application_view' each.applicant_no  %}">View Application</a> -->
+                        <a href="{% url 'application_view' each.applicant_no  %}" class="view_app"><i class="fa fa-eye"></i> View Application</a>
+                     &nbsp;
+                     {% if group == 'deputy range officer' %}
+                        <a href="{% url 'edit_application' each.applicant_no  %}">Edit Application</a>
+                    {% endif %}
+                    </td>
+                    {% if each.application_status == 'Approved' %}
+                    <td>
+                        <!-- <button class="down_btn"><i class="fa fa-download"></i> Download</button> -->
+                        <button class="down_btn"><a href="{% url 'transit_pass_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    <td><button class="down_btn"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                   <!--  <td><button class="down_btn"><a href="{% url 'qr_code_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Print</a></button></td> -->
+                    <td><a href="{% url 'qr_code_pdf' each.applicant_no %}" class="qr_code"><i class="fa fa-qrcode"></i> QR Code</a></td>
+                    <td>{{each.remark}}</td>
+                    {% else %}
+                    <td></td>
+                    <td><button class="down_btn"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    <!-- <td><button class="btn" style="width:90px" disabled><i class="fa fa-download"></i> Download</button></td> -->
+                    <td></td>
+                    <td>{{each.remark}}</td>
+                    {% endif %}
+
+                    <td>{{each.remark_date}}</td>
+                </tr>
+            {% endfor %}
+    </tbody>
+        </table>
+
+    </div>
+	
+	
+	<div class="div2 nice_scroll approved_table hide" >
+		 
+        <table id="myTable02" class="table" style=" ">
+			<div class="select_filter">
+			<!-- <select>
+				<option>Applicant No</option>
+				<option>Applicant No 01</option>
+				<option>Applicant No 02</option>
+			</select>
+			<select>
+				<option>Applicant Name</option>
+				<option>abc</option>
+				<option>xyz</option>
+			</select>
+			<select>
+				<option>Applicant Date</option>
+				<option>22/04/2021</option>
+				<option>23/04/2021</option>
+			</select> -->
+            <select id="sel_application_no2" name=1 class="select-application02">
+                <option value="">Select Application No. </option>
+                {% for each in approved_application_no %}
+                <option>{{each}}</option>
+                <!-- <option>Applicant No 02</option> -->
+                {% endfor %}
+            </select>
+            <select id="sel_application_name2" name=2 class="select-application02">
+                <option value="" >Select Application Name </option>
+                {% for name in approved_application_names %}
+                <option>{{name}}</option>
+                <!-- <option>Applicant No 02</option> -->
+                {% endfor %}
+            </select>
+            <select id="sel_application_date2" name=3 class="select-application02">
+                <option value="">Select Application Date </option>
+                {% for created_date in approved_application_date %}
+                <option>{{created_date}}</option>
+                <!-- <option>Applicant No 02</option> -->
+                {% endfor %}
+            </select>
+			</div>
+            <thead>
+                
+                <tr style="">
+                    <th>Sr.No</th>
+                    <th>Application No.</th>
+                    <th>Applicant Name</th>
+                    <th>Application Date</th>
+                    <!-- <th id="query">Query</th> -->
+                    <th>Current Status</th>
+                    <th>Approved Date</th>
+                    <th>Action</th>
+                    <th>Download TP</th>
+                    <th>Download Report</th>
+                    <th>Get QR Codes</th>
+                    <th id="remark">Remark</th>
+    				<th>Remark Date</th>
+                </tr>
+            </thead>
+    <tbody>
+
+
+            {% for each in approved_applicant %}
+                <tr>
+                    <td>{{each.sr}}</td>
+                    <!-- <td>{{each.applicant_no}}</td> -->
+                    <td>{{each.application_no}}</td>
+                    <td>{{each.applicant_name}}</td>
+                    <td>{{each.created_date}}</td>
+                    <!-- <td>{{each.query}}</td> -->
+                    <td>{{each.current_status}}</td>
+                    <td>{{each.tp_issue_date}}</td>
+                    <td>
+                        <!-- <a href="{% url 'application_view' each.applicant_no  %}">View Application</a> -->
+                        <a href="{% url 'application_view' each.applicant_no  %}" class="view_app"><i class="fa fa-eye"></i> View Application</a>
+                     &nbsp;
+                     {% if group == 'deputy range officer' %}
+                        <a href="{% url 'edit_application' each.applicant_no  %}" class="view_app"><i class="fa fa-pencil"></i>Edit Application</a>
+                    {% endif %}
+                    </td>
+                    {% if each.application_status == 'Approved' %}
+                    <td>
+                        <!-- <button class="down_btn"><i class="fa fa-download"></i> Download</button> -->
+                        <button class="down_btn"><a href="{% url 'transit_pass_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    <td><button class="down_btn"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                   <!--  <td><button class="down_btn"><a href="{% url 'qr_code_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Print</a></button></td> -->
+                    <td><a href="{% url 'qr_code_pdf' each.applicant_no %}" class="qr_code"><i class="fa fa-qrcode"></i> QR Code</a></td>
+                    <td>{{each.remark}}</td>
+                    {% else %}
+                    <td></td>
+                    <td><button class="down_btn"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    <!-- <td><button class="btn" style="width:90px" disabled><i class="fa fa-download"></i> Download</button></td> -->
+                    <td></td>
+                    <td>{{each.remark}}</td>
+                    {% endif %}
+
+                    <td>{{each.remark_date}}</td>
+                </tr>
+            {% endfor %}
+    </tbody>
+        </table>
+
+    </div>
+	
+	
+	 <div class="div1">
+        <h2>Summary Report</h2>
+        <form class="form">
+            <div id="piechart">
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Applications', 'Per Day'],
+                        ['Application', 8],
+                        ['Approved', 2],
+                        ['Rejected', 4],
+                        ['Pending', 2],
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'width': 746, 'height': 450 };
+
+                    // Display the chart inside the div element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+            </script>     
+            
+           
+        </div>
+		</form>
+		 <button class="btn1"><a href="{% url 'summary_report' %}"><i class="fa fa-download"></i>Download</a></button>
+    </div>
+	
+	</div>
+	</div>
+</body>
+<script type="text/javascript">
+    var message = "{{message}}";
+    if(message.length>0)
+    {
+        alert(message);
+    }
+    
+    $(document).ready(function(){
+	var indexOfMyCol = 2;
+	  var table=$('#myTable01').DataTable();
+//       $("thead th").each( function ( i ) {
+//     if(i === indexOfMyCol){ 
+//       this.innerHTML = fnCreateSelect( oTable.fnGetColumnData(i) );
+//       $('select', this).change( function () {
+//         oTable.fnFilter( $(this).val(), i );
+//       } );
+//     }
+// } );   
+    //   $('#myTable01').DataTable( {
+    //     initComplete: function () {
+    //         this.api().columns().every( function () {
+    //             var column = this;
+    //             var select = $('<select><option value=""></option></select>')
+    //                 .appendTo( $(column.footer()).empty() )
+    //                 .on( 'change', function () {
+    //                     var val = $.fn.dataTable.util.escapeRegex(
+    //                         $(this).val()
+    //                     );
+ 
+    //                     column
+    //                         .search( val ? '^'+val+'$' : '', true, false )
+    //                         .draw();
+    //                 } );
+ 
+    //             column.data().unique().sort().each( function ( d, j ) {
+    //                 select.append( '<option value="'+d+'">'+d+'</option>' )
+    //             } );
+    //         } );
+    //     }
+    // } );
+	  var table2=$('#myTable02').DataTable({
+         
+        "scrollY": 400,
+        "scrollX": true,
+        "bDestroy": true,
+        fixedHeader: {
+            header: false,
+            footer: true
+        },
+        "initComplete": function(settings, json) {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    }
+      });
+	
+		$(".pending_btn").click(function(){
+  $(".pending_table").removeClass("hide");
+  $(".approved_table").addClass("hide");
+  $(".pending_btn").addClass("active");
+  $(".approve_btn").removeClass("active");
+});	
+$(".approve_btn").click(function(){
+  $(".approved_table").removeClass("hide");
+  $(".pending_table").addClass("hide");
+  $(".approve_btn").addClass("active");
+  $(".pending_btn").removeClass("active");
+});	
+	
+	$('.select-application01').on('change',function(){
+        // $(this).attr('name').val()
+        var sel_applicant01 =$(this).attr('name');
+        var filter_applicant = $(this).val();
+        // table.columns(2).search(filter_applicant).draw();
+        console.log('yes;;');
+       if(filter_applicant==''){
+            console.log(filter_applicant);
+        table.columns(sel_applicant01).search('').draw(); 
+        }
+        else{
+
+        table.columns(sel_applicant01).search(filter_applicant).draw();
+        }
+
+    });
+        $('.select-application02').on('change',function(){
+        // $(this).attr('name').val()
+        var sel_applicant01 =$(this).attr('name');
+        var filter_applicant = $(this).val();
+        var token = '{{csrf_token}}';
+        // pushData(filter_applicant);
+        // table2.columns(2).search(filter_applicant).draw();
+        if(filter_applicant==''){
+            console.log(filter_applicant);
+        table2.columns(sel_applicant01).search('').draw(); 
+        }
+        else{
+
+        table2.columns(sel_applicant01).search(filter_applicant).draw();
+        }
+        // table.draw();
+        // $.ajax({
+        //     headers: { "X-CSRFToken": token },
+        //     // type: frm.attr('method'),
+        //     url: "{% url 'approved_applications' %}",
+        //     type:"POST",
+        //     data: {
+        //         // 'select':veh_reg,
+        //         'sel_applicant01':sel_applicant01,
+        //         'filter_applicant':filter_applicant,
+        //     },
+        //     success: function (data) {
+        //         // alert(data.message);
+        //         // $('#message').text(data.message);
+        //         // alert(data.message);
+        //         console.log(data.application);
+        //         // if (data.success){
+        //             // $(".applications_list").load(data);
+        //             // $("#myTable01").dataTable().clear().destroy();
+        //              $('#myTable01').DataTable({
+        //                 // data: data.applications_list,
+        //                 // destroy: true,
+        //                 // data : loadData(data.application),
+        //                     "ajax": {
+        //                     "dataSrc": data.application,
+        //                 },
+        //                 });
+        //              // table.ajax.url(data.applications_list).load();
+        //             // }
+        //         // $('.couldapprove').hide();
+        //         // console.log(data);
+        //     },
+        //     error: function (data) {
+        //         // console.log('An error occurred.');
+        //         alert(data.message);
+        //         // console.log(data);
+        //     },
+        // });
+    });
+    });
+</script>
+</html>

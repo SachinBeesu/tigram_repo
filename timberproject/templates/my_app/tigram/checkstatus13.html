@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/checkstatus.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Jquery -->
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+<!--     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script> -->
+<!-- Datables -->
+    <link rel="stylesheet" type="text/css" href="{% static 'js/DataTables/datatables.css' %}">
+    <script type="text/javascript" charset="utf8" src="{% static 'js/DataTables/datatables.js' %}"></script>
+    
+</head>
+<body class="body">
+    <nav class=nav>
+        <div class="left">
+          <label class="h7-button">{{request.user.name}}</label>  
+        </div>
+        <div class="right">
+            <!-- <a href="index.html" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+            <a href="#" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a> -->
+            <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+            <a href="{% url  'view_profile' request.user.id  %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+        </div>
+    </nav>
+    <form class="form">
+        <table id="example" class="table table-striped table-bordered display" style="width:100% ; border:3px rgb(0, 0, 0) solid;" >
+            <thead>
+                <tr>
+                    <th>Sr.No</th>
+                    <th>Application No.</th> 
+                    <th>Application Date</th>
+                    <th>Application Status</th>
+                    <th>Current Status</th>
+                    <th>TP Status</th>
+                    <th>TP Issuing Date</th>
+                    <th>TP Number</th>
+                    <th>TP Expiry Date</th>
+                    <th id="remark">Remark</th>
+                    <th>Download Tp</th>
+                    <th>Download Report</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                {% for each in application %}
+                <tr>
+                    <td>{{each.sr}}</td>
+                    <td>{{each.applicant_no}}</td>
+                    <td>{{each.created_date}}</td>
+                    <td>{{each.application_status}}</td>
+                    <td>{{each.current_status}}</td>
+                    <td>{{each.verification_status}}</td>
+                    <td>{{each.tp_issue_date}}</td>
+                    <td>{{each.tp_number}}</td>
+                    <td>{{each.expiry_date}}</td>
+                    <td>{{each.remark}}</td>
+                    {% if each.application_status == 'Approved' %}
+                    <td><button id="tp_download" class="btn" onclick="myfuncion('{{each.applicant_no}}');" style="width:90px"><a href="{% url 'transit_pass_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+
+                    <td><button class="btn" onclick="myfuncion('{{each.applicant_no}}');" style="width:90px"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    {% else %}
+                    <td><button class="btn" style="width:90px" disabled="disabled"><i class="fa fa-download"></i> Download</button></td>
+                    <td><button class="btn" style="width:90px" disabled="disabled"><i class="fa fa-download"></i> Download</button></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+ 
+        </table>
+
+    </form>
+</div>
+<!-- <div class="pag">
+<div class="pagination">
+    <a href="#">&laquo;</a>
+    <a href="#" class="active">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">4</a>
+    <a href="#">5</a>
+    <a href="#">6</a>
+    <a href="#">&raquo;</a>
+  </div>
+</div> -->
+</body>
+<script type="text/javascript">
+    function myfuncion(){
+        alert("DOWNLOAD INPROGRESS!!!");
+        
+    }
+
+    $('#example').DataTable();
+    
+</script>
+</html>

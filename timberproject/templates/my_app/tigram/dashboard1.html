@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    </head>
+    <body>
+        <nav class=nav>
+            <div class="right">
+                <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+                <a href="{% url 'view_profile' request.user.id %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+            </div>
+        </nav>
+        
+        <div class="c1">
+            <button id="L1"  ><a href="{% url 'application_form' %}"><b>APPLY FOR TRANSIT PASS</b></a></button><br>
+            <button id="L2"><a href="{% url 'check_status' %}"><b>CHECK PASS STATUS</b></a></button><br>
+            <button id="L3"><a href="{% url 'query' %}"><b>QUERY</b></a></button><br>
+        </div>
+        
+        <div class="c2">
+                <img class="mySlides" src="{% static 'images/image2.jpg' %}">
+                <img class="mySlides" src="{% static 'images/i4.jpg' %}">
+                <img class="mySlides" src="{% static 'images/i6.jpg' %}">
+        </div>
+        <script>
+            var myIndex = 0;
+            carousel();
+            function carousel() {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                myIndex++;
+                if (myIndex > x.length) { myIndex = 1 }
+                x[myIndex - 1].style.display = "block";
+                setTimeout(carousel, 3000);
+            }
+        </script>
+    </body>
+</html>

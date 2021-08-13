@@ -1,0 +1,326 @@
+{% extends 'my_app/tigram/admin/menu-left.html' %}
+{% block content %}
+<html>
+<head>
+	<style type="text/css">
+		.user_details .input_box{
+width:100%;
+margin-bottom:20px;
+}
+.user_details .input_box input,.user_details .input_box textarea{
+width:100%;
+padding:7px;
+font-family: 'Cairo', sans-serif;
+font-size:16px;
+line-height:22px;
+outline:none;
+border:1px solid #ccc;
+background:#fff;
+}
+.user_details .input_box textarea{
+height:105px;
+resize:none;
+padding:7px;
+margin-bottom:10px;
+font-size:16px;
+line-height:22px;
+}
+
+.file_upload{
+margin-bottom:20px;
+}
+.file_upload label{
+width:200px;
+display:inline-block;
+
+}
+.file_upload input[type="file"]::-webkit-file-upload-button {
+  background: #fff;
+  color:#222;
+  padding:5px 15px;
+  margin:0px 10px;
+  border:1px solid #aaa;
+  cursor:pointer;
+}
+.file_upload input[type="file"]::-webkit-file-upload-button:hover {
+  background: #000;
+  color:#fff;
+}
+select {
+    width: 100%;
+    padding: 12px 12px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+.red-color {
+color:red;
+}
+	</style>
+</head>
+
+<body>
+<div class="manage_btns">
+		<div class="mng_btn add_new" data-toggle="modal" data-target="#myModal2">Add New</div>
+		<!-- <div class="mng_btn edit">Edit</div> -->
+		<div class="mng_btn delete" id="del-sel">Delete</div>
+</div>
+<div class="user_manage" style="margin-top:20px">
+		<table id="user_manage_tbl" class="table table-striped  table-bordered" style="width:100%">
+        <thead>
+            <tr>
+            	<th>Sr.</th>
+                <th>Species Name</th>
+                <th>Exempted/<br>Non-Exempted Species</th>
+                <th>Created Date</th>
+                <th>Action</th>
+
+
+            </tr>
+        </thead>
+		<tbody>
+
+{% for each in ranges %}
+<tr>
+	<td>
+		<input type="checkbox" name="total_select" class="chk_select" value={{each.id}}>
+		{{forloop.counter}}
+
+	</td>
+	<td id="div{{each.id}}">{{each.name}}</td>
+ <td id="div{{each.id}}noc">{% if each.is_noc == True %}Exempted{% else %}Non-Exempted{% endif %} </td>
+	<td>{{each.created_date}}</td>
+	<!--  <td><a  class="btn btn-primary edit" data-toggle="modal" data-target="#myModal2" data-value="{{each.id}}">Edit</a>  <a  class="btn btn-danger" data-value="{{each.id}}" >Delete</a></td> -->
+      <td><a  class="fa fa-pencil edit" data-toggle="modal" data-target="#myModal2" data-value="{{each.id}}" data-noc="{{each.is_noc}}">Edit</a>  <a  class="fa fa-trash red-color" data-value="{{each.id}}" onClick="DeleteRow({{each.id}});" >Delete</a></td>
+</tr>
+{% endfor %}
+
+
+
+
+
+
+
+        </tbody>
+
+
+    </table>
+
+
+	</div>
+	<div id="myModal2" class="modal fade" role="dialog" >
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Species</h4>
+      </div>
+	      <div class="modal-body">
+	        <!-- <p>Some text in the modal.</p> -->
+	        <form id="form-act" method='POST' action="{% url 'signup' %}" enctype="multipart/form-data">
+	        {% csrf_token %}
+			<!-- <div class="title"><span>Registration</span> </div> -->
+			<div class="user_details">
+                <label for="uname" class="custom-file-upload" ><b>Species Name:</b></label>
+				<div class="input_box"><input type="text" value="" placeholder="Name" name="uname" required /></div>
+				<input type="radio" value="" placeholder="NOC" name="is_noc" id="is_noc_check" required /><b> Exempted Species</b><br>
+				<br><input type="radio" value="" placeholder="NOC" name="is_noc" id="is_noc_uncheck" required /><b> Non-Exempted Species</b>
+
+			</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" id="submit-form" data-dismiss="modal" data-update="">Update</button>
+      </div>
+		</form>
+    </div>
+
+  </div>
+</div>
+</body>
+<script>
+
+
+    $('#user_manage_tbl').DataTable( {
+        scrollY:        '350px',
+        scrollCollapse: true,
+		scrollX: true,
+
+    } );
+    function DeleteRow(id){
+			if (confirm('Click on OK to confirm deletion of Tree species')){
+    	$.ajax({url: "../delete_speci/"+id+"/",
+				success: function(data){
+			// console.log(result,"45654555555555555");
+					alert(data.messages);
+					location.reload(true);
+			}});
+		}else{
+			alert('Tree Species not deleted');
+		}
+    }
+    $(document).ready(function(){
+	$('.chk_select').on('change',function(){
+		// console.log($('.chk_select:checked').val());
+	});
+	$('#del-sel').click(function(){
+		if (confirm('Click on OK to confirm deletion of Tree species')){
+		console.log('here..');
+		var delete_list = [];
+		var delete_list2="";
+		var token='{{csrf_token}}';
+		// '{{csrf_token}}';
+            $(".chk_select:checked").each(function() {
+                delete_list.push($(this).val());
+            });
+            console.log(delete_list);
+            // delete_list2=JSON.stringify(delete_list);
+            $.ajax({
+            	'url':'{% url "delete_species" %}',
+		        headers: { "X-CSRFToken": token },
+            	// 'csrfmiddlewaretoken': token,
+            	type:'POST',
+            	data:{'delete_list[]':delete_list},
+          //   	{
+          //   		'delete_list':delete_list,
+        		// },
+        		dataType: 'json',
+            	success:function(data){
+            		alert(data.messages);
+            		location.reload(true);
+            	}
+
+            })
+					}else{
+						alert('Tree Species not deleted');
+					}
+	});
+    	// all_users
+    	$('#delete_user').click(function(e){
+			var tep = $("#userid").val();
+			console.log(tep,"******************");
+
+			console.log("From Delete>>>>>>>>>>>>>>>>>>>>>");
+
+			// 		$.ajax({url: "http://127.0.0.1:8000/app/admin/detail_view_users/"+tep+"/", success: function(result){
+			// console.log(result,"45654555555555555");
+
+			// }});
+    	 });
+
+
+    $("#user_manage_tbl").on("click",'.edit',function(e){
+  //   	$("input[name='email']").attr('readonly',true).css({ 'background-color':'gainsboro'});
+		// $("input[name='number']").attr('readonly',true).css({ 'background-color':'gainsboro'});
+    	$("#form-act")[0].reset();
+			// var user_id = $("#userid").val();
+			var user_id = $(this).attr('data-value');
+      var noc_check=$(this).attr('data-noc');
+			var noc_uncheck=$(this).attr('data-noc');
+			console.log(user_id);
+
+    	 	e.preventDefault();
+			// var tep = $("#userid").val();
+			var tep = $("#"+user_id).val();
+			console.log(tep,"******************")
+    	 	$('.modal-title').html($(this).text()+' Species');
+    	 	var link = $(this).attr('data-target');
+    	 	$('#submit-form').text('Update');
+    	 	$("#form-act")[0].reset();
+    	 	// $("input[name='uname']").val(result["detail_user"][0]["name"]);
+    	 	var prev_text=$('#div'+user_id).text();
+
+       if( noc_check =='True'){
+         $("#is_noc_check").prop('checked',true);
+       }
+			 else {
+			 	$("#is_noc_uncheck").prop('checked',true);
+			 }
+
+    	 	$("input[name='uname']").val(prev_text);
+    	 	$('#submit-form').attr('data-update',user_id);
+    	 	console.log(link);
+    	 	$(link).modal('show');
+    	 });
+
+
+
+    	 $('.add_new').click(function(e){
+    	 	e.preventDefault();
+    	 	$('.modal-title').html($(this).text()+' Species');
+    	 	var link = $(this).attr('data-target');
+    	 	$('#submit-form').text('Create');
+    	 	$("#form-act")[0].reset();
+    	 	console.log(link);
+    	 	$(link).modal('show');
+    	 });
+
+
+    	 $('#submit-form').click(function(e){
+    	 	//alert('clicked');
+    	 	var action_url='';
+    	 	if($(this).text()=='Update'){
+    	 		var div_id = $(this).attr('data-update');
+    	 		console.log(div_id);
+    	 		// var user_id=$(this).attr('data-update');
+    	 		action_url='../edit_species/'+div_id+'/';
+    	 	}
+    	 	else{
+    	 		action_url='{% url "add_species" %}';
+    	 	}
+    	 	var token = '{{csrf_token}}';
+    	 	// $('#form-act').submit();
+    	 	// $.ajax({
+    	 	// 	'token':token,
+    	 	// 	'url':$('#form-act').attr('action'),
+    	 	// 	'type':$('#form-act').attr('method'),
+    	 	// 	'data':$('#form-act').serialize(),
+    	 	// 	success:function(data){
+    	 	// 		alert(data);
+    	 	// 	}
+    	 	// });
+	var uname = $("input[name='uname']").val();
+	var is_noc=$("input[name='is_noc']").prop('checked');
+	var formData = new FormData();
+    formData.append('species_name', uname);
+
+		formData.append('is_noc', is_noc);
+
+    // console.log(formData.values());
+
+    for (var value of formData.values()) {
+   console.log(value);
+}
+    	 	fetch(action_url, {
+				method: 'POST',
+				body: formData,
+				cache: 'default',
+				mode: 'cors',
+				credentials: 'include',
+				headers: {
+				    "X-Requested-With": "XMLHttpRequest",
+				    "X-CSRFToken": token,
+				}
+				})
+				.then((res) => res.json())
+				.then((data) => {
+					alert(data.messages);
+					location.reload(true);
+				});
+    	 });
+
+    });
+
+
+
+
+
+</script>
+</html>
+	{% endblock %}

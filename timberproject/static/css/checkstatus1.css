@@ -1,0 +1,95 @@
+/*{% load static %}*/
+.body{
+    background-image: url('../images/image5.jpg');
+    background-size: cover;
+    width:100%;
+    height:100%;
+    position: relative;
+  }
+  *{
+    margin:0.0%;
+    padding:0.0%;
+}
+html, body {
+    height: 100%;
+  }
+
+  .nav{
+    overflow: hidden;
+    background-color: rgb(221, 214, 214);
+    margin:auto;
+    font-family: 'Salsa';
+  }
+  
+.nav a{
+    float: left;
+    color: #000000;
+    text-align: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    font-size: 17px;
+} 
+#icon{
+    margin-top: 6.5px;
+}
+
+.right{
+    float: right;
+  }
+table{
+   border: 2px rgb(0, 0, 0);
+   font-family: "Salsa";
+   margin-top: 20px;
+  }
+  
+th{
+padding: 10px;
+  }
+
+tr{
+    background-color:#eee;
+    padding: 8px;
+}
+
+td{
+    padding: 8px;
+}
+   
+
+#remark{
+    width: 200px;
+}
+
+#query{
+    width: 200px;
+}
+
+table{
+    
+    font-size: 20;
+    
+    text-align: center;
+    color: rgb(63, 4, 4);
+}
+
+.th{
+    background-color:#eee; 
+}
+
+footer{
+    bottom:0;
+    position:absolute;
+    background-color: rgb(245, 237, 237);
+    padding: 40px;
+    text-align: center;
+    font-size: 35px;
+    box-shadow: black 10px;
+    width: 100%;
+  }
+
+.btn{
+background-color: rgb(37, 214, 37);
+border-radius: 10px;
+padding: 4px;
+font-family: "Salsa";
+}  

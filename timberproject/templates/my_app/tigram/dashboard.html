@@ -1,0 +1,132 @@
+{% extends 'my_app/tigram/top_band_cont.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+		
+		<script src="https://use.fontawesome.com/7abfe604da.js"></script>
+		<link rel="stylesheet" href="https://use.fontawesome.com/15e405067d.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/15e405067d.css">
+    
+<style type="text/css">
+    /*.cont{
+        height:calc(100% - 150px);
+    }
+    body{
+        height: 100%;
+    }*/
+    
+    @media only screen and (min-width:768px) and (max-width:1024px){
+.cont{
+	    padding-top: 20px !important;
+		min-height: auto;
+}
+.dash_links {
+    padding-top: 0px !important;
+}
+.dash_links .wrap{
+	        display: flex !important;
+    flex-wrap: wrap;
+    padding-left: 20px;
+	width:100%;
+}
+.dash_links button {
+    width:calc(33.33% - 20px);
+	margin-right:20px;
+}	
+.dash_links button a {
+    color: #fff;
+    font-size: 18px;
+    line-height: 25px;
+}
+.dash_links button:hover {
+    width:calc(33.33% - 20px) !important;
+}
+}
+@media only screen and (max-width:767px){
+.cont{
+	    padding-top: 20px !important;
+		min-height: auto;
+		height: auto !important;
+		padding-bottom: 20px !important;
+}
+.dash_links {
+    padding-top: 0px !important;
+}
+.dash_links .wrap{
+	        display: flex !important;
+    flex-wrap: wrap;
+    padding-left: 20px;
+	width:100%;
+}
+.dash_links button {
+    width:calc(100% - 20px);
+	margin-right:20px;
+}	
+.dash_links button a {
+    color: #fff;
+    font-size: 18px;
+    line-height: 25px;
+}
+.dash_links button:hover {
+    width:calc(100% - 20px) !important;
+}
+}
+</style>
+
+    </head>
+    <body>
+        <!-- <nav class="nav">
+            <div class="right">
+                <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+                <a href="{% url 'view_profile' request.user.id %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+            </div>
+        </nav> -->
+        <div class="cont nice_scroll">
+            
+		<div class="dash_links ">
+			<div class="wrap">
+			 <button  class="bg_01" ><a href="{% url 'application_form' %}"><img src="{% static 'images/apply_icon.png' %}" /><br/> <b>  APPLY TRANSIT PASS FOR NON-NOTIFIED VILLAGES</b></a></button><br>
+             <button  class="bg_05" ><a href="{% url 'notified_application_form' %}"><img src="{% static 'images/apply_icon.png' %}" /><br/> <b>  APPLY TRANSIT PASS FOR NOTIFIED VILLAGES</b></a></button><br>
+             <button  class="bg_03" ><a href="{% url 'noc_application_form' %}"><img src="{% static 'images/apply_icon.png' %}" /><br/> <b>  APPLY FOR NOC</b></a></button><br>
+            <button class="bg_02"  ><a href="{% url 'check_status' %}"><img src="{% static 'images/check_status.png' %}" /> <br/> <b>CHECK PASS STATUS</b></a></button><br>
+            <button class="bg_04" ><a href="{% url 'query' %}"><img src="{% static 'images/question_icon.png' %}" /> <br/><b>HELP</b></a></button><br>
+			</div>
+		</div>
+		
+        <div class="c1 dash_links hide">
+            <button id="L1"  ><a href="{% url 'application_form' %}"><b>APPLY FOR TRANSIT PASS</b></a></button><br>
+            <button id="L2"><a href="{% url 'check_status' %}"><b>CHECK PASS STATUS</b></a></button><br>
+            <button id="L3"><a href="{% url 'query' %}"><b>QUERY</b></a></button><br>
+        </div>
+        
+        <div class="c2 hide">
+                <img class="mySlides" src="{% static 'images/image2.jpg' %}">
+                <img class="mySlides" src="{% static 'images/i4.jpg' %}">
+                <img class="mySlides" src="{% static 'images/i6.jpg' %}">
+        </div>
+        </div>
+        <script>
+            var myIndex = 0;
+            carousel();
+            function carousel() {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                myIndex++;
+                if (myIndex > x.length) { myIndex = 1 }
+                x[myIndex - 1].style.display = "block";
+                setTimeout(carousel, 3000);
+            }
+        </script>
+    </body>
+</html>
+{% endblock %}

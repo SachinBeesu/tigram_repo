@@ -1,0 +1,134 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+
+
+<link rel="stylesheet" href="master.css">
+
+
+</head>
+
+<body>
+<div class="wrap">
+<div class="left_panel">
+	<div class="left_pan_cont">
+		<div class="wel_admin">
+			<div class="txt_01">Welcome</div>
+			<div class="txt_02">Admin</div>
+		</div>
+		<div class="pan_btns">
+			<a href="dashboard.html" class="pan_btn"><i class="fa fa-th-large"></i> Dashboard</a>
+			<a href="user_manage.html" class="pan_btn active"><i class="fa fa-users"></i> User Management</a>
+			<a class="pan_btn"><i class="fa fa-user"></i> Users</a>
+			<a class="pan_btn"><i class="fa fa-black-tie"></i> Roles</a>
+			<a class="pan_btn"><i class="fa fa-lock"></i> Permissions</a>
+			<a class="pan_btn"><i class="fa fa-key"></i> Change Password</a>
+			<a class="pan_btn"><i class="fa fa-sign-out"></i> Logout</a>
+		</div>
+	</div>
+</div>
+<div class="main_sec">
+<div class="top_band">
+<div class="icon_title">	
+<i onclick="myFunction(this)" class="panel_icon fa fa-angle-left"></i>
+<script>
+function myFunction(x) {
+  x.classList.toggle("fa-angle-right");
+  $(".left_panel").toggleClass("collapse");
+	$(".main_sec").toggleClass("expand");
+	$(".left_pan_cont").toggleClass("hide");
+}
+</script>
+<div class="page_title">User Management</div>
+</div>
+
+<a class="logo"><img src="images/admin_logo.png"></a>		
+
+</div>
+
+<div class="main_cont nice_scroll">
+<div class="manage_btns">
+		<div class="mng_btn add_new">Add New</div>
+		<div class="mng_btn edit">Edit</div>
+		<div class="mng_btn delete">Delete</div>
+</div>	
+<div class="user_manage" style="margin-top:20px">
+		<table id="user_manage_tbl" class="table table-striped  table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>User Id</th>
+                <th>Password</th>
+				<th>Email</th>
+				<th>Contact Number</th>
+				<th>Address</th>
+				<th>Id Proof</th>
+				
+               
+            </tr>
+        </thead>
+		<tbody>
+            
+				<tr><td>John Doe</td><td>john_456</td><td>********</td><td>john.doe@gmail.com</td><td>9876543210</td> <td>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</td><td>Driving Lincence</td></tr>
+<tr><td>John Doe</td><td>john_456</td><td>********</td><td>john.doe@gmail.com</td><td>9876543210</td> <td>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</td><td>Driving Lincence</td></tr>
+<tr><td>John Doe</td><td>john_456</td><td>********</td><td>john.doe@gmail.com</td><td>9876543210</td> <td>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</td><td>Driving Lincence</td></tr>
+<tr><td>John Doe</td><td>john_456</td><td>********</td><td>john.doe@gmail.com</td><td>9876543210</td> <td>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</td><td>Driving Lincence</td></tr>
+<tr><td>John Doe</td><td>john_456</td><td>********</td><td>john.doe@gmail.com</td><td>9876543210</td> <td>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</td><td>Driving Lincence</td></tr>
+<tr><td>John Doe</td><td>john_456</td><td>********</td><td>john.doe@gmail.com</td><td>9876543210</td> <td>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</td><td>Driving Lincence</td></tr>
+<tr><td>John Doe</td><td>john_456</td><td>********</td><td>john.doe@gmail.com</td><td>9876543210</td> <td>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</td><td>Driving Lincence</td></tr>
+<tr><td>John Doe</td><td>john_456</td><td>********</td><td>john.doe@gmail.com</td><td>9876543210</td> <td>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</td><td>Driving Lincence</td></tr>
+<tr><td>John Doe</td><td>john_456</td><td>********</td><td>john.doe@gmail.com</td><td>9876543210</td> <td>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</td><td>Driving Lincence</td></tr>
+<tr><td>John Doe</td><td>john_456</td><td>********</td><td>john.doe@gmail.com</td><td>9876543210</td> <td>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</td><td>Driving Lincence</td></tr>
+<tr><td>John Doe</td><td>john_456</td><td>********</td><td>john.doe@gmail.com</td><td>9876543210</td> <td>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</td><td>Driving Lincence</td></tr>
+<tr><td>John Doe</td><td>john_456</td><td>********</td><td>john.doe@gmail.com</td><td>9876543210</td> <td>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</td><td>Driving Lincence</td></tr>
+
+
+                
+            
+			
+			
+			
+           
+        </tbody>
+       
+       
+    </table>
+	
+	<script>
+
+    $('#user_manage_tbl').DataTable( {
+        scrollY:        '350px',
+        scrollCollapse: true,
+		"scrollX": true
+    } );
+
+</script>
+	
+	</div>
+</div>
+
+</div>
+</div>
+
+<script>
+$(document).ready(function(){
+  $(".panel_menu").click(function(){
+    
+  });
+});
+</script>
+</body>
+
+</html>

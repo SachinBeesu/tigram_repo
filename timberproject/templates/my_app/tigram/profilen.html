@@ -1,0 +1,329 @@
+{% load static %}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+
+
+*{ margin:0px; padding:0px; text-decoration:none; list-style:none; font-weight:normal; box-sizing:border-box;}
+
+body{
+ font-family: 'Cairo', sans-serif;
+background:#fff;
+}
+.clearfix{
+clear:both;
+}
+.top_band{
+height:50px;
+display:flex;
+align-items:center;
+padding:0px 20px;
+justify-content:space-between;
+}
+.top_band .links a{
+margin:0px 10px;
+text-decoration:underline;
+}
+.top_band button{
+cursor:pointer;
+}
+.cont{
+width:100%;
+background-image:url("{% static 'images/q2.jpg' %}");
+background-repeat:no-repeat;
+background-position:center center;
+width:100%;
+height:calc(100% - 50px);
+padding-top:calc(50vh - 280px);
+}
+
+.pro_form{
+width:500px;
+background:rgba(255,255,255,0.9);
+margin:auto;
+}
+.pro_form .title{
+padding:10px 15px;
+font-size:16px;
+border:1px solid #ccc; 
+text-transform:uppercase;
+font-weight:bold;
+margin-bottom:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#fff;
+}
+.pro_form .title span{
+font-weight:bold;
+}
+.edit_btn{
+background:#efefef;
+padding:5px 10px;
+cursor:pointer;
+box-shadow:1px 1px 5px #ccc;
+}
+.edit_btn:hover{
+background:#000;
+color:#fff;
+}
+.button:hover{
+background:#000;
+color:#fff;
+}
+.user_img{
+width:130px;
+height:130px;
+border-radius:50%;
+overflow:hidden;
+margin:auto;
+margin-bottom:20px;
+position:relative;
+}
+.edit_img{
+position:absolute;
+top:calc(65px - 20px);
+left:calc(65px - 20px);
+background:none;
+border:none;
+cursor:pointer;
+outline:none;
+opacity:0.5;
+}
+.edit_img:hover{
+opacity:1;
+}
+.user_img img{
+width:100%;
+}
+.user_details{
+padding:0px 15px;
+}
+
+.user_details .lbl{
+width:100px;
+float:left;
+font-weight:700;
+font-size:14px;
+margin-top:8px;
+}
+.user_details .input_box{
+width:calc(100% - 100px);
+float:left;
+margin-bottom:10px;
+}
+.user_details .input_box input,.user_details .input_box textarea{
+width:100%;
+padding:5px;
+font-family: 'Cairo', sans-serif;
+font-size:16px;
+line-height:22px;
+outline:none;
+border:1px solid #ccc;
+}
+.user_details .input_box textarea{
+height:105px;
+resize:none;
+padding:7px;
+margin-bottom:10px;
+font-size:16px;
+line-height:22px;
+}
+.top_band button{
+background:none;
+border:none;
+font-size:16px;
+}
+.cancel_update{
+text-align:center;
+margin-bottom:20px;
+}
+.cancel_update button{
+background:none;
+border:none;
+padding:5px 15px;
+color:#fff;
+text-transform:uppercase;
+margin:0px 10px;
+cursor:pointer;
+cursor:pointer;
+box-shadow:1px 1px 5px #ccc;
+}
+.cancel_btn{
+background:#000 !important;
+}
+.update_btn{
+background: #6174ff !important;
+}
+
+
+
+
+.view_mode input,.view_mode textarea{
+background:transparent !important;
+border:none !important;
+} 
+.view_mode .cancel_update{
+display:none;
+}
+.view_mode .edit_img{
+display:none;
+}
+</style>
+
+
+
+<script>
+</script>
+
+</head>
+
+<body>
+
+<div class="top_band">
+	<div class="links">
+		<a href="">< Back</a>
+		 {% if 'user' in groups %}
+		<a href="{% url 'dashboard' %}">Dashboard</a>
+		{% else %}
+		<a href="{% url 'officer_dashboard' %}">Dashboard</a>
+		{% endif %}
+	</div>
+	<button id="logout_btn">Logout</button>
+</div>
+<div class="cont">
+	<!-- <form id="profile-form" action="{% url 'edit_profile' request.user.id %}" method="POST" enctype="multipart/form-data" > -->
+                <!-- {% csrf_token %} -->
+	<div class="pro_form view_mode">
+		<div class="title"><span>User Profile</span> <span class="edit_btn">Edit</span></div>
+		<div class="user_img">
+			{% if user.profile_pic %}
+            <img id="profileImage" src="{% static 'media/upload/profile/' %}{{user.profile_pic}}"/> 
+            {% else %}
+           <img id="profileImage" src="{% static 'images/noprofile.jfif' %}"/>
+           {% endif %}
+			<!-- <img src="{% static 'images/img_avatar.png' %}" /> -->
+			<button class="edit_img" id="profileImage"><img src="{% static 'images/edit_icon.png' %}" /></button>
+			<input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" value="{{user.profile_pic}}"  capture>
+		</div>
+		<div class="user_details">
+			<div class="lbl">Full Name : </div>
+			<div class="input_box"><input type="text" value="{{user.name}}" name="name" /></div>
+			<div class="lbl">Phone : </div>
+			<div class="input_box"><input type="text" value="{{user.phone}}" name="contact" /></div>
+			<div class="lbl">Email : </div>
+			<div class="input_box"><input type="text" value="{{user.email}}" name="email"/></div>
+			<div class="lbl">Address : </div>
+			<div class="input_box">
+				<textarea name="address">{{user.address}}</textarea>
+			</div>
+		</div>
+		<div class="cancel_update">
+			<button id="cancel_btn" class="cancel_btn">Cancel</button>
+			<button id="update-btn2" class="update_btn">Update</button>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<!-- </form> -->
+</div>
+<form id="profile-form" action="{% url 'edit_profile' request.user.id %}" method="POST" enctype="multipart/form-data" >
+	</form>
+</body>
+
+<script>
+$(document).ready(function(){
+  $(".edit_btn").click(function(){
+    $(".pro_form").toggleClass("view_mode");
+    if ($(".pro_form").hasClass("view_mode")){
+    $(".user_details input").each(function(){
+      $(this).attr('readonly',true);
+    });
+      $('#imageUpload').attr('readonly',true);
+       // $('#imageUpload').hide();
+     
+    }
+    else{
+      $(".user_details input").each(function(){
+      $(this).attr('readonly',false);
+    });
+      $('#imageUpload').attr('readonly',false);
+      // $('#imageUpload').show();
+    
+
+    }
+  });
+  $('#cancel_btn').on('click',function(e){
+  	e.preventDefault();
+  	$('#imageUpload').attr('readonly',true);
+      // $('#imageUpload').show();
+  	// window.location.href="{% url 'view_profile' request.user.id %}";
+  });
+  $('#logout_btn').on('click',function(){
+  	window.location.href="{% url 'user_logout' %}";
+  });
+ $("#profileImage").click(function(e) {
+ 	e.preventDefault();
+ 		if(!($('#imageUpload').attr('readonly')) ){
+                $("#imageUpload").click();
+ 		}
+            });
+            //     $("#profileicon").click(function(e) {
+            //     $("#imageUpload").click();
+            // });
+            
+            function fasterPreview( uploader ) {
+                if ( uploader.files && uploader.files[0] ){
+                      $('#profileImage').attr('src', 
+                         window.URL.createObjectURL(uploader.files[0]) );
+                }
+            }
+            
+            $("#imageUpload").change(function(){
+                fasterPreview( this );
+            });
+});
+// $('#update-btn').click(function(e){
+// 	e.preventDefault();
+// 	$('#profile-form').submit();
+// });
+$('#update-btn2').click(function(e){
+	// $('#profile-form')
+	var token = '{{csrf_token}}';
+	console.log($('#imageUpload').get(0));
+	$.ajax({
+		headers: { "X-CSRFToken": token },
+        type: $('#profile-form').attr('method'),
+		url: '{% url "edit_profile" request.user.id %}',
+		enctype:"multipart/form-data",
+		data:{
+
+			'name':$('input[name="name"]').val(),
+			'contact':$('input[name="contact"]').val(),
+			// 'email':$('input[name="email"]').val(),
+			'address':$('textarea[name="address"]').val(),
+			'profile_photo':$('#imageUpload').get(0).file,
+		},
+		cache:false,
+            contentType: false,
+            processData: false,
+		success: function (data) {
+                // alert(data.message);
+                $('#message').text(data.message);
+                alert(data.message);
+    	},
+    	error: function (data) {
+                alert(data.message);
+        },
+	});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,453 @@
+{% extends 'my_app/tigram/top_band_cont.html' %}
+{% load static %}
+{% block content %}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+
+
+*{ margin:0px; padding:0px; text-decoration:none; list-style:none; font-weight:normal; box-sizing:border-box;}
+
+body{
+ /*font-family: 'Cairo', sans-serif;*/
+background:#fff;
+}
+.clearfix{
+clear:both;
+}
+/*.top_band{
+height:50px;
+display:flex;
+align-items:center;
+padding:0px 20px;
+justify-content:space-between;
+}
+.top_band .links a{
+margin:0px 10px;
+text-decoration:underline;
+}
+.top_band button{
+cursor:pointer;
+}*/
+.cont{
+width:100%;
+/*background-image:url("{% static 'images/bg_03.jpg' %}");*/
+/*background-image:url("{% static 'images/q3.jpg' %}");*/
+background-repeat:no-repeat;
+background-position:center center;
+/*width:100%;*/
+background-size:cover;  
+/*height:100vh;*/
+background-attachment:fixed;
+padding-top:calc(50vh - 280px);
+padding-bottom:20px;
+}
+
+.pro_form{
+width:600px;
+background:rgba(255,255,255,0.9);
+margin:auto;
+}
+.pro_form .title{
+padding:10px 20px;
+font-size:16px;
+border:1px solid #ccc; 
+text-transform:uppercase;
+font-weight:bold;
+margin-bottom:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#fff;
+text-align:center;
+}
+.pro_form .title span{
+font-weight:bold;
+}
+.edit_btn{
+background:#efefef;
+padding:5px 10px;
+cursor:pointer;
+box-shadow:1px 1px 5px #ccc;
+}
+.edit_btn:hover{
+background:#000;
+color:#fff;
+}
+.user_img{
+width:150px;
+height:150px;
+border-radius:50%;
+overflow:hidden;
+margin:auto;
+margin-bottom:20px;
+position:relative;
+}
+.edit_img{
+position:absolute;
+top:calc(75px - 20px);
+left:calc(75px - 20px);
+background:none;
+border:none;
+cursor:pointer;
+outline:none;
+opacity:0.5;
+}
+.edit_img:hover{
+opacity:1;
+}
+.user_img img{
+width:100%;
+}
+.user_details{
+padding:0px 20px;
+}
+
+.user_details .lbl{
+width:100px;
+float:left;
+font-weight:700;
+font-size:14px;
+margin-top:8px;
+}
+.user_details .input_box{
+width:100%;
+margin-bottom:20px;
+}
+.user_details .input_box input,.user_details .input_box textarea{
+width:100%;
+padding:7px;
+font-family: 'Cairo', sans-serif;
+font-size:16px;
+line-height:22px;
+outline:none;
+border:1px solid #ccc;
+background:#fff;
+}
+.user_details .input_box textarea{
+height:105px;
+resize:none;
+padding:7px;
+margin-bottom:10px;
+font-size:16px;
+line-height:22px;
+}
+.file_upload{
+margin-bottom:20px;
+}
+.file_upload label{
+width:200px;
+display:inline-block;
+
+}
+.file_upload input[type="file"]::-webkit-file-upload-button {
+  background: #fff;
+  color:#222;
+  padding:5px 15px;
+  margin:0px 10px;
+  border:1px solid #aaa; 
+  cursor:pointer;
+}
+.file_upload input[type="file"]::-webkit-file-upload-button:hover {
+  background: #000;
+  color:#fff;
+}
+
+.top_band button{
+background:none;
+border:none;
+font-size:16px;
+}
+.cancel_update{
+text-align:center;
+margin-bottom:10px;
+}
+.cancel_update button{
+background:none;
+border:none;
+padding:7px 15px;
+color:#fff;
+text-transform:uppercase;
+margin:0px 10px;
+cursor:pointer;
+cursor:pointer;
+box-shadow:1px 1px 5px #ccc;
+font-weight:700;
+font-size:14px;
+}
+.cancel_btn{
+background:#000 !important;
+
+}
+.update_btn{
+background: #6174ff !important;
+}
+
+.login_btn{
+width:200px;
+}
+
+select {
+    width: 100%;
+    padding: 12px 12px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+	font-size:16px;
+  }
+
+
+.view_mode input,.view_mode textarea{
+} 
+.view_mode .cancel_update{
+display:none;
+
+}
+.view_mode .edit_img{
+display:none;
+}
+
+.forgot_regis{
+display:flex;
+justify-content:space-between;
+padding:20px;
+}
+.forgot_regis a{
+text-decoration:underline;
+
+}
+.forgot_pass{
+color:red;
+} 
+.regis{
+color:#222;
+}
+.remember_me_check{
+padding:0px 20px; 
+}
+
+body{
+background-image:url('{% static "images/bg_08.jpg" %}');
+background-repeat:no-repeat;
+background-position:center center;
+background-attachment:fixed;
+min-height:100vh;
+background-size:cover;
+}
+
+@media only screen and (max-width:1024px){
+	.cont{
+		padding-top: 0px !important;
+		padding-bottom:0px !important;
+		overflow-y: auto !important;
+		height:auto !important;
+		padding: 20px !important;
+	}
+	.pro_form {
+    width: 100% !important;
+	}
+}
+</style>
+
+
+
+<script>
+</script>
+
+</head>
+
+<body>
+<div class="cont">
+	<div class="pro_form ">
+	<!-- 	<h3><label style="color: red;text-align: center;">{{message}}</label></h3> -->
+	<div class="title warn"><span>{{message}}</span> </div>
+<form class="modal-content" method='POST' action="{% url 'signup' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+		<div class="title"><span>Registration</span> </div>
+		<div class="user_details">
+			<div class="input_box"><input type="text" value="" placeholder="Name" name="uname" required /></div>
+			<div class="input_box"><input type="text" value="" placeholder="Email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required /></div>
+			<div class="input_box"><input type="text" value="" placeholder="Contact Number" name="number" pattern="(?=.*[0-9]).{10}" title="Phone Number Must contain 10 number"  /></div>
+			<div class="input_box"><input type="text" value="" placeholder="Address" name="address" required /></div>
+			<div class="tree_check input_box">
+				<select name="photo_proof_select" id="photo_proof_select" required>
+					<option value="">Select Photo Identity Proof</option>
+					<!-- <option value="aadhar card">Aadhar Card</option>
+					<option value="passport">Passport</option>
+					<option value="driving license">Driving License</option>
+					<option value="government id">Government ID</option> -->
+					{% for each_proof in proof_list %}
+					<option value="{{each_proof.name}}">{{each_proof.name}}</option>
+					{% endfor %}
+				</select>
+				<!-- <input type="text" value="" placeholder="Aadhar Card Number"  required /> -->
+			</div>
+			<div class="input_box"><input type="text" value="" name="photo_proof_no" placeholder="Aadhar Card Number"  required /></div>
+			<div class="input_box photo_file_upload">
+			<label for="propt" class="custom-file-upload" id="upload-file-msg"><b>Upload Photo ID Proof:</b></label>
+            <input type="file" id="myFile1" name="photo_proof" accept=".jpg,.jpeg,.png" onchange="validateFileType()" required>
+        	</div>
+			<div class="input_box"><input type="password" value="" placeholder="Password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="psw" name="psw"
+            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+            required /></div>
+            <em style="top:-5px ;color: red;"><small><label>*Password Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</label></small></em>
+			<div class="input_box"><input type="password" value="" placeholder="Repeat Password " pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="psw2" name="psw2" required /></div>
+			<div id="message">
+<!--             <div><b>Password must contain the following:</b></div>
+            <div id="letter" class="invalid">A <b>lowercase</b> letter</div>
+            <div id="capital" class="invalid">A <b>capital (uppercase)</b> letter</div>
+            <div id="number" class="invalid">A <b>number</b></div>
+            <div id="length" class="invalid">Minimum <b>8 characters</b></div> -->
+        </div>
+		</div>
+		<div class="remember_me_check">
+            <input type="checkbox" id="remember_me" name="species8" class="check_box" value="">
+            <label for="remember_me">Remember Me</label><br><br>
+		</div>	
+		<div class="cancel_update">
+			<button class="cancel_btn " >Cancel</button>
+			
+			<button class="update_btn " id="update_btn" type="submit">Register</button>
+		</div>
+		
+		<br>
+		
+</form>
+		<div class="clearfix"></div>
+	</div>
+</div>
+<script>
+	function validateFileType(){
+        var fileName = document.getElementById("myFile1").value;
+        var idxDot = fileName.lastIndexOf(".") + 1;
+        var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+        if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+        	$('#update_btn').prop('disabled', false);
+            // alert('uploaded succesfully!');
+        }else{
+        	// $('#upload-file-msg').after('<b>Only jpg/jpeg and png files are allowed!</b>').children().css('color', 'red');
+            alert("Only jpg/jpeg and png files are allowed!");
+            $('#update_btn').prop('disabled', true);
+
+        }
+    }
+$(document).ready(function(){
+	var msg = '{{message}}';
+
+	if (msg.length<1){
+		$('.warn').hide();
+	}
+	if('{{response_code}}' == 'error'){
+		$('.warn').css('color', 'red');
+	}
+	else{
+		$('.warn').css('color', 'green');
+	} 
+	$("input[name='photo_proof_no']").hide();
+	$(".photo_file_upload").hide();
+  $(".edit_btn").click(function(){
+    $(".pro_form").toggleClass("view_mode");
+  });
+  $('select').on('change',function(){
+  	if($('#photo_proof_select').val()==''){
+  		$("input[name='photo_proof_no']").hide();
+  		$(".photo_file_upload").hide();
+  	}
+  	else{
+  	$("input[name='photo_proof_no']").attr('placeholder','Enter number of '+ $('#photo_proof_select').val());
+  	$("input[name='photo_proof_no']").show();
+  	$(".photo_file_upload").show();
+  	}
+  });
+  $(".cancel_btn").click(function(e){
+  	e.preventDefault();
+  	window.location.href='{% url "index" %}';
+  });
+});
+// var myInput = document.getElementById("psw");
+//             var letter = document.getElementById("letter");
+//             var capital = document.getElementById("capital");
+//             var number = document.getElementById("number");
+//             var length = document.getElementById("length");
+
+//             // When the user clicks on the password field, show the message box
+//             myInput.onfocus = function () {
+//                 document.getElementById("message").style.display = "block";
+//             }
+
+//             // When the user clicks outside of the password field, hide the message box
+//             myInput.onblur = function () {
+//                 document.getElementById("message").style.display = "none";
+//             }
+
+//             // When the user starts to type something inside the password field
+//             myInput.onkeyup = function () {
+//                 // Validate lowercase letters
+//                 var lowerCaseLetters = /[a-z]/g;
+//                 if (myInput.value.match(lowerCaseLetters)) {
+//                     letter.classList.remove("invalid");
+//                     letter.classList.add("valid");
+//                 } else {
+//                     letter.classList.remove("valid");
+//                     letter.classList.add("invalid");
+//                 }
+
+//                 // Validate capital letters
+//                 var upperCaseLetters = /[A-Z]/g;
+//                 if (myInput.value.match(upperCaseLetters)) {
+//                     capital.classList.remove("invalid");
+//                     capital.classList.add("valid");
+//                 } else {
+//                     capital.classList.remove("valid");
+//                     capital.classList.add("invalid");
+//                 }
+
+//                 // Validate numbers
+//                 var numbers = /[0-9]/g;
+//                 if (myInput.value.match(numbers)) {
+//                     number.classList.remove("invalid");
+//                     number.classList.add("valid");
+//                 } else {
+//                     number.classList.remove("valid");
+//                     number.classList.add("invalid");
+//                 }
+
+//                 // Validate length
+//                 if (myInput.value.length >= 8) {
+//                     length.classList.remove("invalid");
+//                     length.classList.add("valid");
+//                 } else {
+//                     length.classList.remove("valid");
+//                     length.classList.add("invalid");
+//                 }
+//             }
+            var password = document.getElementById("psw")
+  , confirm_password = document.getElementById("psw2");
+
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>
+
+</body>
+
+</html>
+{% endblock %}

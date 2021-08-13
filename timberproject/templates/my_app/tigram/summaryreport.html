@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/summaryreport.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<style type="text/css">
+    table,th,tr,td{
+    border:2px solid #A8A8A8; 
+    border-collapse: collapse;
+    padding:2px;
+    padding-left: 10px;
+}
+
+table{
+    width: 100%;
+    margin-left:auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    border:1px solid black;
+    text-align: center;
+}
+
+
+#th1{
+    width:30vh;
+    width: 100px;
+    height: 100px;
+}
+
+.app{
+    width: 100px;
+    padding: 8px;
+    background-color: rgb(197, 191, 191);
+}
+
+.app1{
+    width: 10px;
+    padding: 8px;
+    background-color: rgb(197, 191, 191);
+}
+</style>
+<body>
+    <table>
+        <tr class="layout">
+            <th id="th1" style="align-items: center;">
+                <img src="{{logo1}}"  width="100px" height="100px" /></th>
+
+            <th id="col2">TIGRAM</th>
+            <th id="th1">
+                <img src="{{logo2}}"  width="100px" height="100px" /></th>
+            </th>
+        </tr>
+        <table class="table" style="width:100% ;">
+            <tr>
+                <th class="app1">Sr.No</th>
+                <th class="app">Application ID</th>
+                <th class="app">Applicant Name</th>
+                <th class="app">Status</th>
+                <th class="app">Remark</th>
+            </tr>
+            
+            {% for each in applications  %}
+                <tr>
+                    <td>{{forloop.counter }}</td>
+                    <td>{{each.id}}</td>
+                    <td>{{each.name}}</td>
+                    <td>{{each.get_application_status_display}}</td>
+                    <!-- <td>{{each.remark}}</td> -->
+                    {% if each.reason_range_officer != '' %}
+                    <td>{{each.reason_range_officer}}</td>
+                    {% elif each.reason_depty_ranger_office != '' %}
+                    <td>{{each.reason_depty_ranger_office}}</td>
+                    {% elif each.reason_office != '' %}
+                    <td>{{each.reason_office}}</td>
+                    {% else %}
+                        <td>{{'N/A'}}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </table>
+</body>
+
+</html>

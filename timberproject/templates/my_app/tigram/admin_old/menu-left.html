@@ -1,0 +1,100 @@
+{% load static %}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'css/master.css' %}">
+<!-- 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<!-- JavaScript Bundle with Popper -->
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+
+
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
+<link rel="stylesheet" media="screen" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css' />
+<!-- <link rel="stylesheet" href="master.css"> -->
+
+
+</head>
+
+<body>
+<div class="wrap">
+<div class="left_panel nice_scroll">
+	<div class="left_pan_cont ">
+		<div class="wel_admin" >
+			<div class="txt_01">Welcome</div>
+			<div class="txt_02">Admin</div>
+		</div>
+		<div class="pan_btns ">
+			<a href="{% url 'admin_dashboard' %}" class="pan_btn {% ifequal menu 'dashboard'  %} active {% endifequal %} "><i class="fa fa-th-large"></i> Dashboard</a>
+			<a href="{% url 'admin_view_users' %}" class="pan_btn {% ifequal menu 'user'  %} active {% endifequal %}"><i class="fa fa-users"></i> User Management</a>
+			<a href="{% url 'admin_view_deputy_officers' %}" class="pan_btn {% ifequal menu 'deputy_officer'  %} active {% endifequal %}"><i class="fa fa-users"></i> Deputy Officer Management</a>
+			<a href="{% url 'admin_view_revenue_officers' %}" class="pan_btn {% ifequal menu 'revenue_officer'  %} active {% endifequal %}"><i class="fa fa-users"></i> Revenue Officer Management</a>
+			<a href="{% url 'admin_view_forest_officers' %}" class="pan_btn {% ifequal menu 'forest_officer'  %} active {% endifequal %}"><i class="fa fa-users"></i> Forest Range Officer Management</a>
+			<a href="{% url 'admin_view_division_officers' %}" class="pan_btn {% ifequal menu 'division_officer'  %} active {% endifequal %}"><i class="fa fa-users"></i> Division Officer Management</a>
+			<a href="{% url 'view_divisions' %}" class="pan_btn {% ifequal menu 'divisions'  %} active {% endifequal %}"><i class="fa fa-users"></i> Divisions</a>
+			<a href="{% url 'view_ranges' %}" class="pan_btn {% ifequal menu 'ranges'  %} active {% endifequal %}"><i class="fa fa-users"></i> Range</a>
+			<!-- <a class="pan_btn"><i class="fa fa-user"></i> Users</a> -->
+			<a href="{% url 'admin_roles_list' %}" class="pan_btn {% ifequal menu 'roles'  %} active {% endifequal %}"><i class="fa fa-black-tie"></i> Roles</a>
+			<a href="{% url 'admin_permissions' %}" class="pan_btn {% ifequal menu 'permissions'  %} active {% endifequal %}"><i class="fa fa-lock"></i> Permissions</a>
+			<a href="{% url 'admin_vpassword' %}" class="pan_btn {% ifequal menu 'password'  %} active {% endifequal %}"><i class="fa fa-key"></i> Change Password</a>
+			<a href="{% url 'admin_logout' %}" class="pan_btn"><i class="fa fa-sign-out"></i> Logout</a>
+		</div>
+	</div>
+</div>
+<div class="main_sec">
+<div class="top_band">
+<div class="icon_title">	
+<i onclick="myFunction(this)" class="panel_icon fa fa-angle-left"></i>
+<script>
+function myFunction(x) {
+  x.classList.toggle("fa-angle-right");
+  $(".left_panel").toggleClass("collapse");
+	$(".main_sec").toggleClass("expand");
+	$(".left_pan_cont").toggleClass("hide");
+}
+</script>
+<div class="page_title" id="pg-title"></div>
+</div>
+
+<a class="logo"><img src="{% static 'images/admin_logo.png' %}"></a>		
+
+</div>
+
+<div class="main_cont nice_scroll">
+{% block content %}
+{% endblock %}
+</div>
+
+</div>
+</div>
+
+<script>
+$(document).ready(function(){
+		// $('.pan_btns >a').removeClass('active');
+		// $(this).addClass('active');
+  var show_text=$('.pan_btns > a.active').text();
+  console.log(show_text);
+  $("#pg-title").text(show_text);
+	});
+  $(".panel_menu").click(function(){
+    
+  });
+  $('.panel_icon').click(function(){
+  	 $($.fn.dataTable.tables(true)).DataTable()
+      .columns.adjust();
+  });
+</script>
+</body>
+
+</html>

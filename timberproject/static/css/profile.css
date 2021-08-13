@@ -1,0 +1,176 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+body,html{
+  height:100%;
+  margin: 0px;
+  padding: 0px;
+}
+.div1{
+    width:20%;
+    height:100%;
+    background-color: yellow;
+    float:left;
+}
+.div2{
+    width:80%;
+    height:100%;
+    background-color: whitesmoke;
+    float: right;
+}
+.nav{
+    overflow: hidden;
+    background-color: #555555;
+    margin:auto;
+    font-family: 'Salsa';
+    font-size: 15px;
+  }
+  
+.nav a{
+    float: left;
+    color:greenyellow;
+    text-align: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    font-size: 20px;
+} 
+#icon{
+    margin-top: 6.5px;
+}
+
+.right{
+    float: right;
+  }
+
+.sidenav {
+    width:20%;
+    height:100%;
+    position: static; /* Fixed Sidebar (stay in place on scroll) */
+    background-color:#36454F ; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+    float: left;
+  }
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color:greenyellow;
+  }
+  h3{
+      font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      padding-top: 10px;
+      padding-left: 20px;
+      font-size: 22px;
+      font-weight:500;
+  }
+  .container{
+      margin:10px;
+      background-image: linear-gradient(to bottom right, #555555, white);
+      height: 200px;
+      width: 96%;
+      border-radius: 10px;
+      border:5px solid yellowgreen;
+  }
+  .image{
+    width: 200px;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 10%;
+    float:left;
+    margin-left: 30px;
+    margin-top:20px;
+  }
+  .box{
+      float:left;
+      display: block;
+      margin-left: 30px;
+      margin-top: 60px;
+      font-size: 20px;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      font-weight: bold;
+      color:white;
+  }
+  .info{
+    font-weight: bold;
+      font-size: 18px;
+      margin-left: 30px;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+
+  .column {
+    float: left;
+   width: 19%;
+    padding: 0 0px;
+    height:100px;
+  }
+  
+  .row {
+      width:100%;
+      margin: 0 0px;
+      bottom:0;
+      position: fixed;
+  }
+  
+  .column{
+    font-size: bold;
+    font-family: 'Salsa';
+    padding: 11px;
+    text-align: center;
+    background-color:#555555;
+    color: greenyellow;
+    font-size: 30;
+  }
+  #profileImage
+{
+    cursor: pointer;
+}
+
+#profile-container {
+    width: 200px;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 10%;
+    float:left;
+    margin-left: 30px;
+    margin-top:20px;
+}
+
+#profile-container img {
+    width: 150px;
+    height: 150px;
+}
+  
+@media screen and (max-width: 700px) {
+    .sidenav {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+    .sidenav a {float: left;}
+    div.content {margin-left: 0;}
+  }
+  .div1{
+      display:none;
+  }
+  
+.div2{
+    width:80%;
+    height:100%;
+    background-color: whitesmoke;
+}
+  
+  @media screen and (max-width: 400px) {
+    .sidenav a {
+      text-align: center;
+      float: none;
+    }
+  }

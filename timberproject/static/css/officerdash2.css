@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+
+*{
+    margin:0px;
+    padding:0px;
+}
+body{
+	  font-family: 'Cairo', sans-serif;
+}
+.nav{
+    overflow: hidden;
+    background-color: rgb(221, 214, 214);
+   padding:0px 10px;
+   
+	    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+	position:fixed;
+	width:100%;
+	z-index:1000;
+  }
+  
+.nav a{
+    float: left;
+    color: #000000;
+    text-align: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    font-size: 17px;
+} 
+#icon{
+    margin-top: 6.5px;
+}
+
+.right{
+    float: right;
+  }
+
+.div1{
+    width:100%;
+    position:relative;
+    background-color: white;
+	margin-bottom:30px;
+}
+.div1 h2{
+	font-size:18px;
+	padding:10px 10px;
+	border-bottom:1px solid #ccc; 
+}
+.div2{
+    width:100%;
+    overflow-x:scroll;
+    background-color:#fff;
+	box-sizing:border-box;
+}
+.btn1{
+    
+    font-size: 14px;
+    position:absolute;
+	z-index:100;
+    text-align: center;
+    display: block;
+    right:20px;
+	bottom:20px;
+	background-color:#6174ff;
+    padding:7px 10px;
+	border:none;
+	color:#fff;
+    text-align: center;
+	font-size:14px;
+	cursor:pointer;
+}
+.btn1 a{
+	color:#fff;
+	text-decoration:none;
+}
+.btn1 a .fa{
+	margin-right:5px;
+}
+#piechart{
+    width:100%;
+}
+table{
+    border: 2px rgb(0, 0, 0);
+    
+}
+
+th{
+    padding: 8px;
+      }
+    
+    tr{
+        background-color:#eee;
+        padding: 8px;
+    }
+    
+    td{
+        padding: 8px;
+    }
+       
+    
+    #remark{
+        width:400px;
+    }
+    
+    #query{
+        width: 300px;
+    }
+    
+    table{
+        
+        font-size: 18; 
+        text-align: center;
+        color: rgb(63, 4, 4);
+    }
+    
+    .th{
+        background-color:#eee; 
+    }
+    
+.btn{
+    background-color:#6174ff;
+    padding:5px 2px;
+	border:none;
+	color:#fff;
+    text-align: center;
+	font-size:14px;
+    }
+.btn a{
+	color:#fff;
+	text-decoration:none;
+}
+
+/*.print-btn{
+    background-color:#6174ff;
+    padding:5px 2px;
+    border:none;
+    color:#fff;
+    text-align: center;
+    font-size:14px;
+    }	
+.print-btn a{
+    color:#fff;
+    text-decoration:none;
+}*/
+	
+.cont{
+	    /*background-image: url(../img/form_01_bg.jpg);*/
+        background-image: url(../images/i5.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    padding-top: 90px;
+    padding-bottom: 50px;
+}
+.cont .wrap{
+	width:80%;
+	margin:auto;
+}
+
+
+.nice_scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.nice_scroll::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+.nice_scroll::-webkit-scrollbar-thumb {
+  background: #222;
+}
+
+#piechart div {
+	    display: flex;
+    justify-content: center;
+}
+defs g:first-child{
+	position:absolute;
+	right:0px;
+	top:0px;
+}
+
+.div2 tr:first-child{
+	border-bottom:1px solid #ccc;
+}
+.div2 tr th,.div2 tr td{
+	border-right:1px solid #ccc;
+	border-left:none;
+	font-size:14px;
+	line-height:18px;
+}
+.div2 tr td a{
+	font-size:14px;
+}

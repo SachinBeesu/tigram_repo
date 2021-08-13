@@ -1,0 +1,656 @@
+{% extends 'my_app/tigram/top_band_cont.html' %}
+{% load static %}
+{% block content %}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel='stylesheet' href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'>
+<style>
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+
+
+*{ margin:0px; padding:0px; text-decoration:none; list-style:none; font-weight:normal; box-sizing:border-box;}
+
+body{
+ /*font-family: 'Cairo', sans-serif;*/
+background:#fff;
+}
+.clearfix{
+clear:both;
+}
+/*.top_band{
+height:50px;
+display:flex;
+align-items:center;
+padding:0px 20px;
+justify-content:space-between;
+}
+.top_band .links a{
+margin:0px 10px;
+text-decoration:underline;
+}
+.top_band button{
+cursor:pointer;
+}*/
+.cont{
+width:100%;
+background-image:url("{% static 'images/bg_04.jpg' %}");
+background-repeat:no-repeat;
+background-position:center center;
+background-attachment:fixed;
+background-size: cover;
+width:100%;
+height:calc(100vh - 150px);
+overflow-y: auto;
+padding-top:70px;
+}
+
+.pro_form{
+width:500px;
+background:rgba(255,255,255,0.9);
+margin:auto;
+}
+.pro_form .title{
+padding:5px 15px;
+font-size:18px;
+border:1px solid #ccc; 
+text-transform:uppercase;
+font-weight:bold;
+margin-bottom:10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#fff;
+}
+.pro_form .title span{
+font-weight:bold;
+}
+.edit_btn{
+background:#efefef;
+padding:5px 10px;
+cursor:pointer;
+box-shadow:1px 1px 5px #ccc;
+}
+.edit_btn:hover{
+background:#000;
+color:#fff;
+}
+.user_img{
+width:150px;
+height:150px;
+border-radius:50%;
+overflow:hidden;
+margin:auto;
+margin-bottom:20px;
+position:relative;
+}
+.edit_img{
+position:absolute;
+top:calc(75px - 20px);
+left:calc(75px - 20px);
+background:none;
+border:none;
+cursor:pointer;
+outline:none;
+opacity:0.5;
+}
+.edit_img:hover{
+opacity:1;
+}
+.user_img img{
+width:100%;
+}
+.user_details{
+padding:0px 15px;
+}
+
+.user_details .lbl{
+width:150px;
+float:left;
+font-weight:400;
+font-size:16px;
+line-height:20px;
+margin-bottom:5px;
+}
+.user_details .lbl .fa{
+margin-right:5px;
+}
+.user_details .lbl b{
+font-weight:700;
+}
+.user_details .input_box{
+width:calc(100% - 150px);	
+float:left;
+margin-bottom:10px;
+font-size:16px;
+line-height:20px;
+font-weight:600;
+}
+.user_details .input_box input,.user_details .input_box textarea{
+width:100%;
+padding:5px;
+font-family: 'Cairo', sans-serif;
+font-size:16px;
+line-height:22px;
+outline:none;
+border:1px solid #ccc;
+}
+.user_details .input_box textarea{
+height:105px;
+resize:none;
+padding:7px;
+margin-bottom:10px;
+font-size:16px;
+line-height:22px;
+}
+.top_band button{
+background:none;
+border:none;
+font-size:16px;
+}
+.cancel_update{
+text-align:center;
+margin-bottom:20px;
+}
+.cancel_update button{
+background:none;
+border:none;
+padding:5px 15px;
+color:#fff;
+text-transform:uppercase;
+margin:0px 10px;
+cursor:pointer;
+cursor:pointer;
+box-shadow:1px 1px 5px #ccc;
+}
+.cancel_btn{
+background:#000 !important;
+}
+.update_btn{
+background: #6174ff !important;
+}
+
+
+
+
+.view_mode input,.view_mode textarea{
+background:transparent !important;
+border:none !important;
+} 
+.view_mode .cancel_update{
+display:none;
+}
+.view_mode .edit_img{
+display:none;
+}
+
+
+.query_box .title_02{
+text-align:center;
+font-size:40px;
+line-height:50px;
+font-weight:300;
+margin-bottom:20px;
+}
+.query_box .title_02 span{
+font-weight:700;
+}
+.enter_query .lbl{
+width:100%;
+}
+.enter_query .input_box{
+width:100%;
+}
+.address .fa{
+font-size:20px;
+}
+.phone .fa{
+font-size:18px;
+margin-top:2px;
+}
+.email .fa{
+font-size:16px;
+}
+
+ul.nav.nav-tabs > li{
+	display: inline-block;
+	line-height: 50px;
+	height: 100%;
+	text-transform:uppercase;
+}
+ul.nav.nav-tabs > li a{
+	display:block;
+	padding:15px;
+	color: #282425!important;
+	
+}
+ul.nav.nav-tabs > li a:hover, ul.nav.nav-tabs > li:hover{
+	background:	#FB282F;
+	color:#fff!important;
+	text-decoration: none!important;
+}
+ul.nav.nav-tabs > li a.active{
+	background:	#282425;
+	color:#fff!important;
+	text-decoration: none!important;
+}
+.card-header {
+    background-color: rgb(245,245,245,0.3)!important;
+	border-radius:0!important;
+}
+.card{
+border-radius:0!important;
+}
+
+.card > .card-header a::before {
+    font-family: fontawesome;
+    content: "\f067 ";
+    color: #282425;
+    float: right;
+    margin-right: 15px;
+    font-weight: 400;
+    position: absolute;
+    right: 0;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Hind:300,400');
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 4rem;
+  width: 48rem;
+}
+h3 {
+  font-size: 1.75rem;
+  color: #373d51;
+  padding: 1.3rem;
+  margin: 0;
+}
+.accordion a {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem 3rem 1rem 1rem;
+  color: #7288a2;
+  font-size: 1.15rem;
+  font-weight: 400;
+  border-bottom: 1px solid #e5e5e5;
+}
+.accordion a:hover,
+.accordion a:hover::after {
+  cursor: pointer;
+  color: #ff5353;
+}
+.accordion a:hover::after {
+  border: 1px solid #ff5353;
+}
+.accordion a.active {
+  color: #ff5353;
+  border-bottom: 1px solid #ff5353;
+}
+.accordion a::after {
+  font-family: 'Ionicons';
+  content: '\f218';
+  position: absolute;
+  float: right;
+  right: 1rem;
+  font-size: 1rem;
+  color: #7288a2;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 1px solid #7288a2;
+  text-align: center;
+}
+.accordion a.active::after {
+  font-family: 'Ionicons';
+  content: '\f209';
+  color: #ff5353;
+  border: 1px solid #ff5353;
+}
+.accordion .content {
+  opacity: 0;
+  padding: 0 1rem;
+  max-height: 0;
+  border-bottom: 1px solid #e5e5e5;
+  overflow: hidden;
+  clear: both;
+  -webkit-transition: all 0.2s ease 0.15s;
+  -o-transition: all 0.2s ease 0.15s;
+  transition: all 0.2s ease 0.15s;
+}
+.accordion .content p {
+  font-size: 1rem;
+  font-weight: 300;
+}
+.accordion .content.active {
+  opacity: 1;
+  padding: 1rem;
+  max-height: 100%;
+  -webkit-transition: all 0.35s ease 0.15s;
+  -o-transition: all 0.35s ease 0.15s;
+  transition: all 0.35s ease 0.15s;
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+
+<!-- <div class="top_band">
+	<div class="links"><a href="{% url 'dashboard' %}">< Back</a><a href="{% url 'dashboard' %}">Dashboard</a></div>
+	<button >Logout <i class="fa fa-sign-out"></i></button>
+</div> -->
+<div class="cont nice_scroll">
+	<div class="pro_form query_box" style="width:80%;">
+		<div class="title"><span>Frequently Asked Questions on Online Timber Transit Pass System TIGRAM</span></div>
+		    <!--<iframe src="{% static 'images/TIGRAM-FINAL-FAQ.pdf' %}" width="100%" height="500px">-->
+           <div class="container">
+
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="accordion">
+    <div class="accordion-item">
+      <a>What is TIGRAM?</a>
+      <div class="content">
+        <p>TIGRAM is a web based application and mobile application developed for private forest owner to apply for transit pass for non-exempted species of trees and NOC for exempted species for hassle free transport of timber.
+        
+        
+        </p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <a>What is a transit pass?</a>
+      <div class="content">
+        <p>A transit pass is a pass issued by the forest department for intra-state transit or transportation of timber for non-exempted species as per the Forest Act.<br>
+        <strong>List of non-exempted species</strong><br>
+        <ul style="list-style-type:disc;">
+        <li>- Rosewood (Dalbergia latifolia)</li>
+        <li>- Teak (Tectona grandis)</li>
+        <li>- Thempavu (Terminalia tomentosa)</li>
+        <li>- Kampakam (Hopea Parviflora)</li>
+        <li>- Chadachi (Grewia tiliifolia)</li>
+        <li>- Chandana vempu (Cedrela toona)</li>
+        <li>- Vellakil (Dysoxylum malabaricum)</li>
+        <li>- Irul (Xylia xylocarpa)</li>
+        <li>- Ebony (Diospyrus sp.)</li>
+        </ul>
+        
+        
+        </p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <a>When one can apply for Transit pass?</a>
+      <div class="content">
+        <p>An applicant can apply for transit pass only after the Revenue Department approves the application.</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <a>How Timber Transit Pass System works?</a>
+      <div class="content">
+        <p>An applicant has to register in the system, thereafter the applicant can apply for a transit pass. Application will move to concerned Officers. After following specific procedure of verification, Transit Pass will be issued. The applicant can later download the transit pass generated from check pass status option.</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <a>How to register on the website?</a>
+      <div class="content">
+        <p>The applicant can click on Register button on the home page of website. An applicant needs to register by entering personal details like name, email-id, password, mobile number and id proof in the registration form. The applicant can attach any one the below mentioned identity proofs.<br>
+        
+        <strong>List Identity proof documents</strong>
+        <ul style="list-style-type:disc;">
+        <li>- Aadhar card </li>
+        <li>- Driving License</li>
+        <li>- Passport</li>
+        <li>- Government ID</li>
+        <li>- Voter Identity Card</li>
+        </ul>
+
+        </p>
+      </div>
+    </div>
+    
+        <div class="accordion-item">
+      <a>What credentials are required to login into the system?</a>
+      <div class="content">
+        <p>The applicant can login by entering registered email address and the password which was set during registration.</p>
+      </div>
+    </div>
+    
+        <div class="accordion-item">
+      <a>How to register on the website?</a>
+      <div class="content">
+        <p>The applicant can click on Register button on the home page of website. An applicant needs to register by entering personal details like name, email-id, password, mobile number and id proof in the registration form. The applicant can attach any one the below mentioned identity proofs.</p>
+      </div>
+    </div>
+    
+        <div class="accordion-item">
+      <a>What are document required for transit pass?</a>
+      <div class="content">
+        <p> Following is the list of documents required while applying for a transit pass</p>
+                
+        <ul style="list-style-type:disc;">
+        <li>- Revenue Application document. </li>
+        <li>- Revenue Approval document.</li>
+        <li>- Declaration document.</li>
+        <li>- Tree Ownership Proof.</li>
+        <li>- Location Sketch.</li>
+        </ul>
+      </div>
+    </div>
+    
+        <div class="accordion-item">
+      <a>Is there any validity of Transit Pass?</a>
+      <div class="content">
+        <p>A transit pass will be available for download from TIGRAM application for 7 days after the application is approved by forest range officer.</p>
+      </div>
+    </div>
+    
+        <div class="accordion-item">
+      <a>Can I take a printout of my online transit pass?</a>
+      <div class="content">
+        <p>Yes you can take the print of your online transit pass, you can click on download button link in check pass status to download the transit pass and print the same.</p>
+      </div>
+    </div>
+    
+    
+            <div class="accordion-item">
+      <a>Can the officer change the applicant details or edit the form after submitting the online form?</a>
+      <div class="content">
+        <p>The officer can change only the wood log details by editing the form during or after the verification / field inspection is carried out.</p>
+      </div>
+    </div>
+    
+            <div class="accordion-item">
+      <a>How do I track my transit pass once I have applied?</a>
+      <div class="content">
+        <p>The applicant can track the transit pass by clicking on the Check Pass Status option which is seen on user dashboard once the applicant logs in successfully.</p>
+      </div>
+    </div>
+    
+            <div class="accordion-item">
+      <a>Can a single Transit Pass generated or used for exempted and non-exempted species?</a>
+      <div class="content">
+        <p>No. For exempted species NOC (No Objection Certificate) will be generated based on the application made by the applicant using Download NOC link and for non-exempted species transit pass is generated.</p>
+      </div>
+    </div>
+    
+            <div class="accordion-item">
+      <a>When one can apply for No Objection Certificate?</a>
+      <div class="content">
+        <p>If an applicant wants to transport a species which is exempted as per Forest Act and which does not require transit pass, but still as per Forest Department rule transit of such timber will require an applicant to apply for NOC for hassle free movement.</p>
+      </div>
+    </div>
+    
+            <div class="accordion-item">
+      <a>What are documents required for No Objection Certificate?</a>
+      <div class="content">
+        <p>A Valid Photo identity card (Aadhar card / Passport /Voter Id / Driving License / Government Id) is required along with details of exempted timber species to be transited, while applying for NOC.</p>
+      </div>
+    </div>
+    
+    
+            <div class="accordion-item">
+      <a>How to set my password if I forgot my password?</a>
+      <div class="content">
+        <p>To reset password, the applicant can click on Forgot password link on the user login page, the applicant will be redirected to Change Password page, where he can enter email address or mobile number used while registration and then click on SEND OTP button. Lastly, he needs to enter the OTP received on the registered email address or phone number click on VERIFY button. After verification of OTP, enter a new password for login and then click on SAVE button. The applicant can then login with the new password.</p>
+      </div>
+    </div>
+    
+            <div class="accordion-item">
+      <a>When one can enter the vehicle details? Is it mandatory to enter vehicle details?</a>
+      <div class="content">
+        <p>The applicant can select the radio button yes to enter the vehicle details while submitting an application. The applicant can enter vehicle registration number, name of the driver, mobile phone number of the driver, mode of transportation and attach image of license copy. No it is not mandatory to enter vehicle details.</p>
+      </div>
+    </div>
+    
+            <div class="accordion-item">
+      <a>On what version of mobile phone the TIGRAM application can be installed?</a>
+      <div class="content">
+        <p>The TIGRAM application can be installed on the Android version 6 to Android version 11 on the mobile phone.</p>
+      </div>
+    </div>
+    
+            <div class="accordion-item">
+      <a>What is deemed approved application?</a>
+      <div class="content">
+        <p>The application after being approved by the revenue department, if not approved by the forest officer will be automatically approved by the system i.e. approved deemed approved after 20 days.</p>
+      </div>
+    </div>
+    
+            <div class="accordion-item">
+      <a>Can I take a printout of my online transit pass?</a>
+      <div class="content">
+        <p>Yes you can take the print of your online transit pass, you can click on download button link in check pass status to download the transit pass and print the same.</p>
+      </div>
+    </div>
+    
+            <div class="accordion-item">
+      <a>What are the exempted species for which NOC is issued?</a>
+      <div class="content">
+        <p>Following is the list of exempted species for which NOC is issued.<br>
+        
+        1.	Coconut
+2.	Rubber
+3.	Cashew
+4.	Tamarind
+5.	Mango
+6.	Jack Fruit Tree
+7.	Kodampuli
+8.	Matti
+9.	Arecanut
+10.	Konna
+11.	Seema Konna
+12.	Nelli
+13.	Neem
+14.	Murukku
+15.	Jathi
+16.	Albezia
+17.	Silk Cotton
+18.	Acacia auraculiformis
+19.	Mangium
+20.	Anhili
+21.	Kilimaram
+22.	Manchadimaram
+23.	Vatta
+24.	Palm tree
+25.	Aranamaram
+26.	Eucalyptus
+27.	Seemaplavu
+28.	Paala
+
+        
+        </p>
+      </div>
+    </div>
+    
+            <div class="accordion-item">
+      <a>From where can I download my Transit Pass?</a>
+      <div class="content">
+        <p>The applicant can login and click on Check Pass status option and scroll to Download TP column and click on Download link to download the transit pass.</p>
+      </div>
+    </div>
+    
+            <div class="accordion-item">
+      <a> How to enter wood log details? Is it mandatary to enter wood log details?</a>
+      <div class="content">
+        <p>The applicant can click on the "Yes" button after the question "Would you like to enter log Details?" and enter the length, girth and click on location icon to set the latitude and longitude of the wood log. The volume of the log is automatically calculated by the system. No, it is not mandatory to enter the wood log details.</p>
+      </div>
+    </div>
+    
+    
+                <div class="accordion-item">
+      <a> How to enter the latitude and longitude of the tree?</a>
+      <div class="content">
+        <p> The applicant click on location icon <span><i class='fas fa-map-marker-alt' style='font-size:30px;color:red'></i></span>to set the latitude and longitude of the wood log. After the location icon is clicked, the applicant will be directed to a map where the applicant can zoom in or pan to set the latitude and longitude of the trees. There is a marker on the map which will be displaying the location of the trees.</p>
+      </div>
+    </div>
+    
+                <div class="accordion-item">
+      <a>How to exit from the application?</a>
+      <div class="content">
+        <p>The applicant can click on the logout button which is placed on the top right corner of the website and can tap on the three lined icon on mobile application and click on Log out option in left side menu bar on mobile application.</p>
+      </div>
+    </div>
+    
+                <div class="accordion-item">
+      <a>In what formats the documents and proofs be attached on TIGRAM?</a>
+      <div class="content">
+        <p>The images of the document in .jpg, .jpeg and .png format can be attached on TIGRAM.</p>
+      </div>
+    </div>
+    
+ 
+    
+    
+  </div>
+  
+</div>
+		</div>
+	</div>
+</div>	
+
+
+		<div class="clearfix"></div>
+	</div>
+</div>
+
+
+<script>
+// Code By Webdevtrick ( https://webdevtrick.com )
+const items = document.querySelectorAll(".accordion a");
+
+function toggleAccordion(){
+  this.classList.toggle('active');
+  this.nextElementSibling.classList.toggle('active');
+}
+
+items.forEach(item => item.addEventListener('click', toggleAccordion));</script>
+
+</body>
+
+</html>
+{% endblock %}

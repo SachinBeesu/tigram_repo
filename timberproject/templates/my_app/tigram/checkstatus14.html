@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/checkstatus.css' %}">
+	<!-- <link rel="stylesheet" href="css/checkstatus.css"> -->
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'js/DataTables/datatables.css' %}">
+    <script type="text/javascript" charset="utf8" src="{% static 'js/DataTables/datatables.js' %}"></script>
+    
+</head>
+<body class="body">
+    <nav class="nav">
+        <div class="right">
+            <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+            <a href="{% url  'view_profile' request.user.id  %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+        </div>
+    </nav>
+    <form class="form nice_scroll">
+        <table id="example" class="table" style="width:100% ; " >
+            <thead>
+                
+                <tr style="background-color:#ffffff">
+                    <th>Sr.No</th>
+                    <th>Application No.</th> 
+                    <th>Application Date</th>
+                    <th>Application Status</th>
+                    <th>Current Status</th>
+                    <th>TP Status</th>
+                    <th>TP Issuing Date</th>
+                    <th>TP Number</th>
+                    <th id="remark">Remark</th>
+                    <th>Download Tp</th>
+                    <th>Download Report</th>
+                    <th>Action</th>
+    				
+                  </tr>
+            </thead>
+              <tbody>
+                  
+              {% for each in application %}
+                <tr>
+                <td>{{each.sr}}</td>
+                <td>{{each.application_no}}</td>
+                <td>{{each.created_date}}</td>
+                <td>{{each.application_status}}</td>
+                <td>{{each.current_status}}</td>
+                <td>{{each.verification_status}}</td>
+                <td>{{each.tp_issue_date}}</td>
+                <td>{{each.tp_number}}</td>
+                <td>{{each.remark}}</td>
+                <!-- <td></td>  -->
+                <!-- <td></td> -->
+                {% if each.application_status == 'Approved' %}
+                <td><button id="tp_download" class="btn clickable-btn" onclick="myfuncion('{{each.applicant_no}}');" style="width:90px"><a href="{% url 'transit_pass_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+
+                <td><button class="btn clickable-btn" onclick="myfuncion('{{each.applicant_no}}');" style="width:90px"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                <td><button class="btn clickable-btn"  style="width:90px"><a href="{% url 'application_userview' each.applicant_no %}"><i class="fa fa-download"></i> View Application</a></button></td>
+                {% else %}
+<!--                 <td><button class="btn" style="width:90px" disabled="disabled"><i class="fa fa-download"></i> Download</button></td>
+                <td><button class="btn" style="width:90px" disabled="disabled"><i class="fa fa-download"></i> Download</button></td> -->
+                <td></td>
+                <td></td>
+                {% endif %}
+                </tr>
+              {% endfor %}
+              </tbody>
+        </table>
+    </form>
+   
+</body>
+              <!-- <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+                <td><button class="btn" style="width:90px"><i class="fa fa-download"></i> Download</button></td>
+                <td ><button class="btn" style="width:90px"><i class="fa fa-download"></i> Download</button></td>
+              </tr> -->
+<script type="text/javascript">
+    function myfuncion(){
+        alert("DOWNLOAD INPROGRESS!!!");
+        
+    }
+    $('#example').DataTable(
+        { 
+         "targets": [1,2,3,4] }
+
+        );
+    // $('tp_download').onclick(function () {
+        
+    // })
+</script>
+</html>

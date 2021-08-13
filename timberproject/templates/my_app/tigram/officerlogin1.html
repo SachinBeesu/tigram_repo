@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/officerlogin.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+</head>
+
+<body class="body">
+    <nav class=nav>
+        <div class="right">
+            <a href="registration.html" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+            <a href="#" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+        </div>
+    </nav>
+    <form action="{% url 'user_login' %}" method="POST">
+    <div class="container">
+            {% csrf_token %}
+        <div class="off-login">
+            <label><b>Officer Login</b></label>
+        </div><br>
+        <input type="text" placeholder="Enter your ID" name="uname" id="ID" required>
+
+        </br>
+        <div>
+            <input type="password" placeholder="Enter Password" name="psw" id="pass" required><br>
+        </div><br>
+        <div><button type="submit" class="btn">Login</button> </div><br>
+        <div> <span class="change"><a href="changepassword.html">Change Password</a></span></div>
+
+    </div>
+    </form>
+
+</body>
+
+</html>

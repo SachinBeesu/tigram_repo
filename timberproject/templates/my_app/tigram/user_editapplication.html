@@ -1,0 +1,819 @@
+{% extends 'my_app/tigram/top_band_cont.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/viewapplication.css' %}">
+    <!-- <link rel="stylesheet" href="css/viewapplication.css"> -->
+    <!-- <link rel="stylesheet" href="css/dash.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css' %}">
+    <script type="text/javascript" src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js' %}"></script> -->
+    
+    <style>
+    .vd_head {
+display:flex;
+justify-content:space-between;
+}
+    .edit_btn {
+    background: #efefef;
+    padding: 5px 10px;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px #ccc;
+    border:1px solid #ccc;
+}
+.edit_btn:hover{
+background:#000;
+color:#fff;
+}
+.view_mode input{
+background:transparent !important;
+border:none !important;
+} 
+
+
+
+#map_content {
+  display: none;
+  position: absolute;
+  z-index: -1;
+  /*padding-top: 130px;*/
+  left: 3%;
+  top: 5%;
+  width: 95%;
+  align-self: center;
+  height: 95%;
+  overflow: auto;
+  /*background-color: black;*/
+    /*z-index:100;*/
+    z-index:101;
+     /*z-index: -1;*/
+}
+
+/* Modal Content */
+#myModal3content{
+  position: relative;
+
+  /*background-color: greenyellow;*/
+  margin: auto;
+  padding: 0;
+  
+}
+.overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+  /*background-color: rgba(0,0,0,0.5); */
+}
+
+    </style>
+</head>
+
+<body>
+    <!-- <nav class="nav">
+        <a href="{% url 'officer_dashboard' %}" class="h6-button" id="icon"><i class="fa fa-chevron-circle-left"></i>&nbsp;&nbsp;Back</a>
+            <div class="right">
+                <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+                <a href="{% url 'view_profile' request.user.id %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+            </div>
+        </nav> -->
+    <div class="cont_sec cont nice_scroll"> 
+        <div class="wrap">
+        <!-- <h1>Application Details</h1> -->
+        <h1 style="text-align: center;">Application Details</h1>
+   
+    <table class="table2">
+        <tr>
+            <td class="head">Name:</td>
+            <td>{{applications.0.name}}</td>
+        </tr>
+        <tr>
+            <td class="head">Address:</td>
+            <td>{{applications.0.address}}</td>
+        </tr>
+        <tr>
+            <td class="head">Survey No. and extent of the field or fields on which the tree or trees proposed to be
+                cut,uprooted or burnt stand:</td>
+            <td>{{applications.0.survey_no}}</td>
+        </tr>
+        <tr>
+            <td class="head">Name of the Village/Taluka/Block and District where the land on which the tree or trees
+                stand/lie:</td>
+            <td>{{applications.0.village}}</td>
+        </tr>
+        <tr>
+            <td class="head">Proof of ownership of the trees:</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="head">List showing the species of tree or trees proposed to be cut,etc:</td>
+            <td>{{applications.0.species_of_trees}}</td>
+        </tr>
+        <tr>
+            <td class="head">Purpose for which trees are proposed to be cut,etc:</td>
+            <td>{{applications.0.purpose}}</td>
+        </tr>
+        <tr>
+            <td class="head">Details of generation proposed:</td>
+            <td></td>
+        </tr>
+    </table>
+    <br/>
+    <br/>
+<span id="center"><b>SPECIES LOCATION DETAILS</b></span>
+        <br>
+        <table class="table3">
+            <thead>
+                
+            <tr>
+                <th id="vol">Sr. No.</th>
+                <th id="vol">Species</th>
+                <!-- <th id="vol">Length</th>
+                <th id="vol">Breadth</th>
+                <th id="vol">Volume</th> -->
+                <th id="vol">Latitude</th>
+                <th id="vol">Longitude</th>
+            </tr>
+            </thead>
+             
+
+                <tbody>
+                {% for each in geospecies %}
+                    
+            <tr>
+                <td>{{forloop.counter }}</td>
+                <td>{{each.species_tree_id__name}}</td>
+                <!-- <td>{{each.length}}</td>
+                <td>{{each.breadth}}</td>
+                <td>{{each.volume}}</td> -->
+                <td>{{each.latitude}}</td>
+                <td>{{each.longitude}}</td>
+            </tr>
+                </tbody>
+                  {% endfor %}
+            <!-- <tr>
+                <td colspan="3" id="end"><b>Total</b></td>
+                <td><b>144</b></td>
+            </tr> -->
+        </table><br><br><br>
+   {% if not timber_log %}
+           <h3><strong> Log Details : Not Entered </strong></h3>
+           <i class="btn btn-primary edit-volume ">Add Log Details</i></a>
+        {% endif %}
+    <div class="{% if not timber_log %} hide {% endif %}">
+        <!-- <div> -->
+        <!-- <span id="center"><b>TIMBERLOG DETAILS</b></span><a> &nbsp; <i class="fa fa-pencil edit-volume "></i></a> -->
+        <!-- <br> -->
+        <span id="center"><b>TIMBER LOG DESCRIPTIONS</b>{% if is_edit == True %} <a> &nbsp; <i class="fa fa-pencil edit-volume "></i></a> {% endif %}</span>
+        <br>
+        <table class="table3">
+            <thead>
+                
+            <tr>
+                
+                <th id="vol">Sr. No.</th>
+                <th>Species</th>
+                <th id="vol">Length(cm)</th>
+                <th id="vol">Girth(cm)</th>
+                <th id="vol">Volume(cm<sup>3</sup>)</th>
+                <th>Latitude(DD)</th>
+                <th>Longitude(DD)</th>
+            </tr>
+            </thead>
+               <!--  <td>11</td>
+                <td>12</td>
+                <td>13</td>
+                <td>14</td> -->
+
+                {% for each in timber_log %}
+            <tr>
+                <td>{{forloop.counter }}</td>
+                <td>{{each.species_of_tree}}</td>
+                <td>{{each.length}}</td>
+                <td>{{each.breadth}}</td>
+                <td>{{each.volume}}</td>
+                <td>{{each.latitude}}</td>
+                <td>{{each.longitude}}</td>
+            </tr>
+                  {% endfor %}
+            <!-- <tr>
+                <td colspan="3" id="end"><b>Total</b></td>
+                <td><b>144</b></td>
+            </tr> -->
+        </table><br><br><br>
+        
+        <div class="img_gal">
+        <span id="center" style="text-transform:uppercase"><b>Attachments Gallery</b></span>
+        <br/>
+            <div class="row">
+   {% if applications.0.is_noc == False %}
+ <div class="column">
+    <img  class="img-gallery1" src="{% static '/media/upload/proof_of_ownership/' %}{{ applications.0.proof_of_ownership_of_tree }}" style="width:100;" onclick="openModal();currentSlide(1)" class="hover-shadow cursor" />
+   <div class="txt">Proof of Ownership</div>
+  </div>
+  <div class="column">
+    <img  class="img-gallery1" src="{% static '/media/upload/revenue_application/' %}{{ image_documents.revenue_application }}" style="width:100;" onclick="openModal();currentSlide(2)" class="hover-shadow cursor" />
+   <div class="txt">Revenue Application</div>
+  </div>
+  <div class="column">
+    <img class="img-gallery1" src="{% static '/media/upload/revenue_approval/' %}{{ image_documents.revenue_approval }}" style="width:100;" onclick="openModal();currentSlide(3)" class="hover-shadow cursor" />
+  <div class="txt">Revenue Approval</div>
+  </div>
+  <div class="column">
+    <img class="img-gallery1" src="{% static '/media/upload/declaration/' %}{{ image_documents.declaration }}" style="width:100%" onclick="openModal();currentSlide(4)" class="hover-shadow cursor" />
+  <div class="txt">Declaration</div>
+  </div>
+  <div class="column">
+    <img class="img-gallery1" src="{% static '/media/upload/location_sketch/' %}{{ image_documents.location_sktech }}" style="width:100%" onclick="openModal();currentSlide(5)" class="hover-shadow cursor" />
+  <div class="txt">Location Sketch</div>
+  </div>
+  <div class="column">
+    <img class="img-gallery1" src="{% static '/media/upload/tree_ownership/' %}{{ image_documents.tree_ownership_detail }}"style="width:100%" onclick="openModal();currentSlide(6)" class="hover-shadow cursor" />
+  <div class="txt">Tree Ownership Details</div>
+  </div>
+  {% endif %}
+  <div class="column">
+    <img class="img-gallery1" src="{% static '/media/upload/aadhar_card/' %}{{ image_documents.aadhar_detail }}" style="width:100%" onclick="openModal();currentSlide(7)" class="hover-shadow cursor" />
+  <div class="txt">Photo Proof</div>
+  </div>
+</div>
+
+<div id="myModal" class="modal">
+  <span class="close cursor" onclick="closeModal()">&times;</span>
+  <div class="modal-content">
+
+    <div class="mySlides">
+      <div class="numbertext">Proof of Ownership</div>
+      <img src="{% static '/media/upload/proof_of_ownership/' %}{{ applications.0.proof_of_ownership_of_tree }}" style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">Revenue Application</div>
+      <img src="{% static '/media/upload/revenue_application/' %}{{ image_documents.revenue_application }}" style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">Revenue Approval</div>
+      <img src="{% static '/media/upload/revenue_approval/' %}{{ image_documents.revenue_approval }}" style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">Declaration</div>
+      <img src="{% static '/media/upload/declaration/' %}{{ image_documents.declaration }}" style="width:100%">
+    </div>
+    
+    <div class="mySlides">
+      <div class="numbertext">Location Sketch</div>
+      <img src="{% static '/media/upload/location_sketch/' %}{{ image_documents.location_sktech }}" style="width:100%">
+    </div>
+  
+  <div class="mySlides">
+      <div class="numbertext">Tree Ownership</div>
+      <img src="{% static '/media/upload/tree_ownership/' %}{{ image_documents.tree_ownership_detail }}" style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">Photo Proof</div>
+      <img src="{% static '/media/upload/aadhar_card/' %}{{ image_documents.aadhar_detail }}" style="width:100%">
+    </div>
+    
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    <div class="caption-container">
+      <p id="caption"></p>
+    </div>
+
+
+   
+  </div>
+</div>
+
+<script>
+function openModal() {
+  document.getElementById("myModal").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("myModal").style.display = "none";
+}
+function openModal2() {
+  document.getElementById("myModal2").style.display = "block";
+}
+function closeModal2(){
+  document.getElementById("myModal2").style.display = "none";
+}
+function openModal3() {
+  document.getElementById("map_content").style.display = "block";
+}
+    function closeModal3(){
+  document.getElementById("map_content").style.display = "none";
+}
+function getConfirmation(lat,lng) {
+               var retVal = confirm("Do you want to continue with selected "+lat+","+lng+"(Latitude,Longitude)\n ?");
+               if( retVal == true ) {
+                  closeModal3();
+                  isValidAll();
+                  return true;
+               } else {
+                  // return false;
+                  isValidAll();
+                  return true;
+               }
+            }
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  var captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+</script>
+        </div>
+        
+        <br>
+        
+        <table class="table4 hide">
+            <tr>
+                <td class="img">Revenue Application:</td>
+                <td><img src="{% static '/media/upload/revenue_application/' %}{{ image_documents.revenue_application }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="img">Revenue Approval:</td>
+                <td><img src="{% static '/media/upload/revenue_approval/' %}{{ image_documents.revenue_approval }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="img">Declaration:</td>
+                <td><img src="{% static '/media/upload/declaration/' %}{{ image_documents.declaration }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="img">Location Sketch:</td>
+                <td><img src="{% static '/media/upload/location_sketch/' %}{{ image_documents.location_sktech }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="img">Tree Ownership Details:</td>
+                <td><img src="{% static '/media/upload/tree_ownership/' %}{{ image_documents.tree_ownership_detail }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="img">Adhar Card:</td>
+                <td><img src="{% static '/media/upload/aadhar_card/' %}{{ image_documents.aadhar_detail }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="head">Destination Details:</td>
+                <td></td>
+            </tr>
+        </table>
+        </div>
+        <br>
+        <br>
+
+        <div class="vehicle_details">
+            <div class="vd_head"><span id=""><b>VEHICLE DETAILS</b></span><div class="vd_head">
+{% if applications.0.is_noc == False %}
+             <span class="edit_btn" id="veh-cancel-btn">Cancel</span><span class="edit_btn" id="veh-edit-btn">Edit</span>
+{% endif %}
+         </div></div>
+            <table class="table2 vd_form view_mode">
+                <tr>
+                    <td class="head">Vehicle Registration Number:</td>
+                    <td><input type="text" value="{{vehicle.vehicle_reg_no}}" placeholder="Not Applicable" name="veh_reg" /></td>
+                </tr>
+                <tr>
+                    <td class="head">Name of the driver:</td>
+                    <td><input type="text" value="{{vehicle.driver_name}}" placeholder="Not Applicable" name="driver_name" /></td>
+                </tr>
+                <tr>
+                    <td class="head">Phone Number of the Driver:</td>
+                    <td><input type="text" value="{{vehicle.driver_phone}}" name="phn" placeholder="Not Applicable" id="phone_num"  pattern="(?=.*[0-9]).{10}" title="Phone Number Must contain 10 number" onchange="return phoneValidation();" /><label id="phone_no-error" style="color: red;"></label></td>
+                    
+                </tr>
+                <tr>
+                    <td class="head">Mode of Transportation:</td>
+                    <td><input type="text" value="{{vehicle.mode_of_transport}}" name="mode" placeholder="Not Applicable" /></td>
+                </tr>
+                <tr>
+                    {% if applications.0.is_noc == False %}
+                    <td >License Image:<br>
+                        <img src="{% static '/media/upload/license/' %}{{ vehicle.license_image }}" alt="Not Applicable" id="lic_img_clk"  width="200px" ><input type="file" hidden name="lic_img" value="{{ vehicle.license_image }}"></img>
+                    </td>
+                    <td >Signature of Applicant:<br>
+                        <img src="{% static '/media/upload/signature/' %}{{ image_documents.signature_img }}"  width="200px" />
+                    </td>
+                    {% else %}
+                    <td >Signature of Applicant:
+                    </td>
+                    <td >
+                        <img src="{% static '/media/upload/signature/' %}{{ image_documents.signature_img }}"  width="200px" />
+                    </td>
+                    {% endif %}
+                </tr>
+               
+            </table>
+        </div>
+
+    </div>
+        <div id="myModal2" class="modal">
+  <span class="close cursor" onclick="closeModal2()">&times;</span>
+  <div class="modal-content">
+        <span id="center"><b>Timber Log Details</b></span>
+        <input type="button" class="btn btn-primary" style="width:10%;margin-left:10px ;" id="add-more-log" value="Add More" />
+        <br>
+        <div style="height:450px; overflow: auto;">
+        <table class="table3">
+            <thead>
+                
+            <tr>
+                <th id="vol">Sr. No.</th>
+                <th>Species</th>
+                <th id="vol">Length(cm)</th>
+                <th id="vol">Girth(cm)</th>
+                <th id="vol">Volume(cm<sup>3</sup>)</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+            </tr>
+            </thead>
+            <tbody id="timber_log_details_modal" class="nice_scroll2">
+              
+
+           
+                {% for each in timber_log %}
+            <tr>
+                <td value="{{each.id}}">{{forloop.counter }}</td>
+                <td><select name="update-species[]" class="update-species" value="{{each.species_of_tree}}">
+                                <option>Select</option>
+                                {% for specy in trees_species_list %}
+                                  <option value="{{specy.name}}" {% ifequal each.species_of_tree specy.name %} selected {% endifequal %}>{{specy.name}}</option>
+                                {% endfor %}
+                              
+                    </select></td>
+                    
+                <td><input type="text" name="update-length[]" value="{{each.length}}" pattern="\d+(\.\d+)?" class="update-length"></td>
+                <td><input type="text" name="update-breadth[]" value="{{each.breadth}}" pattern="\d+(\.\d+)?" class="update-breadth"></td>
+                <td><input type="text" name="update-volume[]" value="{{each.volume}}" pattern="\d+(\.\d+)?" class="update-volume" readonly></td>
+                <td><input type="text" name="update-latitude[]" id="latlng-{{forloop.counter }}" value="{{each.latitude}}" class="update-latitude" onchange="validateLat(this)"></td>
+                <td><input type="text" name="update-longitude[]" id="latlng-{{forloop.counter }}-long" value="{{each.longitude}}" class="update-longitude" onchange="validateLng(this)"></td>
+                <td><i class="fa fa-map-marker map-btn" style="font-size:40px;color:red;text-align: center;" data-target-val="latlng-{{forloop.counter }}"></i></td>
+                {% if forloop.counter != 1  %}
+                <td class="remove_btn"><button style="font-size:14px"  >
+                        <i class="fa fa-minus"></i></button></td>
+                {% endif %}
+            </tr>
+                  {% endfor %}
+             </tbody>
+           
+        </table>
+        <div id ="map_content" class="overlay">
+   <!-- <span class="close cursor" onclick="closeModal2()">&times;</span> -->
+  <div  id="myModal3content">
+        
+           {% include 'my_app/tigram/show_map.html' %} 
+        
+        
+         <input class="btn btn-danger" type="button"  value="Close Map" onclick="closeModal3();">
+         <br>
+      </div>
+    </div>
+        </div>
+        <input class="btn btn-success" style="width:10%;margin-left: 48%;margin-bottom:10px;" type="button" value="Update" id="update-btn">
+      </div>
+        <form action="{% url 'update_vehicle' applications.0.id %}" id="contactForm1" method="POST">
+    </form>
+            <form action="{% url 'update_timberlog' applications.0.id %}" id="updateVolForm" method="POST">
+    </form>
+</div>
+</body>
+<script type="text/javascript">
+$('#lic_img_clk').click(function(){
+  $('input[name="lic_img"]').click();
+});
+      function saveVehicle(){
+       
+    var veh_reg = $('input[name="veh_reg"]').val();
+    var driver_name = $('input[name="driver_name"]').val();
+    var phn = $('input[name="phn"]').val();
+    var mode = $('input[name="mode"]').val();
+    var lic_img = $('input[name="lic_img"]').prop('files')[0];
+    var lic_img_val = $('input[name="lic_img"]').val();
+  
+    // //Ch
+    var token = '{{csrf_token}}';
+    var formData = new FormData();
+    
+    formData.append('lic_img_val', lic_img_val);
+    formData.append('lic_img', lic_img);
+    formData.append('veh_reg', veh_reg);
+    formData.append('driver_name', driver_name);
+    formData.append('phn', phn);
+    formData.append('mode', mode);
+    fetch("{% url 'update_vehicle' applications.0.id %}", {
+        method: 'POST',
+        body: formData,
+        cache: 'default',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": token,
+        }
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        if(data.status === '200') {
+            if (data.pic_url!=''){
+
+            document.getElementById('lic_img_clk').src ="{% static '/media/upload/license/' %}"+data.pic_url;
+            }
+            alert("Vehicle Details updated successfully!");
+        } else {
+            console.log(data.message);
+        }
+    });
+    
+    }
+    function phoneValidation()
+{
+  var phone_no = document.getElementById('phone_num').value;
+  var format = '[0-9]{10}';
+  
+  if (phone_no == ''){
+      document.getElementById("phone_no-error").innerHTML = "Phone Number must not be empty";
+      $("#veh-edit-btn").hide()
+      return false;
+  }
+   else if(phone_no != '') {    
+    if (phone_no.length > 10){
+      document.getElementById("phone_no-error").innerHTML = "Phone Number must only contain 10 number";
+      $("#veh-edit-btn").hide()
+      return false;
+    }
+    else if (phone_no.length != 10){
+      document.getElementById("phone_no-error").innerHTML = "Phone Number must only contain 10 number";
+      $("#veh-edit-btn").hide()
+      return false;
+    }
+    else if( !$('#phone_num').val().match('[0-9]{10}')){
+      document.getElementById("phone_no-error").innerHTML = "Phone Number must only numbers";
+      $("#veh-edit-btn").hide()
+      return false;
+    }
+    else{
+      document.getElementById("phone_no-error").innerHTML = "";
+      $("#veh-edit-btn").show();
+      return true;
+    }
+  }
+}
+$(document).ready(function(){
+  $('#veh-cancel-btn').hide();
+  $('#veh-cancel-btn').click(function(){
+    $(".vd_form").toggleClass("view_mode");
+     $("#veh-edit-btn").text('Edit');
+      $(".view_mode input").each(function(){
+      $(this).attr('readonly',true);
+      document.getElementById("phone_no-error").innerHTML = "";
+      $("#veh-edit-btn").show();
+    });
+      $('#veh-cancel-btn').hide();
+  });
+   $(".vd_form input").each(function(){
+      $(this).attr('readonly',true);
+    });
+  $("#veh-edit-btn").click(function(){
+    if($("#veh-edit-btn").text()=='Save'){
+    saveVehicle();
+    }
+    $(".vd_form").toggleClass("view_mode");
+    if ($(".vd_form").hasClass("view_mode")){
+    $(".view_mode input").each(function(){
+      $(this).attr('readonly',true);
+    });
+      $('#veh-cancel-btn').hide();
+    $("#veh-edit-btn").text('Edit');
+    }
+    else{
+      $(".vd_form input").each(function(){
+      $(this).attr('readonly',false);
+    });
+    $('#veh-cancel-btn').show();
+    $("#veh-edit-btn").text('Save');
+
+
+    }
+  });
+  // $(".view_mode input").attr("href", "{% static 'js/jquery-3.6.0.js' %}");
+  document.getElementByClassName("view_mode").disabled = true;
+});
+
+
+    if ('{{transit_pass_exist}}' == 'True'){
+        $('.couldapprove').hide( );
+        // $("#reason").hide();
+    }
+    var frm = $('#contactForm1');
+    // $('.couldapprove').click(function(){
+         function calVol(length,breadth)
+                {
+                    // var volume = 3.14*length*breadth*breadth ;
+                    var volume= length*(breadth/4)**2;
+                    return volume;
+                }
+    function isValidAll(){
+    $("#timber_log_details_modal select, #timber_log_details_modal input").each(function () {
+
+                // Check if the element is empty
+                // if ($(this).attr('required',true).val().length == 0 || $(this).val().match($(this).prop('pattern')) ==false ){
+                   if ($(this).is(":invalid")) {
+                        // alert('yes'+$(this).attr('name'));
+                 // $('#update-btn').prop('disabled',true);
+                 $('#update-btn').css({'pointer-events':'none','background-color':''});
+                  $(this).css('border', '1px #FF0000 solid');
+
+                 return false;
+             }
+                else{
+                    // alert('no');
+                    $('#update-btn').css({'pointer-events':'','background-color':'green'});
+                     $(this).css('border', '1px #00FF00 solid');
+                    // $('#update-btn').prop('disabled',true);
+                    // $('#update-btn').css('pointer-events','');
+                    
+
+                }
+            });
+}
+  $(document).ready(function(){
+
+    $(document).on('click','.remove_btn',function(e){
+                            e.preventDefault();
+                            // console.log(this);
+                                $(this).parent().remove();
+                        })
+    $(document).on('change','.update-length ,.update-breadth', function() {
+                    
+                    var selectedText = $(this).val();
+                    var $this = $(this).parent().parent();
+                    var rowlength =$($this).children().children('.update-length').val();
+                    var rowbreadth =$($this).children().children('.update-breadth').val();
+                    // alert($($this).children().children('.length').val()+$($this).children().children('.breadth').val());
+
+                    $($this).children().children('.update-volume').val(calVol(rowlength,rowbreadth));
+                    });
+    $('.edit-volume').on('click',function(){
+      // alert('Hello');
+      openModal2();
+
+    });
+
+     var row=  '<tr>';
+              row+=  '<td></td>';
+              row+=  '<td><select name="update-species[]" class="update-species" value="{{each.species_of_tree}}" required>';
+              row+=   '<option>Select</option>\
+                                {% for specy in trees_species_list %}\
+                                  <option value="{{specy.name}}" >{{specy.name}}</option>\
+                                {% endfor %}\
+                    </select></td>';
+              row+='<td><input type="text" name="update-length[]"  class="update-length " required></td>';
+              row+='<td><input type="text" name="update-breadth[]" class="update-breadth" required></td>';
+              row+='<td><input type="text" name="update-volume[]"  class="update-volume" readonly></td>';
+
+
+
+              row+='<td><input type="text" name="update-latitude[]" id="latlng-n" class="update-latitude" onchange="validateLat(this)" required></td>';
+              row+='<td><input type="text" name="update-longitude[]" id="latlng-n-long" class="update-longitude" onchange="validateLng(this)" required></td>';
+
+              row+='<td><i class="fa fa-map-marker map-btn" style="font-size:40px;color:red;text-align: center;" data-target-val="latlng-n"></i></td>\
+                    <td class="remove_btn"><button style="font-size:14px"  >\
+                        <i class="fa fa-minus"></i></button></td>';
+            row+='</tr>';
+    $('#add-more-log').on('click',function(){
+             var addSerialNumber = function () {
+                                $('#timber_log_details_modal tr').each(function(index) {
+                                $(this).find('td:nth-child(1)').html(index+1);
+                                $(this).find('td:nth-child(6)').children('input.update-latitude').attr('id','latlng-'+parseInt(index+1));
+                                $(this).find('td:nth-child(7)').children('input.update-longitude').attr('id','latlng-'+parseInt(index+1)+'-long');
+                                $(this).find('td:nth-child(8)').children('.map-btn').attr('data-target-val','latlng-'+parseInt(index+1));
+                                });
+                                };
+
+            $('#timber_log_details_modal').append(row);
+                                addSerialNumber();
+    });
+  });
+//   $("#map_content").on("hidden", function () {
+//    $("#myModal2").fadeToggle();
+// });
+$('#timber_log_details_modal').change(function(){
+    isValidAll();
+})
+   $(document).on('click','.map-btn',function(e){
+                    // alert('--------')
+                    // $('#map_content').show();
+                    // $('#myModal2').css({'opacity':'0'});
+                    // $("#myModal2").fadeToggle();
+                    // $("#map_content").appendTo("body");
+                    openModal3();
+var dict = {};
+                    $('#latlng-val').val($(this).attr('data-target-val'));
+                    dict['lat']=$(this).parent().siblings("td:nth-of-type(6)").children('.update-latitude').val();
+                    dict['lng']=$(this).parent().siblings("td:nth-of-type(7)").children('.update-latitude').val();
+                    $('#latlng-current')=dict['lat'];
+                    $('#latlng-current2')=dict['lng'];
+                   
+                   
+                    // console.log($(this).parent().siblings().children("latitude"));
+                })
+  $('#update-btn').on('click',function(){
+    var frm1=$('#updateVolForm');
+    var app_form_id = '{{applications.0.id}}';
+    var species_values = $("select[name='update-species[]']")
+              .map(function(){return $(this).val();}).get();
+    var length_values = $("input[name='update-length[]']")
+              .map(function(){return $(this).val();}).get();
+    var breadth_values = $("input[name='update-breadth[]']")
+              .map(function(){return $(this).val();}).get();
+    var volume_values = $("input[name='update-volume[]']")
+              .map(function(){return $(this).val();}).get();
+    var latitude_values = $("input[name='update-latitude[]']")
+              .map(function(){return $(this).val();}).get();
+    var longitude_values = $("input[name='update-longitude[]']")
+              .map(function(){return $(this).val();}).get();
+    var token = '{{csrf_token}}';
+    // alert(frm1);
+     $.ajax({
+        headers: { "X-CSRFToken": token },
+            type: frm1.attr('method'),
+            url: frm1.attr('action'),
+            data: {
+              'update-species[]':species_values,
+              'update-length[]':length_values,
+              'update-breadth[]':breadth_values,
+              'update-volume[]':volume_values,
+              'update-latitude[]':latitude_values,
+              'update-longitude[]':longitude_values,
+            },
+            success: function (data) {
+                // alert(data.message);
+                $('#message').text(data.message);
+                alert(data.message);
+                closeModal2();
+                location.reload();
+                // var data_given = '';
+                // for(i=0;i<(data.timber_log).length;i++)
+                // {
+                //   data_given+='<tr><td>'+i+'</td>';
+                //   data_given+= '<td>'+data.timber_log.i.species_of_tree+'</td>';
+                // }
+
+                // $('#volDesc tbody').html(data_given);
+              //   <tr>
+              //     <td>{{forloop.counter }}</td>
+              //     <td>{{each.species_of_tree}}</td>
+              //     <td>{{each.length}}</td>
+              //     <td>{{each.breadth}}</td>
+              //     <td>{{each.volume}}</td>
+              // </tr>\
+              //   '
+              //   // var data_given=$('#volDesc tbody').load('{% url "load_timberlog" applications.0.id %}');
+              //   $('#volDesc tbody').html(data_given);          
+            },
+            error: function (data) {
+                // console.log('An error occurred.');
+                alert(data.message);
+                // console.log(data);
+            },
+     });
+  });
+</script>
+</html>
+{% endblock %}

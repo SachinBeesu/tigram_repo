@@ -1,0 +1,139 @@
+/*{% load static %}*/
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+
+.body{
+    /*background-image: url('../img/image5.jpg');*/
+  background-image: url('../images/image5.jpg');
+	background-repeat:no-repeat;
+	background-position:center center;
+    /*background-size: cover;*/
+    width:100%;
+    height:100%;
+    position: relative;
+	font-family: 'Cairo', sans-serif;
+  }
+  *{
+    margin:0.0%;
+    padding:0.0%;
+}
+.clickable-btn:hover{
+  background: #000000;
+}
+html, body {
+    height: 100%;
+  }
+
+  .nav{
+    overflow: hidden;
+    background-color:#fff;
+	border-bottom:1px solid #ccc;
+    margin:auto;
+    font-family: 'Cairo', sans-serif;
+  }
+  
+.nav a{
+    float: left;
+    color: #000000;
+    text-align: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    font-size: 17px;
+} 
+#icon{
+    margin-top: 6.5px;
+}
+
+.right{
+    float: right;
+  }
+table{
+   border: 2px rgb(0, 0, 0);
+   font-family: 'Cairo', sans-serif;
+   margin-top: 20px;
+  }
+  
+th{
+padding:5px 5px;
+  }
+
+tr{
+    background-color:#eee;
+    padding: 8px;
+}
+
+td{
+    padding: 10px;
+}
+   
+
+#remark{
+    width: 200px;
+}
+
+#query{
+    width: 200px;
+}
+
+table{
+    
+    font-size: 20;
+    
+    text-align: center;
+    color: rgb(63, 4, 4);
+}
+
+.th{
+    background-color:#eee; 
+}
+
+footer{
+    bottom:0;
+    position:absolute;
+    background-color: rgb(245, 237, 237);
+    padding: 40px;
+    text-align: center;
+    font-size: 35px;
+    box-shadow: black 10px;
+    width: 100%;
+  }
+
+.btn{
+    background-color:#6174ff;
+    padding:5px 2px;
+	border:none;
+	color:#fff;
+    text-align: center;
+	font-size:14px;
+    }
+.btn a{
+	color:#fff;
+	text-decoration:none;
+}
+
+.nice_scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.nice_scroll::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+.nice_scroll::-webkit-scrollbar-thumb {
+  background: #222;
+}
+
+.form{
+	overflow-x:scroll;
+	width:80%;
+	margin:auto;
+	padding-top:40px;
+	
+}
+.form table{
+	background:#fff;
+}
+.form table th{
+	border-right:1px solid #ccc;
+}

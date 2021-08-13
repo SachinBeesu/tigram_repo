@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <style type="text/css">
+ table,th,tr,td{
+    /* border:1px ; */
+    /* border-solid; */
+    background-color:  #ffffff; 
+    border-collapse: collapse;
+    padding:2px;
+    /* padding-left: 10px; */
+}
+.table1{
+    width: 100%;
+    /* margin-left:auto; */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    /* border:none; */
+}
+.table2{
+    width: 100%;
+    margin-left:auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    background-color:  rgba(255,255,255,0.9);
+    border:1px solid black;
+}
+.table3{
+    width: 100%;
+    margin-left:auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    background-color:  rgba(255,255,255,0.9);
+    border:1px solid black;
+}
+#qr{
+    height: 120px;
+}
+.layout{
+    display: none;
+}
+#main{
+    height: 100px;
+}
+span{
+    display: block;
+    text-align: center;
+}
+#th1{
+    width:150px;
+    height: 120px;
+}
+.head{
+    font-size: 16px;
+    text-align: left;
+    padding-top: 7px;
+}
+.tb_cont{
+    font-size: 16px;
+    text-align: left;
+    padding-top: 7px;
+}
+.tb_cont span{
+    display: block;
+    text-align: left;
+}
+.headl{
+    margin-left: 0px;
+    /* width:400px; */
+    /* padding:8px; */
+}
+.sig{
+    padding-top: 80px;
+    padding-right:20px;
+    float:right;
+    border:none;
+}
+.head1{
+    height: 100px;
+}
+.sig2{
+    float:right;
+    padding-right:30px;
+}
+.auth{
+    float:right;
+    padding-right: 30px;
+}
+#end{
+    font-size: 20px;
+    font-weight: bold;
+}
+.table4{
+    width:100%;
+}
+.col2{
+    font-weight: bold;
+    font-weight:700;
+    font-size: 80px;
+}
+.sign_img{
+    width:300px !important;
+}
+.qr_img{
+    width:200px !important;
+}
+    </style>
+</head>
+
+<body>
+    <!--<table class="table1">
+         <tr class="layout">
+            <th id="th1"><img src="{{logo1}}" width="70" /></th>
+            <th id="col2">TIGRAM</th>
+            <th></th>
+            <th id="th1"><img src="{{logo1}}" width="70" /></th>
+        </tr> 
+         <tr id="main">
+              <th id="th1"><img src="{{logo1}}" /></th>
+            <th id="col2"   style="font-size: 30px;" >TIGRAM</th>
+            <!-- <th></th>
+            <th id="th1"><img src="{{logo2}}" /></th>
+
+        </tr>
+    </table>-->
+    <!-- <table class="table2">
+        <tr id="qr">
+            <td colspan="4"></td>
+        </tr>
+    </table> -->
+    
+        <table class="table1">
+  
+         <tr id="main">
+              <th id="th1"><img src="{{logo1}}" style="width:350px; height:300px;"/></th>
+            <!--<th id="col2"   style="font-size: 30px;" >TIGRAM</th>
+             <th></th> -->
+            <th id="col2"><img src="{{logo3}}"style="width:100px; height:50px;" /></th>
+            <th id="th1"><img src="{{logo2}}" style="width:300px; height:300px;" /></th>
+
+        </tr>
+    </table>
+    <br>
+
+    <!-- <h1 style="font-size:20px;margin-top: 5px;margin-left: 0px; margin-bottom: 0px;">Title</h1>
+ <hr style="margin-top: 0px;"> -->
+      <table style="font-size:16px;" >
+        <tr>
+            <th style="text-align: left;">Application No</th>
+            <th style="text-align: center;">Applicant Name</th>
+            <th style="text-align: right;">Date of Application</th>
+        </tr>
+        <tr>
+          <td style="text-align: left;">{{application.0.application_no}}</td>
+          <td style="text-align: center;">{{application.0.name}}</td>
+          <td style="text-align: right;">{{application.0.created_date}}</td>
+         
+        </tr>
+        
+
+      </table>
+    <br>
+    <h1 style="font-size:20px;margin-top: 25px;margin-left: 0px;">Revenue Department:</h1>
+
+    <table style="margin-left: 30px;margin-right: 30px;width:150px;border:1px solid rgb(231, 228, 228);">
+          <tr>
+            <td class="head" style="border-spacing: 0px;">Revenue Officer:</td>
+            <td class="tb_cont"><span>{{application.0.approved_by_revenue.name}}</span></td>
+            <!-- <td class="tb_cont"><span>Rakesh Roshan</span></td>-->
+          
+        </tr>
+        <tr>
+            <td class="head">Date of Verification:</td>
+            <td class="tb_cont"><span>{{application.0.verify_office_date}}</span></td>
+        </tr>
+        <!-- <tr>
+            <td class="head">Destination Address:</td>
+            <td class="tb_cont"><span>{{applications.0.name}}</span></td>
+        </tr> -->
+        <tr>
+            <td class="head">Status:</td>
+                <td class="tb_cont"><span>{% if application.0.verify_office  %}Approved{% else %}Not Approved{% endif %}</span></td>
+        </tr>
+        <tr>
+            <td class="head">Remarks:</td>
+            <td class="tb_cont"><span>{{application.0.reason_office}}</span></td>
+        </tr>
+      </table>
+
+    <h1 style="font-size:20px;margin-top: 25px;margin-left: 0px;">Forest Department:</h1>
+
+    <table style="margin-left: 30px;margin-right: 30px;width:150px;border:1px solid rgb(231, 228, 228);">
+          <tr>
+            <td class="head" style="border-spacing: 0px;">Deputy Range Officer:</td>
+            <!-- <td class="tb_cont"><span>Suraj{{applications.0.name}}</span></td> -->
+            <td class="tb_cont"><span>{{application.0.approved_by_deputy.name}}</span></td>
+            <!-- <td class="tb_cont"><span>Rakesh Roshan</span></td>-->
+          
+        </tr>
+        <tr>
+            <td class="head">Date of Verification/Inspection:</td>
+            <td class="tb_cont"><span>{{application.0.deputy_officer_date}}</span></td>
+        </tr>
+
+        <tr>
+            <td class="head">Status:</td>
+                <td class="tb_cont"><span>{% if application.0.depty_range_officer  %}Approved{% else %}Not Approved{% endif %}</span></td>
+        </tr>
+        <tr>
+            <td class="head">Remarks:</td>
+            <td class="tb_cont"><span>{{application.0.reason_depty_ranger_office}}</span></td>
+        </tr>
+      </table>
+      <br>
+      <table style="margin-left: 30px;margin-right: 30px;width:150px;border:1px solid rgb(231, 228, 228);">
+        <tr>
+          <td class="head" style="border-spacing: 0px;">Forest Range Officer:</td>
+          <!-- <td class="tb_cont"><span>Sahil{{applications.0.name}}</span></td> -->
+          <td class="tb_cont"><span>Shashank Nomul</span></td>      
+      </tr>
+      <tr>
+          <td class="head">Date of Verification/Inspection:</td>
+          <td class="tb_cont"><span>{{application.0.range_officer_date}}</span></td>
+      </tr>
+
+      <tr>
+          <td class="head">Status:</td>
+              <td class="tb_cont"><span>{% if application.0.verify_range_officer %}Approved{% else %}Not Approved{% endif %}</span></td>
+      </tr>
+      <tr>
+          <td class="head">Remarks:</td>
+          <td class="tb_cont"><span>{{application.0.reason_range_officer}}</span></td>
+      </tr>
+    </table>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+    <br>
+    <table style="margin-left: 30px;margin-right: 30px;width:150px;border:1px solid rgb(231, 228, 228);">
+      <tr>
+        <td class="head" style="border-spacing: 0px;">Transit Pass Id:</td>
+        <td class="tb_cont"><span>{{transitpass.id}}</span></td>
+      
+    </tr>
+    <tr>
+        <td class="head">Qr Code:</td>
+        {% if is_transitpass == 'Not Generated' %}
+        <td>{{is_transitpass}}</td>
+        {% else %}
+        <td><img class="qr_img" src="{{qr_img}}" /></td>
+        {% endif %}
+    </tr>
+
+
+  </table>
+
+ 
+    </div>
+</body>
+
+</html>

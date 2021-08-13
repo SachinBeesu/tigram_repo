@@ -1,0 +1,215 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="{% static 'css/transitpass.css' %}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+ table,th,tr,td{
+    border:1px solid #A8A8A8; 
+    border-collapse: collapse;
+    padding:2px;
+    padding-left: 10px;
+}
+.table1{
+    width: 100%;
+    margin-left:auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    border:1px solid black;
+}
+.table2{
+    width: 100%;
+    margin-left:auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    border:1px solid black;
+}
+.table3{
+    width: 100%;
+    margin-left:auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    border:1px solid black;
+}
+#qr{
+    height: 120px;
+}
+.layout{
+    display: none;
+}
+#main{
+    height: 100px;
+}
+span{
+    display: block;
+    text-align: center;
+}
+#th1{
+    width:150px;
+    height: 120px;
+}
+.head{
+    width:400px;
+    padding:8px;
+}
+.sig{
+    padding-top: 80px;
+    padding-right:20px;
+    float:right;
+    border:none;
+}
+.head1{
+    height: 100px;
+}
+.sig2{
+    float:right;
+    padding-right:30px;
+}
+.auth{
+    float:right;
+    padding-right: 30px;
+}
+#end{
+    font-size: 20px;
+    font-weight: bold;
+}
+.table4{
+    width:100%;
+}
+    </style>
+</head>
+
+<body>
+    <table class="table1">
+        <tr class="layout">
+            <th id="th1">icon</th>
+            <th id="col2">main header</th>
+            <th></th>
+            <th id="th1">icon2</th>
+        </tr>
+        <tr id="main">
+            <th id="th1">icon</th>
+            <th colspan="2">main header</th>
+            <th id="th1">icon2</th>
+        </tr>
+    </table>
+    <table class="table2">
+        <tr id="qr">
+            <td colspan="4"></td>
+        </tr>
+    </table>
+    <table class="table3">
+        <tr>
+            <td class="head">Name:</td>
+            <td>{{applicant.name}}</td>
+        </tr>
+        <tr>
+            <td class="head">Address:</td>
+            <td>{{applicant.address}}</td>
+        </tr>
+        <tr>
+            <td class="head">Survey No. and extent of the field or fields on which the tree or trees proposed to be
+                cut,uprooted or burnt stand:</td>
+            <td>{{applicant.survey_no}}</td>
+        </tr>
+        <tr>
+            <td class="head">Name of the Village/Taluka/Block and District where the land on which the tree or trees
+                stand/lie:</td>
+            <td>{{applicant.village}},{{applicant.taluka}},{{applicant.block}} {{applicant.district}}</td>
+        </tr>
+        <tr>
+            <td class="head">Proof of ownership of the trees:</td>
+            <td>Aadhar Card</td>
+        </tr>
+        <tr>
+            <td class="head">List showing the species of tree or trees proposed to be cut,etc:</td>
+            <td>{{applicant.species_of_trees}}</td>
+        </tr>
+        <tr>
+            <td class="head">Purpose for which trees are proposed to be cut,etc:</td>
+            <td>{{applicant.purpose}}</td>
+        </tr>
+        <tr>
+            <td class="head">Details of generation proposed:</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="head1">Place: {{applicant.created_date}}<br><br>Date: {{applicant.created_date}}</td>
+            <td class="sig">Signature of Applicant</td>
+        </tr>
+    </table><br>
+    <div><span id="center">DECLARATION</span><br>
+        I hereby declare that the information furnished above is true to the best of my knowledge and belief. I also
+        undertake to comply with the conditions subject to which the permissions may be granted by the authorized
+        officer.
+        <br><br><br><br><br><br><br>
+        <div class="sig2">
+            Signature of the Applicant
+            <br>
+            <br>
+        </div>
+    </div>
+    <div>
+        <br><br>
+        NOTE:<br>
+        <list>
+            <ol>
+                <li>Application shall be presented in duplicate.</li>
+                <li>One copy with the order of the authorized officer shall be returned to the applicant.</li>
+                <li>(Remark to be fetched)</li>
+            </ol>
+        </list>
+    </div>
+    <hr>
+    <div>
+        <span id="center">FOR OFFICE USE ONLY</span>
+        <list>
+            <ol>
+                <li>Date of reciept of the application by the authorized officer:</li>
+                <li>Orders of the Authorized Officer:<br><br>
+                    No:&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date:</li>
+            </ol>
+        </list>
+    </div>
+    <div>
+        Place:<br><br>
+        Date:
+        <div class="auth"> Authorized Officer</div>
+    </div>
+    <br><br><br><br>
+    <div>
+        <span id="center">VOLUME DESCRIPTIONS</span>
+        <br>
+        <table class="table4">
+            <tr>
+                <th id="vol">Sr. No.</th>
+                <th id="vol">Length</th>
+                <th id="vol">Breadth</th>
+                <th id="vol">Volume</th>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>12</td>
+                <td>13</td>
+                <td>14</td>
+            </tr>
+            <tr>
+                <td colspan="3" id="end">Total</td>
+                <td>144</td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,379 @@
+{% extends 'my_app/tigram/top_band_cont.html' %}
+{% load static %}
+{% block content %}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+
+*{ margin:0px; padding:0px; text-decoration:none; list-style:none; font-weight:normal; box-sizing:border-box;}
+
+body{
+font-family: 'Roboto', sans-serif;
+background-color:#fff;
+background-image:url(bg_01.jpg);
+background-position:center top;
+background-repeat:no-repeat;
+}
+.wrap{
+width:90%;
+margin:auto;
+margin-top:80px;
+background:#fff;
+padding-bottom:20px;
+}
+.main_box{
+
+}
+.tbl_wrap{
+width:60%;
+padding-left:30px;
+margin-top:30px;
+}
+.tbl_title{
+font-size:18px;
+font-weight:500;
+margin-bottom:15px;
+}
+.pie_chart{
+width:39%;
+overflow:hidden;
+}
+.table_pie{
+display:flex;
+width:100%;
+justify-content:space-between;
+}
+#piechart{
+padding-top:0px;
+}
+#piechart g:nth-child(1) {
+}
+
+
+.main_lbl{
+font-size:20px;
+font-weight:bold;
+background:#fff;
+padding:10px 10px;
+}
+.tbl_col{
+width:25% !important;
+color:#222;
+font-size:14px;
+padding:5px 10px;
+border-left:1px solid #ccc;
+border-right:1px solid #ccc;
+min-height:40px;
+line-height:22px;
+align-items:center;
+display:flex;
+justify-content:center;
+}
+.tbl_head{
+background:#3366cc;
+display:flex;
+width:calc(100% - 8px);
+padding:0px;
+align-items:center;
+}
+.tbl_head .tbl_col{
+color:#fff;
+}
+
+.tbl_cont{
+	padding:0px;
+	height:288px;
+	border:1px solid #ccc;
+}
+
+.tbl_cont_row{
+display:flex;
+padding:0px;
+min-height:40px;
+align-items:center;
+border-bottom:1px solid #ccc;
+}
+.tbl_cont_row:nth-child(even){
+background:#f8f8f8;
+}
+
+.tbl_nice_scroll {
+  overflow-y: scroll !important;
+}
+.tbl_nice_scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tbl_nice_scroll::-webkit-scrollbar-track {
+  background: #fff;
+  border-left: 1px solid #ccc;
+}
+
+.tbl_nice_scroll::-webkit-scrollbar-thumb {
+  background: #aaa;
+}
+
+.filter_row{
+background:#efefef;
+padding:10px 10px;
+border-top:2px solid #aaa;
+display:flex;
+}
+.range_wrap{
+display:flex;
+}
+.select_range{
+display:flex; 
+align-items:center;
+}
+
+.range_sel_wrap{
+border:1px solid #aaa;
+display:flex;
+margin-left:10px;
+}
+.range_sel{
+padding:5px 12px;
+font-size:12px;
+font-weight:bold;
+border-right:1px solid #222;
+cursor:pointer;
+height:26px;
+background:#fff;
+}
+.range_sel:hover{
+background:#3366cc;
+color:#fff;
+}
+.range_sel.active{
+background:#3366cc;
+color:#fff;
+}
+.range_sel:last-child{
+border-right:none;
+}
+.select_range .lbl{
+font-size:14px;
+font-weight:500;
+}
+.custome_range{
+display:flex;
+margin-left:30px;
+align-items:center;
+}
+.custome_range .lbl{ 
+font-size:14px;
+margin-left:10px;
+font-weight:500;
+}
+.custome_range input{
+margin-left:10px;
+height:26px;
+}
+
+
+.col_02,.col_03{
+
+}
+.col_01, .col_03{
+
+}
+.bg_darkred{
+background:#db0000;
+}
+.tbl_cont_row .tbl_col{
+font-weight:500;
+
+}
+
+.search_data{
+display:flex;
+align-items:center;
+margin-right:30px;
+position:relative;
+}
+.search_data .lbl{
+	font-size: 14px;
+   margin-left: 10px;
+   font-weight: 500;
+}
+.search_data input{
+margin-left:10px;
+height:26px;
+outline:none;
+padding:0px 5px;
+width:260px;
+padding-right:30px;
+font-weight:500;
+font-family:roboto;
+}
+.search_data .fa{
+position:absolute;
+top:1px;
+padding:5px 5px;
+right:1px;
+color:#3366cc;
+cursor:pointer;
+height:25px;
+}
+.search_data .fa:hover{
+background:#3366cc;
+color:#fff;
+}
+.col_01{
+width:10% !important;
+}
+
+
+</style>
+
+
+</head>
+
+<body>
+
+
+<div class="wrap">
+	<div class="main_lbl">Table 01</div>
+	<div class="main_box">
+		<div class="filter_row">
+			
+			<div class="search_data">
+				<div class="lbl">Search :</div>
+				<input type="text" placeholder="Search Data"/>
+				<i class="fa fa-search"></i>
+			</div>
+			<div class="range_wrap">
+			<div class="select_range">
+				<div class="lbl">Select Range :</div>
+				<div class="range_sel_wrap">
+				<div class="range_sel">1M</div>
+				<div class="range_sel">3M</div>
+				<div class="range_sel active">6M</div>
+				<div class="range_sel">1 Year</div>
+				<div class="range_sel">Last Year</div>
+				</div>
+			</div>
+			<div class="custome_range">
+				<div class="lbl">From - To Date :</div>
+				<input type="date" value="From Date"/>
+				<div class="lbl">-</div>
+				<input type="date"  value="To Date"/>
+			</div>
+			</div>
+			
+		</div>
+	</div>
+		<div class="table_pie">
+		<div class="tbl_wrap">
+			<div class="tbl_title">Number of Applications Received, Approved and Rejected :</div>
+			<div class="tbl_head ">
+				<div class="tbl_col col_01">Sr. No</div>
+				<div class="tbl_col col_02">Date</div>
+				<div class="tbl_col col_03">Received </div>
+				<div class="tbl_col col_04">Approved</div>
+				<div class="tbl_col col_05">Rejected</div>
+			</div>
+			<div class="tbl_cont tbl_nice_scroll">
+				<div class="tbl_cont_row">
+					<div class="tbl_col col_01">01</div>
+					<div class="tbl_col col_02">22/04/2021</div>
+					<div class="tbl_col col_03">500</div>
+					<div class="tbl_col col_04">400</div>
+					<div class="tbl_col col_05">100</div>
+				</div>
+				<div class="tbl_cont_row">
+					<div class="tbl_col col_01">02</div>
+					<div class="tbl_col col_02">23/04/2021</div>
+					<div class="tbl_col col_03">400</div>
+					<div class="tbl_col col_04">300</div>
+					<div class="tbl_col col_05">100</div>
+				</div>
+				<div class="tbl_cont_row">
+					<div class="tbl_col col_01">03</div>
+					<div class="tbl_col col_02">24/04/2021</div>
+					<div class="tbl_col col_03">700</div>
+					<div class="tbl_col col_04">650</div>
+					<div class="tbl_col col_05">500</div>
+				</div>
+				<div class="tbl_cont_row">
+					<div class="tbl_col col_01">04</div>
+					<div class="tbl_col col_02">25/04/2021</div>
+					<div class="tbl_col col_03">700</div>
+					<div class="tbl_col col_04">650</div>
+					<div class="tbl_col col_05">50</div>
+				</div>
+				<div class="tbl_cont_row">
+					<div class="tbl_col col_01">05</div>
+					<div class="tbl_col col_02">26/04/2021</div>
+					<div class="tbl_col col_03">150</div>
+					<div class="tbl_col col_04">100</div>
+					<div class="tbl_col col_05">50</div>
+				</div>
+				<div class="tbl_cont_row">
+					<div class="tbl_col col_01">06</div>
+					<div class="tbl_col col_02">26/04/2021</div>
+					<div class="tbl_col col_03">150</div>
+					<div class="tbl_col col_04">100</div>
+					<div class="tbl_col col_05">50</div>
+				</div>
+				<div class="tbl_cont_row">
+					<div class="tbl_col col_01">07</div>
+					<div class="tbl_col col_02">27/04/2021</div>
+					<div class="tbl_col col_03">150</div>
+					<div class="tbl_col col_04">100</div>
+					<div class="tbl_col col_05">50</div>
+				</div>
+				<div class="tbl_cont_row">
+					<div class="tbl_col col_01">08</div>
+					<div class="tbl_col col_02">28/04/2021</div>
+					<div class="tbl_col col_03">350</div>
+					<div class="tbl_col col_04">250</div>
+					<div class="tbl_col col_05">100</div>
+				</div>
+			</div>
+		</div>
+		<div class="pie_chart">
+			<div id="piechart"></div>
+		</div>			
+		</div>
+	</div>
+</div>
+
+
+
+
+<script type="text/javascript">
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+// Draw the chart and set the chart values
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+  ['Task', 'Hours per Day'],
+  ['Received', 1500],
+  ['Approved', 1000],
+  ['Rejected', 500]
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'', 'width':550, 'height':400};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+</script>
+
+</body>
+
+</html>
+{% endblock %}

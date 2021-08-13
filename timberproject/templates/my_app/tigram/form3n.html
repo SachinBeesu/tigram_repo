@@ -1,0 +1,1044 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="css/form1.css"> -->
+    <link rel="stylesheet" href="{% static 'css/form1.css' %}">
+    <!-- <link rel="stylesheet" href="css/dash.css"> -->
+    <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/viewapplication.css' %}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <script src="{% static 'js/repeater.js' %}"></script>
+    <!-- <script type="{% static 'materialize/js/materialize.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'materialize/css/materialize.css' %}"> -->
+    <style>
+        .modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  /*background-color: black;*/
+    z-index:100;
+}
+.cursor {
+  cursor: pointer;
+}
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: greenyellow;
+  margin: auto;
+  padding: 0;
+  width: 30%;
+  max-width: 1200px;
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+}
+#update-btn:hover {
+  /*color:#fff;
+  background: white;*/
+}
+
+.close:hover,
+.close:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
+		.nav{
+		position:fixed;
+		width:100%;
+		}
+        #tab {
+            display: none;
+            color: #000;
+            position: relative;
+           padding:10px;
+		   margin:10px 0px;
+            margin-top: 5px;
+        }
+
+        #veh {
+            display: none;
+            color: #000;
+            position: relative;
+            padding: 10px;
+            margin-top: 5px;
+        }
+		.add_log{
+		background:#fff;
+		}
+		.add_log thead{
+		margin-bottom:5px;
+		padding-bottom:5px;
+		}
+		.add_log thead td{
+		text-transform:initial;
+		padding-left:5px;
+		    font-size: 14px;
+    font-weight: 600;
+	padding-bottom:5px;
+		}
+		.add_log input{
+		margin:0px !important;
+		padding:5px 7px !important;
+		border:none;
+		outline:none !important;
+		}
+		.add_log select{
+		padding:5px 7px !important;
+		border:none;
+		outline:none !important;
+		}
+		.add_log tbody{
+		border:1px solid #ccc;
+		}
+		.add_log tbody td{
+		padding:0px !important;
+		margin-right:10px;
+		border:1px solid #ccc;
+		}
+		
+		.add_log table{
+		border-spacing:0px;
+		}
+		
+		.nice_scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.nice_scroll::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+.nice_scroll::-webkit-scrollbar-thumb {
+  background: #a7a7a7;
+}
+
+#addbutton{
+margin-left:10px;
+margin-right:10px;
+background:#6174ff;
+border-radius:0px;
+width:20px;
+height:20px;
+border:none;
+outline:none;
+color:#fff;
+}
+.remove_btn button{
+background:black;
+color:#fff;
+margin-left:10px;
+border-radius:none;
+width:20px;
+height:20px;
+border:none;
+outline:none;
+}
+.form{
+padding-top:90px;
+}
+.file_upload{
+margin-bottom:20px;
+}
+.file_upload label{
+width:200px;
+display:inline-block;
+
+}
+.file_upload input[type="file"]::-webkit-file-upload-button {
+  background: #fff;
+  color:#222;
+  padding:5px 15px;
+  margin:0px 10px;
+  border:1px solid #aaa; 
+  cursor:pointer;
+}
+.file_upload input[type="file"]::-webkit-file-upload-button:hover {
+  background: #000;
+  color:#fff;
+}
+
+.view_log .tbl_head{
+background:#444;
+display:flex;
+}
+.view_log .tbl_head .txt{
+width:calc(100% / 7);
+padding-left:10px;
+padding-bottom:5px;
+font-size:16px;
+font-weight:600;
+color:#fff;
+}
+.view_log .tbl_head .txt.serial{
+width:55px;
+}
+.view_log .tbl_head .txt.species{
+width:200px;
+}
+.view_log .tbl_body{
+background:#fff;
+}
+.view_log .tbl_body .row{
+display:flex;
+border-bottom:1px solid #ccc;
+}
+.view_log .tbl_body .cell{
+width:calc(100% / 7);
+padding-left:10px;
+font-size:16px;
+line-height:24px;
+padding:10px;
+}
+.view_log .tbl_body .cell.serial{
+width:50px;
+}
+.view_log .tbl_body .cell.species{
+width:205px !important;
+}
+
+.personal_details hr{
+	margin-bottom:15px;
+}
+.personal_details input,.personal_details select{
+    margin: 0px 0;
+	margin-bottom:15px;
+	padding: 8px 12px;
+	outline:none;
+}
+.personal_details label{
+
+display:block;}
+
+.tree_check label{
+font-size:16px;
+line-height:16px;
+font-weight:600;
+}
+.tree_check input{
+font-size:16px;
+width:16px;
+height:16px;
+margin-right:5px;
+
+}
+.required:after {
+    content:" *";
+    color: red;
+  }
+    </style>
+</head>
+
+<body>
+     <nav class="nav">
+            <div class="right">
+                <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+                <a href="{% url 'view_profile' request.user.id %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+            </div>
+        </nav>
+            <!-- <script>M.toast({html: "Application submitted succesfully!", classes: 'green rounded', displayLength:2000});</script> -->
+    <form class="form" id="form1-form" action="{% url 'application_form' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container">
+        <!-- <div class="content"> -->
+            
+        
+        
+        <!-- </div> -->
+			<div class="personal_details">
+            <h1>Form 1</h1>
+	
+            <hr>
+			
+            <label for="uname" class="required"><b>Name:</b></label>
+            <input type="text" placeholder="Enter your name" name="uname" required>
+            <br>
+      
+            <label for="add" class="required"><b>Address:</b></label>
+            <input type="text" placeholder="Enter your address" name="add" required>
+            <br>
+            
+            <label for="sno" class="required"><b>Survey Number:</b></label>
+            <input type="text" placeholder="Enter your survey number" name="sno" required>
+            <br>
+            
+
+            <label for="treep" class="required"><b>Number of trees proposed to be cut:</b></label>
+            <input type="text" pattern="\d+" placeholder="Enter number of trees" id="treep" title="Only positive numbers allowed" name="treep" required>
+            <br>
+            
+            <label for="vil" class="required"><b>Village:</b></label>
+            <input type="text" placeholder="Enter your Village" name="vil" required>
+            <br>
+            
+            <label for="taluka" class="required"><b>Taluka:</b></label>
+            <input type="text" placeholder="Enter your Taluka" name="taluka" required>
+            <br>
+            
+            <label for="block" class="required"><b>Block:</b></label>
+            <input type="text" placeholder="Enter your Block" name="block" required>
+            <br>
+            
+            <label for="dist" class="required"><b>District:</b></label>
+            <input type="text" placeholder="Enter your District" name="dist" required>
+            
+		</div>	
+				<br>
+			<div class="file_upload">
+            <label style="width:160px;" for="pro"class="required"><b>Proof of ownership:</b></label>
+            <input type="file" id="myFile" name="ownership_proof_img" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required>
+			</div>	
+            <br>
+            
+            <div id='chk_div' class="tree_check">
+                <b class="required">Species of tree or trees proposed to be cut:</b>
+                <!-- <input type="checkbox" id="s1" name="species1" class="chk_species" value="Sandal wood(Santalum album)">
+                <label for="s1"> Sandal wood(Santalum album)</label><br> -->
+                {% for each_speci in trees_species %}
+                <input type="checkbox" id="s{{forloop.counter}}" name="species{{forloop.counter}}" class="chk_species" value="{{each_speci.name}}" oninvalid="this.setCustomValidity('Please select any one of the tree species!')" onchange="this.setCustomValidity('')" required>
+                <label for="s{{forloop.counter}}"> {{each_speci.name}}</label><br>
+                {% endfor %}
+                <!-- <input type="checkbox" id="s2" name="species2" class="chk_species" value="Rosewood(Dalbergia latifolia)">
+                <label for="s2"> Rosewood(Dalbergia latifolia)</label><br>
+                <input type="checkbox" id="s2" name="species2" class="chk_species" value="Teak(Tectona grandis)">
+                <label for="s2"> Teak(Tectona grandis)</label><br>
+                <input type="checkbox" id="s3" name="species3" class="chk_species" value="Thempavu(Terminalia tomantosa)">
+                <label for="s3">Thempavu(Terminalia tomantosa)</label><br>
+                <input type="checkbox" id="s4" name="species4" class="chk_species" value="Kamoakam(Hopea Parviflora)">
+                <label for="s4">Kamoakam(Hopea Parviflora)</label><br>
+                <input type="checkbox" id="s4" name="species4" class="chk_species" value="Chadachi(Grewia tiliaefolia)">
+                <label for="s4">Chadachi(Grewia tiliaefolia)</label><br>
+                <input type="checkbox" id="s5" name="species5" class="chk_species" value="Chandana vempu(Cedrela toona)">
+                <label for="s5">Chandana vempu(Cedrela toona)</label><br>
+                <input type="checkbox" id="s6" name="species6" class="chk_species" value="Vellakil(Dysoxylum malabaricum)">
+                <label for="s6">Vellakil(Dysoxylum malabaricum)</label><br>
+                <input type="checkbox" id="s7" name="species7" class="chk_species" value="Irul(Xylia xylocarpa)">
+                <label for="s7">Irul(Xylia xylocarpa)</label><br>
+                <input type="checkbox" id="s8" name="species8" class="chk_species" value="Ebony(Diospyrus sp.)">
+                <label for="s8">Ebony(Diospyrus sp.)</label><br><br> -->
+                <input type="hidden" name="tree_species" id="tree_species" value="">
+            </div>
+			  <br>
+			    <div class="personal_details">
+            <label for="propt" class="required"><b>Purpose for which trees or trees proposed to be cut:</b></label>
+            <input type="text" placeholder="Enter Purpose for which trees or trees proposed to be cut" name="purpose_cut" required>
+			</div>
+            <br><br>
+            <label for="s9" class="required"><b>Trees have been cut or yet to be cut?</b></label><br>
+            <input type="radio" name="trees_cut" value="yes" required>
+            <label for="yes">Yes, trees have been cut.</label><br>
+            <input type="radio" name="trees_cut" value="no">
+            <label for="no">No, yet to cut.</label><br>
+            <div id="display_log_details">
+                
+            <label for="s9" class="required"><b>Would you like to enter the log details?</b></label><br>
+            <input type="radio" id="yes" name="log_option" value="yes" >
+            <label for="yes">YES</label><br>
+            <input type="radio" id="no" name="log_option" value="no">
+            <label for="no">NO</label><br>
+<!--             <label for="s9"><b>Add Log Details</b></label><br>
+            <input type="radio" onclick="myInput " id="yes" name="log_option" value="yes">
+            <label for="yes">YES</label><br>
+            <input type="radio" id="no" name="log_option" value="no">
+            <label for="no">NO</label><br> -->
+
+	<br/>
+    <p class="error_filldetails"></p>
+            <div id="tab" class="add_log nice_scroll" style="height:258px; overflow: auto;">
+                <table id="myTable" >
+                    <thead>
+                    <!-- <tr> -->
+                        <td>
+                            Sr.No
+                        </td>
+                        <td>
+                            Species
+
+                        </td>
+                        <td>
+                            Length(cm)
+                        </td>
+                        <td>
+                            Girth(cm)
+                        </td>
+
+                        <td>
+							Volume(cm<sup>3</sup>)
+                        </td>
+                        <td>
+							Latitude
+                        </td>
+                        <td>
+							Longitude
+                        </td>
+
+                    <!-- </tr> -->
+                    </thead>
+                    <tbody id='myBody'>
+                    <tr >
+                        <!-- <td><input id="cid" type="float" placeholder=""></td> -->
+                        <td><label class="sr_no">1</label></td>
+                        <td><select name="species[]" id="cid1" class="species" required>
+                                <option>Select</option>
+                                <!-- <option value="Sandal wood(Santalum album)">Sandal wood(Santalum album)</option> -->
+                                {% for each_sp in trees_species %}
+                                    <option value="{{each_sp.name}}"> {{each_sp.name}}</option>
+                                {% endfor %}
+                                <!-- <option value="Teak(Tectona grandis)"> Teak(Tectona grandis)</option>
+                                <option value="Thempavu(Terminalia tomantosa)">Thempavu(Terminalia tomantosa)</option>
+                                <option value="Kamoakam(Hopea Parviflora)">Kamoakam(Hopea Parviflora)</option>
+                                <option value="Chadachi(Grewia tiliaefolia)">Chadachi(Grewia tiliaefolia)</option>
+                                <option value="Chandana vempu(Cedrela toona)">Chandana vempu(Cedrela toona)</option>
+                                <option value="Vellakil(Dysoxylum malabaricum)">Vellakil(Dysoxylum malabaricum)</option>
+                                <option value="Irul(Xylia xylocarpa)">Irul(Xylia xylocarpa)</option>
+                                <option value="Ebony(Diospyrus sp.)">Ebony(Diospyrus sp.)</option> -->
+                            </select></td>
+                        <td><input id="cid2" name="length[]" type="text" class="length" pattern="\d+(\.\d{1,2})?" title="Please enter valid length" placeholder="" required></td>
+                        <td><input id="cid3" name="breadth[]" type="text" class="breadth" pattern="\d+(\.\d{1,2})?" title="Please enter valid breadth" placeholder="" required></td>
+                        <td><input id="cid4" name="volume[]" type="text" class="volume" placeholder=""></td>
+                        <td><input name="latitude[]" class="latitude" type="text" onchange="validateLat(this)" placeholder=""></td>
+                        <td><input name="longitude[]" class="longitude" type="text" onchange="validateLng(this)" placeholder=""></td>
+                        <td><button style="font-size:14px" id="addbutton" ><i
+                                    class="fa fa-plus" ></i></button></td>
+                                    <!-- <td><button onclick="myCreateFunction()" style="font-size:20px" id="addbutton" ><i
+                                    class="fa fa-plus-square-o" ></i></button></td> -->
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- <button id="confirmList"> confirm</button> -->
+            <!-- <div class="">
+                <button type="button" id="show_log" class="save btn">Show Log</button>
+            </div> -->
+            </div>
+            </div>
+
+                    <!-- $(function(){
+                        var requiredCheckboxes = $('.tree_check :checkbox');
+                        requiredCheckboxes.change(function(){
+                        var checked = $(".tree_check input:checked").length > 0;
+                        if (!checked){
+                            // alert("Please check at least one checkbox");
+                            requiredCheckboxes.attr('required', 'required');
+                            // return false;
+                            }
+                        else{
+                            requiredCheckboxes.removeAttr('required');
+                        }
+                        });
+                    }); -->
+            <script>
+                // function createRow()
+                // function createSelect(checked_values){
+                //     $('.species').empty();
+                //     for (var index = 0; index < checked_values.length; index++) {
+                //         console.log(checked_values+"list"+index);
+                //         $('.species').append('<option value="' + checked_values[index] + '">' + checked_values[index] + '</option>');
+                //         }
+                // }
+
+                $(document).ready(function(){
+
+                    $('.chk_species').on('change',function(){
+
+                        if ($('.tree_check input:checkbox').filter(':checked').length < 1){
+                                $(this).siblings('.chk_species').each(function() {
+                            this.setCustomValidity('Please select any one of the tree species!');
+                        });
+                            // alert("Please Check at least one Check Box");
+                            $(this).siblings('.chk_species').attr('required', 'required');
+                            // $(this).siblings('.chk_species').setCustomValidity('Please select any one of the tree species!');
+                            // oninvalid="this.setCustomValidity('Please select any one of the tree species!')" 
+                        // return false;
+                        }
+                            // return false;
+                            // }
+                        else{
+                            $(this).siblings('.chk_species').removeAttr('required');;
+                            $(this).siblings('.chk_species').each(function() {
+                            this.setCustomValidity('');
+                        });
+                        }
+                    });
+                    $('#display_log_details').hide();
+                    // $('*').click(function(){
+                    //     console.log(this);
+                    // });
+                        // <td><input type="float" placeholder=""></td>\
+                                // <option>Select</option>\
+                        var row_count = document.getElementById("myTable").rows.length;
+                        var max_fields = 14;
+                        var row='<tr class="rown" >\
+                        <td><label class="sr_no">'+row_count+'</label></td>\
+                        <td><select name="species[]" class="species sp3" required>\
+                            </select></td>\
+                        <td><input name="length[]" class="length" type="text" placeholder="" pattern="\\d+(\\.\\d{1,2})?" title="Please enter valid length" required></td>\
+                        <td><input name="breadth[]" class="breadth" type="text" placeholder="" pattern="\\d+(\\.\\d{1,2})?" title="Please enter valid breadth" required></td>\
+                        <td><input name="volume[]" class="volume" type="text" placeholder=""></td>\
+                        <td><input name="latitude[]" class="latitude" type="text" onchange="validateLat(this)" placeholder=""></td>\
+                        <td><input name="longitude[]" class="longitude" type="text" onchange="validateLng(this)" placeholder=""></td>\
+                        <td class="remove_btn"><button style="font-size:14px"  >\
+                        <i class="fa fa-minus"></i></button></td>\
+                    </tr>';
+                    // $('#cid1').
+                        $('#addbutton').click(function(e){
+                                e.preventDefault();
+                                $("#myBody").append(row);
+                               var $options = $("#cid1 > option").clone();
+                               // console.log($options);
+                               // tr:last
+                                // $('.sp3').append($options);
+                                // $(".sp3 option").val(function(idx, val) {
+
+                                $('#myBody tr:last .sp3').append($options);
+                                var addSerialNumber = function () {
+                                $('#myBody tr').each(function(index) {
+                                $(this).find('td:nth-child(1)').html(index+1);
+                                });
+                                };
+
+                                addSerialNumber();
+                                // $("#myBody tr:last .sp3 option").val(function(idx, val) {
+                                // $(this).siblings('[value="'+ val +'"]').remove();
+                                // });
+
+                        })
+                        $(document).on('click','.remove_btn',function(e){
+                            e.preventDefault();
+                            // console.log(this);
+                                $(this).parent().remove();
+                        })
+                        // $('#remove_btn').click(function(e){
+                        //     e.preventDefault();
+                        //     console.log(this);
+                        //         $(this).parent().remove();
+                        // });
+                });
+        //         $('#confirmList').click(function(){
+        //             // console.log($(this).parent().children());
+        //             var ary = [];
+        // $(function () {
+        //     $('#myBody tr').each(function (a, b) {
+
+        //         var name = $('.species', b).val();
+        //         var length = $('.length', b).val();
+        //         var breadth = $('.breadth', b).val();
+        //         var volume = $('.volume', b).val();
+        //         var latitude = $('.latitude', b).val();
+        //         var longitude = $('.longitude', b).val();
+        //         ary.push({ Species: name, Length: length, Breadth: breadth,Latitude:latitude,Longitude:longitude });
+               
+        //     });
+        //     alert(JSON.stringify( ary));
+        // });
+
+        //         });
+            </script>
+            <!-- <script type="text/javascript"></script> -->
+            <script type="text/javascript">
+                function log_required(){
+                    $("[name='species[]']").prop("required",true);
+                        $('.length').prop('required',true);
+                        $('.breadth').prop('required',true);
+                }
+                function log_required_false(){
+                    $("[name='species[]']").prop("required",false);
+                        $('.length').prop('required',false);
+                        $('.breadth').prop('required',false);
+                }
+                $(document).ready(function(){
+                    log_required_false();
+                    $('input[name="option"]').on('click',function(e){
+                    if($(this).val()=='yes')
+                    {
+                        $('.veh_details').prop('required',true);
+
+                    }
+                    else{
+                        $('.veh_details').prop('required',false);
+                    }
+                    });
+                    $('input[name="trees_cut"]').on('click',function(e){
+                        // e.preventDefault();
+                    if($(this).val()=='yes')
+                    {
+                        $('#display_log_details').show();
+                        $('#yes').prop('required',true);
+
+                    }
+                    else{
+                        $('#display_log_details').hide();
+                        $('#yes').prop('required',false);
+                        log_required_false();
+                    }
+                    });
+                   $('#yes').click(function(){
+                    $('#tab').show();
+                    $("[name='species[]']").prop("required", true);
+                    // $('.species').each(function(){
+                    //         $(this).prop('required',true);
+                    // });
+
+                    // $('.species').prop('required',true);
+                    $('.length').prop('required',true);
+                    $('.breadth').prop('required',true);
+                   });
+                   $('#no').click(function(e){
+                    // e.preventDefault();
+                    $("[name='species[]']").prop("required", false);
+                    // $('.species').each(function(){
+                    //         $(this).prop('required',false);
+                    // });
+                    // $('.species').prop('required',false);
+                    $('.length').prop('required',false);
+                    $('.breadth').prop('required',false);
+                      $('#tab').hide();  
+                   });  
+                });
+                $("#repeater").createRepeater({
+                showFirstItemToDefault: true,
+                });
+
+                $('#chk_div').on('change',function() {
+                    var checked_values=[];
+                    $("input:checkbox[class='chk_species']:checked").each(function () {
+                    checked_values.push($(this).val());
+                    // console.log(checked_values+"array");
+                    $("#tree_species").val(checked_values);
+                    });
+                // $('.species').
+                // createSelect(checked_values);
+                $('.species').empty();
+                $('.species').append('<option value="">Select</option>');
+                    for (var index = 0; index < checked_values.length; index++) {
+                        // console.log(checked_values+"list"+index);
+                        $('.species').append('<option value="' + checked_values[index] + '">' + checked_values[index] + '</option>');
+                        }
+
+                });
+
+                
+            </script>
+			
+			
+			<div class="clearfix" style="clear:both;"></div>
+			<br>
+			<div class="view_log">
+				<div class="tbl_head">
+					<div class="txt serial">Sr.No</div><div class="txt species_txt">Species</div><div class="txt">Length</div><div class="txt">Breadth</div>
+					<div class="txt">Volume</div><div class="txt">Latitude</div><div class="txt">Longitude</div>
+				</div>
+				<div id="log_details" class="tbl_body nice_scroll" style="height:250px; overflow:auto;">
+					<!-- <div class="row">
+					<div class="cell serial">1</div><div class="cell species ">Teak (Tectona grandis)</div><div class="cell">487</div><div class="cell">17</div><div class="cell">16</div><div class="cell">123.456.789</div><div class="cell">987.654.321</div>
+					</div> -->
+					
+				</div>
+			</div>
+			
+            <br>
+				<div class="file_upload">
+            <label for="propt" class="custom-file-upload required" ><b>Revenue Application:</b></label>
+            <input type="file" id="myFile1" name="revenue_application_img" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required><br><br>
+            <label for="propt"class="required"><b>Revenue Approval:</b></label>
+            <input type="file" id="myFile6" name="revenue_approval_img" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required><br><br>
+            <label for="propt" class="required"><b>Declaration:</b></label>
+            <input type="file" id="myFile2" name="declaration_img" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required><br><br>
+            <label for="propt" class="required"><b>Location Sketch:</b></label>
+            <input type="file" id="myFile3" name="location_sketch_img" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required><br><br>
+            <label for="propt" class="required"><b>Tree Ownership Details:</b></label>
+            <input type="file" id="myFile4" name="tree_ownership_img" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required><br><br>
+            <label for="propt" class="required"><b>Select Photo Id Proof:</b></label>
+            <select name="photo_proof_select" id="photo_proof_select" style="width: 200px;" required>
+                    <option value="">Select Photo Identity Proof</option>
+                    <!-- <option value="aadhar card">Aadhar Card</option>
+                    <option value="passport">Passport</option>
+                    <option value="driving license">Driving License</option>
+                    <option value="government id">Government ID</option> -->
+                    {% for each_proof in proof_list %}
+                    <option value="{{each_proof.name}}">{{each_proof.name}}</option>
+                    {% endfor %}
+            </select><br><br>
+            <label for="propt" class="custom-file-upload required" id="upload-file-msg"><b>Upload Photo ID Proof:</b></label>
+            <input type="file" id="myFile5" name="aadhar_card_img" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required>
+            </div>
+            <!-- <label for="propt"><b>Adhar Card:</b></label>
+            <input type="file" id="myFile5" name="aadhar_card_img" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)"><br><br>
+			</div> -->
+			
+			    <div class="personal_details">
+            <label for="dest" class="required"><b>Destination Details:</b></label>
+            <input type="text" id="destination_details" name="destination_details" required><br><br>
+			</div>		
+            <label for="Vehicle" class="required"><b>Enter Vehicle Details:</b></label><br>
+            <!-- <input type="radio" onclick="myInput " id="y" name="option" value="yes" required> -->
+            <input type="radio" id="y" name="option" value="yes" required>
+            <label for="yes">YES</label><br>
+            <input type="radio" id="n" name="option" value="no">
+            <label for="no">NO</label><br>
+            <div id="veh">
+                <label for="veh_reg" class="required"><b>Vehicle Registration Number:</b></label>
+                <input type="text" name="veh_reg" class="veh_details" >
+                <label for="driver_name" class="required"><b>Name of the driver:</b></label>
+            <input type="text" name="driver_name" class="veh_details">
+            <label for="phn" class="required"><b>Phone Number of the Driver:</b></label>
+            <input type="text" name="phn" class="veh_details">
+            <label for="mode" class="required"><b>Mode of Transportation:</b></label>
+            <input type="text" name="mode" class="veh_details">
+            <div class="file_upload">
+            <label for="lic_img" class="required"><b>License Image:</b></label>
+            <input type="file" id="myFile" name="lic_img" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" class="veh_details">
+            </div>
+            </div>
+			<br>
+			<div class="file_upload">
+            <label for="sign" class="required"  ><b >Signature:</b></label>
+            <input type="file" name="signature_img" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required>
+			</div>
+			
+
+            <hr>
+			<br>
+            <button type="submit" class="save btn" id="save_btn">Submit</button>
+			<br>
+			<br>
+        </div>
+
+
+    </form>
+<!-- <div id="myModal2" class="modal">
+  <span class="close cursor" onclick="closeModal2()">&times;</span>
+  <div class="modal-content">
+        <span id="center"><b>Timber Log Details</b></span>
+        <br>
+      </div>
+  </div> -->
+  <div id="myModal2" class="modal">
+   <!-- <span class="close cursor" onclick="closeModal2()">&times;</span> -->
+  <div class="modal-content">
+        <span id="center" style="text-decoration-color: greenyellow;"><b></b></span>
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;Application submitted successfully!&nbsp;&nbsp;&nbsp;&nbsp; 
+        
+         <input class="btn" type="button"  value="OK" id="update-btn" onclick="closeModal2()">
+         <br>
+      </div>
+    </div>
+<!-- <input type="button" value="Update" id="update-btn"> -->
+        <!-- <input type="button" id="add-more-log" value="Add More" /> -->
+</body>
+        <!-- <script>M.toast({html: "{{message}}", classes: 'green rounded', displayLength:2000});</script> -->
+<script>
+    function openModal2() {
+  document.getElementById("myModal2").style.display = "block";
+}
+    function closeModal2(){
+  document.getElementById("myModal2").style.display = "none";
+}
+if ('{{transit_pass_exist}}' == 'True'){
+        $('.couldapprove').hide( );
+        // $("#reason").hide();
+    }
+//  if($("#form1-form input[type='checkbox']:checked").length){
+//     // $()
+//     $('.tree_check').after('<p>This is required!</p>');
+//     alert('Tree Species must be selected!');
+//     return false;
+// }
+// var focus = 0;
+$("input[name='log_option']").on('change',function(){
+    if($("input[name='log_option']:checked").val()=='no'){
+        $(".error_filldetails").html("");
+        $('#save_btn').prop('disabled', false);
+    }
+
+});
+$("input[name='trees_cut']").on('change',function(){
+    if($("input[name='trees_cut']:checked").val()=='no'){
+        $(".error_filldetails").html("");
+        $('#save_btn').prop('disabled', false);
+    }
+    
+});
+$('#tab').focusout(function(e){
+    var checked_values=[];
+    $("input:checkbox[class='chk_species']:checked").each(function (event) {
+    checked_values.push($(this).val());
+    });
+    
+    // alert(checked_values);
+    var species_values = $("select[name='species[]']")
+                        .map(function(){
+                            // console.log(this);
+                            return $(this).find(":selected").val();
+                            }).get();
+    if($("input[name='log_option']:checked").val()=='yes'){
+
+
+       if(($(checked_values).not(species_values).length === 0 && $(species_values).not(checked_values).length === 0)){
+        // alert('UnMatched!');
+        console.log('Done!');
+        $(".error_filldetails").html("");
+        $('#save_btn').prop('disabled', false);
+        // event.stopImmediatePropagation();
+       }
+       else{
+        // alert(focus);
+            console.log('Not Done!');
+            $(".error_filldetails").html("Add log details for all tree species!").css({'color':'red'});
+            $('#save_btn').prop('disabled', true);
+            // return true;
+            // console.log('Done!');
+           }
+    }
+    else {
+        console.log('done');
+        $(".error_filldetails").html("");
+        $('#save_btn').prop('disabled', false);
+    }
+
+});
+$("#tab").focusin(function(){
+         $(".error_filldetails").html("");
+      });
+$('#treep').on('change',function(){
+    $("#form1-form input:checkbox").prop('checked',false);    
+});
+
+$("#form1-form input[type='checkbox']").on('change', function(e) {
+    var limit = $('#treep').val();
+    // alert(limit);
+    if(isNaN(limit)==true || limit<1 || limit ==''){
+        alert('Enter Valid Number of trees proposed to be cut.');
+        this.checked = false;
+    } 
+    else if($(this).siblings(':checked').length >= limit) {
+        alert('You can only select '+ limit +' species');
+        this.checked = false;
+   }
+});
+// $('input [name="option"]').after('<p>This is required!</p>');
+
+// $('#save_btn').click(function(e){
+// e.preventDefault();
+// $('#form1-form').on('submit',function(e){
+//     // e.preventDefault();
+// // check_required_inputs();
+// if($("#form1-form input[type='checkbox']:checked").length < 1){
+//     $('.tree_check').after('<p>This is required!</p>');
+//     alert('Tree Species must be selected!');
+//     return false;
+// }
+// $('#form1-form').validate();
+// });
+// });
+    function validateFileType($this){
+        // var fileName = document.getElementById("myFile1").value;
+        var fileName = $($this).val();
+        var idxDot = fileName.lastIndexOf(".") + 1;
+        var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+        if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+            $('#save_btn').prop('disabled', false);
+            // alert('uploaded succesfully!');
+        }else{
+            // $('#upload-file-msg').after('<b>Only jpg/jpeg and png files are allowed!</b>').children().css('color', 'red');
+            alert("Only jpg/jpeg and png files are allowed!");
+            $('#save_btn').prop('disabled', true);
+
+        }
+    }
+//     function openModal2() {
+//   document.getElementById("myModal2").style.display = "block";
+// }
+// function closeModal2(){
+//   document.getElementById("myModal2").style.display = "none";
+// }
+                var myInput = document.getElementById("y");
+                var myInputn = document.getElementById("n")
+
+                myInput.onfocus = function () {
+                    document.getElementById("veh").style.display = "block";
+                    
+                    myInputn.onfocus = function () {
+                        document.getElementById("veh").style.display = "none";
+                    
+                        function myFunction() {
+                            document.getElementById("fa fa-plus-square-o").style.display = "block";
+                        }
+                    }
+                }
+                function calVol(length,breadth)
+                {
+                    // var volume = 3.14*length*breadth*breadth ;
+                    var volume= length*(breadth/4)**2;
+                    return volume;
+                }
+                function validateLat($this){
+                    var lat = $($this).val();
+                    if (lat < -90 || lat > 90) {
+                    alert("Latitude must be between -90 and 90 degrees inclusive.");
+                    $('#save_btn').prop('disabled', true);
+                    }
+                    else if (lat == "") {
+                    alert("Enter a valid Latitude!");
+                    $('#save_btn').prop('disabled', true);
+                    }
+                    else{
+                     $('#save_btn').prop('disabled', false);   
+                    }
+                }
+                function validateLng($this){
+                    var lng = $($this).val();
+                    if (lng < -180 || lng > 180) {
+                    alert("Longitude must be between -180 and 180 degrees inclusive.");
+                    $('#save_btn').prop('disabled', true);
+                    }
+                    else if (lng == "") {
+                    alert("Enter a valid Longitude!");
+                    $('#save_btn').prop('disabled', true);
+                    }
+                    else{
+                     $('#save_btn').prop('disabled', false);   
+                    }
+                }
+                // function ValidateLatLng() {
+                //     var lat = document.getElementById("txtLat").value;
+                //     var lng = document.getElementById("txtLon").value;
+                //     if (lat < -90 || lat > 90) {
+                //     alert("Latitude must be between -90 and 90 degrees inclusive.");
+                //     }
+                //     else if (lng < -180 || lng > 180) {
+                //     alert("Longitude must be between -180 and 180 degrees inclusive.");
+                //     }
+                //     else if (lat == "" || lng == "") {
+                //     alert("Enter a valid Latitude or Longitude!");
+                //     }
+                // }
+                $(document).ready(function(){
+                        $('#photo_proof_select').on('change',function(){
+                    if($('#photo_proof_select').val()==''){
+                    // $("input[name='photo_proof_no']").hide();
+                    $(".photo_file_upload").hide();
+                    }
+                    else{
+                    // $("input[name='photo_proof_no']").attr('placeholder','Enter number of '+ $('#photo_proof_select').val());
+                    // $("input[name='photo_proof_no']").show();
+                    $(".photo_file_upload").show();
+                    }
+                    });
+                    // $('.length ,.breadth').on('change', function() {
+                    $(document).on('change','.length ,.breadth', function() {
+                    
+                    var selectedText = $(this).val();
+                    var $this = $(this).parent().parent();
+                    var rowlength =$($this).children().children('.length').val();
+                    var rowbreadth =$($this).children().children('.breadth').val();
+                    // alert($($this).children().children('.length').val()+$($this).children().children('.breadth').val());
+
+                    $($this).children().children('.volume').val(calVol(rowlength,rowbreadth));
+                    });
+                });
+                $(document).ready(function(){
+                    $('.view_log').hide();
+                    $('#show_log').on('click',function(e){
+                        e.preventDefault();
+                        var species_values = $("select[name='species[]']")
+                        .map(function(){
+                            console.log(this);
+                            return $(this).find(":selected").val();
+                            }).get();
+                         alert(species_values);
+                        var length_values = $("input[name='length[]']")
+                        .map(function(){return $(this).val();}).get();
+                        // alert(length_values);
+                        var breadth_values = $("input[name='breadth[]']")
+                        .map(function(){return $(this).val();}).get();
+                        var volume_values = $("input[name='volume[]']")
+                        .map(function(){return $(this).val();}).get();
+                        var latitude_values = $("input[name='latitude[]']")
+                        .map(function(){return $(this).val();}).get();
+                        var longitude_values = $("input[name='longitude[]']")
+                        .map(function(){return $(this).val();}).get();
+                    //     var show_log ='<div class="row">\
+                    // <div class="cell serial">1</div>\
+                    // <div class="cell species ">Teak (Tectona grandis)</div>\
+                    // <div class="cell">487</div>\
+                    // <div class="cell">17</div>\
+                    // <div class="cell">16</div>\
+                    // <div class="cell">123.456.789</div>\
+                    // <div class="cell">987.654.321</div>\
+                    // </div>';
+                    var show_log="";
+                    for(var iter=0;iter<species_values.length;iter++){
+
+                        show_log +='<div class="row">';
+                        show_log +='<div class="cell serial">'+parseInt(iter+1)+'</div>';
+                        show_log +='<div class="cell species_view ">'+species_values[iter]+'</div>';
+                        show_log +='<div class="cell">'+length_values[iter]+'</div>';
+                        show_log +='<div class="cell">'+breadth_values[iter]+'</div>';
+                        show_log +='<div class="cell">'+volume_values[iter]+'</div>';
+                        show_log +='<div class="cell">'+latitude_values[iter]+'</div>';
+                        show_log +='<div class="cell">'+longitude_values[iter]+'</div>';
+                        show_log +='</div>';
+
+                    }
+                    $('#log_details').empty();
+                    $('#log_details').append(show_log);
+                        $('.view_log').show();
+                    // $("#myBody tr").each(function (){
+                    //     show_log+='<div class="row">';
+                    //     $('td', this).each(function () {
+                    //         if($(this).children().attr('class')=='species'){
+                    //             show_log+='<div class="cell species ">'+$(this).children().val()+'</div>';
+                    //          }
+                    //          else if($(this).children().attr('class')=='sr_no'){
+                    //             show_log+='<div class="cell serial ">'+$(this).children().val()+'</div>';
+                    //          }
+                    //          else{
+                    //             show_log+='<div class="cell">'+$(this).children().val()+'</div>';
+                    //          }
+                    //         // alert($(this).text());
+                    //     });
+                    //     show_log+='</div>';
+
+                    //     $('#myBody')
+                    //     console.log($(this).text());
+                    // });
+                        
+
+                    });
+                });
+            </script>
+{% if messages %}
+        <!-- <ul > -->
+        {% for message in messages %}
+        <script type="text/javascript">
+            openModal2();
+        </script>
+        <!-- <li style="color: red;">{{ message }}</li> -->
+        {% endfor %}
+{% else %}
+<script type="text/javascript">
+            closeModal2();
+        </script>
+        <!-- </ul> -->
+ {% endif %}
+</html>

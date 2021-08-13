@@ -1,0 +1,152 @@
+{% load static%}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap');
+
+*{ margin:0px; padding:0px; text-decoration:none; list-style:none; font-weight:normal; box-sizing:border-box;}
+
+body{
+background:#fff;
+}
+.top_band{
+height:60px;
+font-family: 'Cairo', sans-serif;
+font-family: 'Roboto', sans-serif;
+border-bottom:4px solid #654320;
+display:flex;
+justify-content:space-between;
+padding-right:15px;
+font-size:16px;
+}
+.top_band .nav{
+display:flex;
+margin-right:20px;
+align-items:center;
+}
+.top_band .nav a{
+padding:0px 15px;
+font-size:16px;
+line-height:26px;
+padding-bottom:2px;
+color:#000;
+font-weight:500;
+display:inline-block;
+}
+.top_band .nav a:hover{
+background:green;
+color:#fff;
+
+}
+.logo{
+width:180px;
+padding:0px 15px;
+margin-top:5px;
+}
+.logo:hover{
+background:#fff !important;
+}
+.logo img{
+width:100%;
+}
+
+.user_logout{
+display:flex;
+align-items:center;
+} 
+.user_logout .logout{
+padding:2px 10px;
+padding-bottom:4px;
+line-height:24px;
+margin-left:20px;
+background:none;
+border:1px solid #ccc;
+font-size:16px;
+font-family: 'Cairo', sans-serif;
+color:#000;
+cursor:pointer;
+}
+.user_logout .logout:hover{
+background:#654320;
+color:#fff;
+}
+.user_name{
+color:green;
+font-weight:500;
+}
+.user_name .fa{
+	margin-right: 5px;
+}
+/*----------------- For Content ---------------------------*/
+
+
+/*.nice_scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.nice_scroll::-webkit-scrollbar-track {
+  background: #654320;
+}
+
+.nice_scroll::-webkit-scrollbar-thumb {
+  background: #fff;
+}
+*/
+  /*background-image: url(img/bg_01.jpg);*/
+.cont{
+  background-size: cover;
+  background-attachment: fixed;
+  padding-top: 60px;
+  padding-bottom: 50px;
+  height:calc(100vh - 60px);
+  overflow-y:scroll;
+}
+/*.wrap{
+width:80%;
+margin:auto;
+height:2000px;
+background:#fff;
+}*/
+</style>
+
+
+</head>
+
+<body>
+
+<div class="top_band">
+		<ul class="nav">
+			<li><a href="{% url 'index' %}" class="logo"><img src="{% static 'images/tigram_logo02.png' %}" alt="" /></a></li>
+			<li><a href="{% url 'index' %}">Home</a></li>
+			<li><a href="{{request.META.HTTP_REFERER|escape}}">Back</a></li>
+			{% if request.user.id %}
+			{% ifequal groups.0 "user" %}
+			<li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+			{% else %}
+			<li><a href="{% url 'officer_dashboard' %}">Dashboard</a></li>
+			<li><a href="{% url 'all_reports' %}">Reports</a></li>
+			{% endifequal %}
+			{% endif %}
+		</ul>
+		<div class="user_logout">
+			{% if request.user.id %}
+			<div class="user_name"><a href="{% url 'view_profile' request.user.id %}"><i class="fa fa-user"></i>{{request.user.name | capfirst}}</a></div>
+			<a href="{% url 'user_logout' %}" class="logout"><i class="fa fa-sign-out"></i> Logout</a>
+			{% endif %}
+		</div>
+</div>
+<!-- <div class="cont nice_scroll">
+	<div class="wrap">
+	</div>
+</div> -->
+		{% block content %}
+		{% endblock %}
+
+</body>
+
+</html>

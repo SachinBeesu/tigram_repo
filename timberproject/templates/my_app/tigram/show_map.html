@@ -1,0 +1,163 @@
+<!-- <!DOCTYPE html> -->
+
+<html>
+  <head>
+    <title></title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+   
+    
+<style>/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+#map {
+  height: 80%;
+overflow-y: hidden;
+}
+/*body{
+
+}*/
+/* Optional: Makes the sample page fill the window. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
+}</style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <input hidden="hidden" id="latlng-val" value="" data-target-val="">
+    <input hidden="hidden" id="latlng-current" value="" data-target-val="">
+    <input hidden="hidden" id="latlng-current2" value="" data-target-val="">
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBPf9bicH7sDBp5mTlrRtWWHSn620zxog&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+
+<script>
+  let markers = [];
+  // function changeMarkerPosition(marker) {
+  //   var lati=document.getElementById('latlng-current').value;
+  //   var lngi=document.getElementById('latlng-current2').value;
+  //   var latlng = new google.maps.LatLng(lati, lngi);
+  //   // alert(lati+lngi+"-");
+  //   marker.setPosition(latlng);
+// }
+  // var marker1 = new google.maps.Marker({
+  //   position: latlng,
+  //   map,
+  //   title: "You have selected "+latlng+"",
+  // });
+
+ // changeMarkerPosition(marker1);
+function initMap() {
+  const myLatlng = { lat: 10.8505, lng: 76.2711 };
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 10,
+    center: myLatlng,
+  });
+  // Create the initial InfoWindow.
+  const contentString =
+    '<div id="content">' +
+    '<div id="siteNotice">' +
+    "</div>" +
+    '<h1 id="firstHeading" class="firstHeading">Uluru</h1></div>';
+
+  let infoWindow = new google.maps.InfoWindow();
+  infoWindow.open(map);
+  // Configure the click listener.
+  map.addListener("click", (mapsMouseEvent) => {
+    // Close the current InfoWindow.
+    infoWindow.close();
+    // Create a new InfoWindow.
+    infoWindow = new google.maps.InfoWindow({
+      position: mapsMouseEvent.latLng,
+      anchor: marker,
+      shouldFocus: false,
+      content: contentString,
+    });
+    // infoWindow.setContent("Your have selected "+mapsMouseEvent.latLng+" .");
+     // document.getElementById("map_content").style.display = "none";
+// alert('You Have Selected '+mapsMouseEvent.latLng);
+var latlng=mapsMouseEvent.latLng;
+// document.getElementById('latlng-val').value=latlng;
+var lt=document.getElementById('latlng-val').value;
+clearMarkers();
+
+var marker = new google.maps.Marker({
+    position: latlng,
+    map,
+    title: "You have selected "+latlng+"",
+  });
+// marker.addListener("click", () => {
+//     infowindow.open({
+//       anchor: marker,
+//       shouldFocus: false,
+//     });
+//   });
+markers.push(marker);
+// var mapid = new google.maps.Map(document.getElementById("map"), marker);
+// marker.setMap(null);
+// marker.setMap(mapid);
+
+// alert(lt+'-==========');
+document.getElementById(lt).value=latlng.lat();
+document.getElementById(lt+'-long').value=latlng.lng();
+getConfirmation(latlng.lat(),latlng.lng());
+// return latlng;
+  });
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(
+    browserHasGeolocation
+      ? "Error: The Geolocation service failed."
+      : "Error: Your browser doesn't support geolocation."
+  );
+  infoWindow.open(map);
+}
+const locationButton = document.createElement("button");
+  locationButton.textContent = "Pan to Current Location";
+  locationButton.classList.add("custom-map-control-button");
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+  locationButton.addEventListener("click", () => {
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          infoWindow.setPosition(pos);
+          infoWindow.setContent("Location found.");
+          infoWindow.open(map);
+          map.setCenter(pos);
+          var lt=document.getElementById('latlng-val').value;
+          document.getElementById(lt).value=pos.lat;
+document.getElementById(lt+'-long').value=pos.lng;
+        },
+        () => {
+          handleLocationError(true, infoWindow, map.getCenter());
+        }
+      );
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+  });
+}
+
+
+  function setMapOnAll(map) {
+  for (let i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+  function clearMarkers() {
+  setMapOnAll(null);
+}
+
+</script>
+  </body>
+</html>

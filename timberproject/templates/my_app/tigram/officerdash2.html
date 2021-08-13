@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/officerdash.css' %}">
+	<!-- <link rel="stylesheet" href="css/officerdash.css"> -->
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Jquery -->
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css" href="{% static 'js/DataTables/datatables.css' %}">
+    <script type="text/javascript" charset="utf8" src="{% static 'js/DataTables/datatables.js' %}"></script>
+</head>
+
+<body>
+    
+    <nav class=nav>
+        <h2>{{text_show}}  Dashboard</h2>
+        <div class="right">
+            <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+            <a href="{% url 'view_profile' request.user.id %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+        </div>
+    </nav>
+	<div class="cont">
+		<div class="wrap">
+    <div class="div1">
+        <h2>Summary Report</h2>
+        <form class="form">
+            <div id="piechart">
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Applications', 'Per Day'],
+                        ['Application', 8],
+                        ['Approved', 2],
+                        ['Rejected', 4],
+                        ['Pending', 2],
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'width': 746, 'height': 450 };
+
+                    // Display the chart inside the div element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+            </script>     
+            
+           
+        </div>
+		</form>
+		 <button class="btn1"><a href="{% url 'summary_report' %}"><i class="fa fa-download"></i>Download</a></button>
+    </div>
+    <div class="div2 nice_scroll" >
+		 
+        <table id="myTable" class="table" style="width:100% ; ">
+            <thead>
+                
+                <tr style="background-color:#ffffff">
+                    <th>Sr.No</th>
+                    <th>Application No.</th>
+                    <th>Applicant Name</th>
+                    <th>Application Date</th>
+                    <!-- <th id="query">Query</th> -->
+                    <th>Current Status</th>
+                    <th>Approved Date</th>
+                    <th>Action</th>
+                    <th>Download TP</th>
+                    <th>Download Report</th>
+                    <th>Get QR Codes</th>
+                    <th id="remark">Remark</th>
+    				<th>Remark Date</th>
+                </tr>
+            </thead>
+    <tbody>
+        
+            {% for each in application %}
+                <tr>
+                    <td>{{each.sr}}</td>
+                    <!-- <td>{{each.applicant_no}}</td> -->
+                    <td>{{each.application_no}}</td>
+                    <td>{{each.applicant_name}}</td>
+                    <td>{{each.created_date}}</td>
+                    <!-- <td>{{each.query}}</td> -->
+                    <td>{{each.current_status}}</td>
+                    <td>{{each.tp_issue_date}}</td>
+                    <td><a href="{% url 'application_view' each.applicant_no  %}">View Application</a>
+                     &nbsp;
+                     {% if group == 'deputy range officer' %}
+                        <a href="{% url 'edit_application' each.applicant_no  %}">Edit Application</a>
+                    {% endif %}
+                    </td>
+                    {% if each.application_status == 'Approved' %}
+                    <td><button class="btn" style="width:90px"><a href="{% url 'transit_pass_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    <td><button class="btn" style="width:90px"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    <td><button class="btn" style="width:90px"><a href="{% url 'qr_code_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Print</a></button></td>
+                    <td>{{each.remark}}</td>
+                    {% else %}
+                    <td></td>
+                    <td><button class="btn" style="width:90px "><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    <!-- <td><button class="btn" style="width:90px" disabled><i class="fa fa-download"></i> Download</button></td> -->
+                    <td></td>
+                    <td>{{each.remark}}</td>
+                    {% endif %}
+
+                    <td>{{each.remark_date}}</td>
+                </tr>
+            {% endfor %}
+    </tbody>
+        </table>
+
+    </div>
+	</div>
+	</div>
+</body>
+<script type="text/javascript">
+    var message = "{{message}}";
+    if(message.length>0)
+    {
+        alert(message);
+    }
+    $(document).ready(function(){
+        $('#myTable').DataTable();
+    });
+</script>
+</html>

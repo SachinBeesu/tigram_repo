@@ -1,0 +1,225 @@
+{% extends 'my_app/tigram/admin/menu-left.html' %}
+{% block content %}
+<html>
+<!-- <head><script src="https://code.jquery.com/jquery-3.5.1.js"></script></head> -->
+<head>
+	<style type="text/css">
+		.user_details .input_box{
+width:100%;
+margin-bottom:20px;
+}
+.user_details .input_box input,.user_details .input_box textarea{
+width:100%;
+padding:7px;
+font-family: 'Cairo', sans-serif;
+font-size:16px;
+line-height:22px;
+outline:none;
+border:1px solid #ccc;
+background:#fff;
+}
+.user_details .input_box textarea{
+height:105px;
+resize:none;
+padding:7px;
+margin-bottom:10px;
+font-size:16px;
+line-height:22px;
+}
+
+.file_upload{
+margin-bottom:20px;
+}
+.file_upload label{
+width:200px;
+display:inline-block;
+
+}
+.file_upload input[type="file"]::-webkit-file-upload-button {
+  background: #fff;
+  color:#222;
+  padding:5px 15px;
+  margin:0px 10px;
+  border:1px solid #aaa;
+  cursor:pointer;
+}
+.file_upload input[type="file"]::-webkit-file-upload-button:hover {
+  background: #000;
+  color:#fff;
+}
+select {
+    width: 100%;
+    padding: 12px 12px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+.red-color {
+color:red;
+}
+div.childs{
+	text-indent: 50px;
+}
+	</style>
+</head>
+
+<body>
+	<div>
+		<label>Select Role:</label>
+		<select  name="group_id" id="role_name" style="width:30%;">
+
+			<option>Select Role</option>
+			{% for each in role_list %}
+			{% ifnotequal each.name 'admin'  %}
+			<option value="{{each.id}}" {% ifequal selected_role each.id %}selected{% endifequal %}>{{each.name}}</option>
+			{% endifnotequal %}
+			{% endfor %}
+		</select>
+		<br>
+		<div style="float:right;">
+			<a id="select_all">Select All</a> | <a id="unselect_all">UnSelect All</a>
+		</div>
+<!-- {% for each in permissions %}
+{{forloop.counter}}. <input type="checkbox" name="permissions_select{{each.id}}" class="permissions_select" value="{{each.id}}"> {{each.name}}<br/>
+{% endfor %} -->
+
+
+{%  for each in permissions %}
+<!-- {{each.parent_id}} -->
+<!-- {{each.childs}} -->
+{% if each.childs %}
+<label >{{forloop.counter}}. {{each.name}}</label> <button type="button" class="fa fa-plus col-btn" data-toggle="collapse" style="color: blue;" data-target="#demo{{each.id}}"></button><br><br>
+
+{% else %}
+<label >{{forloop.counter}}. <input type="checkbox" name="permissions_select{{each.id}}" class="permissions_select" value="{{each.id}}"> {{each.name}}</label><br/>
+{% endif %}
+
+{% if each.childs %}
+<div id="demo{{each.id}}" class="collapse">
+{%    for eachp in each.childs %}
+<div class="childs">{{forloop.counter}}.<input type="checkbox" name="permissions_select{{eachp.id}}" class="permissions_select" value="{{eachp.id}}"> {{eachp.name}}</div><br/>
+{%    endfor %}
+</div>
+{% endif %}
+{%  endfor %}
+
+ <button type="button" class="btn btn-success" id="save-form"  data-update="">Save Details</button>
+	</div>
+	<div id="myModal2" class="modal fade" role="dialog" >
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit User</h4>
+      </div>
+	      <div class="modal-body">
+	        <!-- <p>Some text in the modal.</p> -->
+	        <form id="form-act" method='POST' action="{% url 'signup' %}" enctype="multipart/form-data">
+	        {% csrf_token %}
+			<!-- <div class="title"><span>Registration</span> </div> -->
+			<div class="user_details">
+                <label for="uname" class="custom-file-upload" ><b>Division Name:</b></label>
+				<div class="input_box"><input type="text" value="" placeholder="Name" name="uname" required /></div>
+
+
+			</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" id="submit-form" data-dismiss="modal" data-update="">Update</button>
+      </div>
+		</form>
+    </div>
+
+  </div>
+</div>
+</body>
+<script>
+
+
+
+
+    $(document).ready(function(){
+    	$('#select_all').on('click',function(e){
+    		e.preventDefault();
+    			$('.permissions_select').attr( 'checked',true);
+    			// location.reload(false);
+    	})
+    	$('#unselect_all').on('click',function(e){
+    		e.preventDefault();
+    			$('.permissions_select').attr( 'checked',false);
+    			// location.reload(false);
+    	})
+  	console.log('{{parent_list}}');
+	$('#save-form').click(function(){
+		console.log('here..');
+		var perm_list = [];
+		var delete_list2="";
+		var group_id = $('#role_name').val();
+		var token='{{csrf_token}}';
+		// '{{csrf_token}}';
+            $(".permissions_select:checked").each(function() {
+                perm_list.push($(this).val());
+            });
+            console.log(perm_list);
+            // delete_list2=JSON.stringify(delete_list);
+            $.ajax({
+            	'url':'{% url "admin_save_role_permission" %}',
+		        headers: { "X-CSRFToken": token },
+            	// 'csrfmiddlewaretoken': token,
+            	type:'POST',
+            	data:{'perm_list[]':perm_list,
+            				'group':group_id
+            			},
+          //   	{
+          //   		'delete_list':delete_list,
+        		// },
+        		// dataType: 'json',
+            	success:function(data){
+            		alert(data.message);
+            	}
+
+            })
+	});
+	$('#role_name').on('change',function(){
+			var role =$(this).val();
+			var token='{{csrf_token}}';
+			$('.permissions_select:checked').attr( 'checked',false);
+			console.log(role);
+			 $.ajax({
+            	url:'../view_role_permission/'+role,
+		        headers: { "X-CSRFToken": token },
+            	// 'csrfmiddlewaretoken': token,
+            	type:'POST',
+            	// data:{'perm_list[]':perm_list,
+            	// 			'group':group_id
+
+            	// 		},
+          //   	{
+          //   		'delete_list':delete_list,
+        		// },
+        		// dataType: 'json',
+            	success:function(data){
+            		// alert(data.permissions);
+            		$.each(data.permissions,function(index,value){
+            			$('input[name="permissions_select'+value+'"]').attr( 'checked',true);
+            		});
+            	}
+
+            })
+	})
+	$(".col-btn").click(function(){
+		$(this).toggleClass("fa-minus");
+		 // $("p").toggleClass("main");
+	});
+});
+
+</script>
+</html>
+	{% endblock %}

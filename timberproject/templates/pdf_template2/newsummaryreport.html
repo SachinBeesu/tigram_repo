@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <style type="text/css">
+ table,th,tr,td{
+    /* border:1px ; */
+    /* border-solid; */
+    background-color:  #ffffff; 
+    border-collapse: collapse;
+    padding:2px;
+    /* padding-left: 10px; */
+}
+.table1{
+    width: 100%;
+    /* margin-left:auto; */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    /* border:none; */
+}
+.table2{
+    width: 100%;
+    margin-left:auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    background-color:  rgba(255,255,255,0.9);
+    border:1px solid black;
+}
+.table3{
+    width: 100%;
+    margin-left:auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    background-color:  rgba(255,255,255,0.9);
+    border:1px solid black;
+}
+#qr{
+    height: 120px;
+}
+.layout{
+    display: none;
+}
+#main{
+    height: 100px;
+}
+span{
+    display: block;
+    text-align: center;
+}
+#th1{
+    width:150px;
+    height: 120px;
+}
+.head{
+    font-size: 16px;
+    text-align: left;
+    padding-top: 7px;
+}
+.tb_cont{
+    font-size: 16px;
+    text-align: left;
+    padding-top: 7px;
+}
+.tb_cont span{
+    display: block;
+    text-align: left;
+}
+.headl{
+    margin-left: 0px;
+    /* width:400px; */
+    /* padding:8px; */
+}
+.sig{
+    padding-top: 80px;
+    padding-right:20px;
+    float:right;
+    border:none;
+}
+.head1{
+    height: 100px;
+}
+.sig2{
+    float:right;
+    padding-right:30px;
+}
+.auth{
+    float:right;
+    padding-right: 30px;
+}
+#end{
+    font-size: 20px;
+    font-weight: bold;
+}
+.table4{
+    width:100%;
+}
+.col2{
+    font-weight: bold;
+    font-weight:700;
+    font-size: 80px;
+}
+.sign_img{
+    width:300px !important;
+}
+.qr_img{
+    width:200px !important;
+}
+    </style>
+</head>
+
+<body>
+    <table class="table1" style="margin:0px; padding:0px;">
+        <!-- <tr class="layout">
+            <th id="th1"><img src="{{logo1}}" width="70" /></th>
+            <th id="col2">TIGRAM</th>
+            <th></th>
+            <th id="th1"><img src="{{logo1}}" width="70" /></th>
+        </tr> -->
+         <tr id="main" style="display:flex; justify-content:space-between; margin:0px; padding:0px;">
+                            <td style="width:33.33%; text-align:left;" id="th1"><img src="{{logo1}}" width="180px" height="90px" style="width:180px; height:90px"/></td>
+           
+            <td   style="width:33.33%; text-align:center;" id="col2"><img src="{{logo3}}" width="190px" height="40px" style="width:190px; height:40px;" /></td>
+            <td style="width:33.33%; text-align:right;" id="th1"><img src="{{logo2}}" width="120px" height="80px" style="width:120px; height:80px;" /></td>
+        </tr>
+    </table>
+    
+    <hr width="100%" color="#012a6c" size="5" style="margin:0px; padding:0px;" />
+<hr width="100%" color="#c4113b" size="5" style="margin:0px; padding:0px;" />
+    <br>
+        <table style="border: 1px solid black;">
+        <tr>
+         
+          <th  style="padding-top: 7px; background-color: #012a6c;font-size: 15px;"><p style="color: white;">Sr.NO</p></th>
+          <th style="padding-top: 7px; background-color: #012a6c;font-size: 15px"><p style="color: white;">Application Id</p></th>
+          <th style="padding-top: 7px; background-color: #012a6c;font-size: 15px"><p style="color: white;">Applicant Name</p></th>
+          <th style="padding-top: 7px; background-color: #012a6c;font-size: 15px"><p style="color: white;">Status</p></th>
+          <th style="padding-top: 7px; background-color: #012a6c;font-size: 15px"><p style="color: white;">Remark</p></th>
+        </tr>
+        {% for each in applications %}
+        <tr>
+        
+          <td style="text-align: center;font-size: 16px">{{forloop.counter}}</td>
+          <td style="text-align: center;font-size: 16px">{{each.id}}</td>
+          <td style="text-align: center;font-size: 16px">{{each.name}}</td>
+          <td style="text-align: center;font-size: 16px">{{each.get_application_status_display}}</td>
+  
+          {% if each.reason_range_officer != '' %}
+          
+          <td style="text-align: center;font-size: 16px">{{each.reason_range_officer}}</td>
+          {% elif each.reason_depty_ranger_office != '' %}
+          <td style="text-align: center;font-size: 16px">{{each.reason_depty_ranger_office}}</td>
+          {% elif each.reason_office != '' %}
+          <td style="text-align: center;font-size: 16px">{{each.reason_office}}</td>
+          {% else %}
+          <td style="text-align: center;font-size: 16px">{{'N/A'}}</td>
+      {% endif %}
+
+        </tr>
+        {% endfor %}
+
+
+      </table>
+<br>
+
+    </div>
+</body>
+
+</html>

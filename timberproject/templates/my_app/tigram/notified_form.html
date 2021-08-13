@@ -1,0 +1,1587 @@
+{% extends 'my_app/tigram/top_band_cont.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="css/form1.css"> -->
+    <link rel="stylesheet" href="{% static 'css/form1.css' %}">
+    <!-- <link rel="stylesheet" href="css/dash.css"> -->
+    <!-- <link rel="stylesheet" href="{% static 'css/dash.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'css/viewapplication.css' %}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <script src="{% static 'js/repeater.js' %}"></script>
+    <!-- <script type="{% static 'materialize/js/materialize.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'materialize/css/materialize.css' %}"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"> -->
+    <style>
+        #myModal2 {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  padding-top: 130px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  /*background-color: black;*/
+    z-index:100;
+}
+#map_content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  /*padding-top: 130px;*/
+  left: 5%;
+  top: 130px;
+  width: 90%;
+  align-self: center;
+  height: 90%;
+  overflow: auto;
+  /*background-color: black;*/
+    z-index:100;
+}
+.cursor {
+  cursor: pointer;
+}
+#myModal2content{
+     position: relative;
+  background-color: greenyellow;
+  margin: auto;
+  padding: 0;
+  width: 30%;
+  max-width: 1200px;
+}
+/* Modal Content */
+.myModal3content{
+  position: relative;
+  /*background-color: greenyellow;*/
+  margin: auto;
+  padding: 0;
+  
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+}
+#update-btn:hover {
+  /*color:#fff;
+  background: white;*/
+}
+
+.close:hover,
+.close:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}/*
+        .nav{
+        position:fixed;
+        width:100%;
+        }*/
+        #tab {
+            display: none;
+            color: #000;
+            position: relative;
+           padding:10px;
+           margin:10px 0px;
+            margin-top: 5px;
+        }
+
+        #veh {
+            display: none;
+            color: #000;
+            position: relative;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .add_log{
+        background:#fff;
+        }
+        .add_log thead{
+        margin-bottom:5px;
+        padding-bottom:5px;
+        }
+        .add_log thead td{
+        text-transform:initial;
+        padding-left:5px;
+            font-size: 14px;
+    font-weight: 600;
+    padding-bottom:5px;
+        }
+        .add_log input{
+        margin:0px !important;
+        padding:5px 7px !important;
+        border:none;
+        outline:none !important;
+        }
+        .add_log select{
+        padding:5px 7px !important;
+        border:none;
+        outline:none !important;
+        }
+        .add_log tbody{
+        border:1px solid #ccc;
+        }
+        .add_log tbody td{
+        padding:0px !important;
+        margin-right:10px;
+        border:1px solid #ccc;
+        }
+        
+        .add_log table{
+        border-spacing:0px;
+        }
+        
+        .nice_scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+/*.nice_scroll::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+.nice_scroll::-webkit-scrollbar-thumb {
+  background: #a7a7a7;
+}*/
+
+#addbutton{
+margin-left:10px;
+margin-right:10px;
+background:#6174ff;
+border-radius:0px;
+width:20px;
+height:20px;
+border:none;
+outline:none;
+color:#fff;
+}
+#addbutton02{
+margin-left:10px;
+margin-right:10px;
+background:#6174ff;
+border-radius:0px;
+width:20px;
+height:20px;
+border:none;
+outline:none;
+color:#fff;
+}
+.remove_btn button{
+background:black;
+color:#fff;
+margin-left:10px;
+border-radius:none;
+width:20px;
+height:20px;
+border:none;
+outline:none;
+}
+.form{
+padding-top:90px;
+}
+.file_upload{
+margin-bottom:20px;
+}
+/*.file_upload label{
+width:200px;
+display:inline-block;
+
+}*/
+.file_upload label{
+width:200px;
+display:inline-block;
+
+}
+.file_upload input[type="file"]::-webkit-file-upload-button {
+  background: #fff;
+  color:#222;
+  padding:5px 15px;
+  margin:0px 10px;
+  border:1px solid #aaa; 
+  cursor:pointer;
+  width: 130px;
+}
+.file_upload input[type="file"]::-webkit-file-upload-button:hover {
+  background: #000;
+  color:#fff;
+}
+
+.view_log .tbl_head{
+background:#444;
+display:flex;
+}
+.view_log .tbl_head .txt{
+width:calc(100% / 7);
+padding-left:10px;
+padding-bottom:5px;
+font-size:16px;
+font-weight:600;
+color:#fff;
+}
+.view_log .tbl_head .txt.serial{
+width:55px;
+}
+.view_log .tbl_head .txt.species{
+width:200px;
+}
+.view_log .tbl_body{
+background:#fff;
+}
+.view_log .tbl_body .row{
+display:flex;
+border-bottom:1px solid #ccc;
+}
+.view_log .tbl_body .cell{
+width:calc(100% / 7);
+padding-left:10px;
+font-size:16px;
+line-height:24px;
+padding:10px;
+}
+.view_log .tbl_body .cell.serial{
+width:50px;
+}
+.view_log .tbl_body .cell.species{
+width:205px !important;
+}
+
+.personal_details hr{
+    margin-bottom:15px;
+}
+.personal_details input,.personal_details select{
+    margin: 0px 0;
+    margin-bottom:15px;
+    padding: 8px 12px;
+    outline:none;
+}
+.personal_details label{
+
+display:block;}
+
+.tree_check label{
+font-size:16px;
+line-height:16px;
+font-weight:600;
+}
+.tree_check input{
+font-size:16px;
+width:16px;
+height:16px;
+margin-right:5px;
+
+}
+.required:after {
+    content:" *";
+    color: red;
+  }
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  /*background-color: #333;*/
+  background-color: #fff;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  /*bottom: 30px;*/
+  top: 140px;
+  font-size: 17px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/*@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}*/
+
+@-webkit-keyframes fadein {
+  from {top: 0; opacity: 0;} 
+  to {top: 140px; opacity: 1;}
+}
+
+@keyframes fadein {
+/*  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}*/
+  from {top: 0; opacity: 0;}
+  to {top: 140px; opacity: 1;}
+}
+
+/*@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+
+}*/
+@-webkit-keyframes fadeout {
+  from {top: 140px; opacity: 1;} 
+  to {top: 0; opacity: 0;}
+  
+}
+
+@keyframes fadeout {
+/*  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}*/
+  from {top: 140px; opacity: 1;}
+  to {top: 0; opacity: 0;}
+}
+
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 440px;
+  max-width: 320px;
+  /*background-color: black;*/
+  background-color: black;
+  border-color:black ;
+  border: 2px;
+  /*color: #fff;*/
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+    </style>
+</head>
+
+<body>
+   <!--   <nav class="nav">
+            <div class="right">
+                <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+                <a href="{% url 'view_profile' request.user.id %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+            </div>
+        </nav> -->
+            <!-- <script>M.toast({html: "Application submitted succesfully!", classes: 'green rounded', displayLength:2000});</script> -->
+         {% if messages %}
+        <!-- <ul > -->
+        {% for message in messages %}
+        {% if message.tags == "success" %}
+    <div id="snackbar" style="background-color:green;"><b><i class="fa fa-check" style="font-size:23px;color:white"></i>{{message}}</b></div>
+    {% elif message.tags == "error"%}
+    <div id="snackbar" style="background-color:red;"><b><i class="fa fa-times-circle" style="font-size:23px;color:white"></i>{{message}}</b></div>
+    {% elif message.tags == "warning"%}
+    <div id="snackbar" style="background-color:#ffc107;"><b><i class="fa fa-exclamation-triangle" style="font-size:23px;color:white"></i>{{message}}</b></div>
+    {% else %}
+    <div id="snackbar" style="background-color:grey;"><b><i class="fa fa-home" style="font-size:23px"></i>Something Wrong!</b></div>
+    {% endif %}
+
+    {% endfor %}
+
+    {% endif %}
+    <form class="form cont nice_scroll" id="form1-form" action="{% url 'notified_application_form' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container">
+        <div class="content">
+         <!-- <h1>Choose Division and Range</h1> -->
+        <label for="area_range" class="required"><b>Administrative Forest Range:</b></label>
+        <select name="area_range" id="range_sel" class="nothing" style="width: 200px;" required>
+                                <option value="">Select Range</option>
+                                {% for each in range_areas %}
+                                    <option value="{{each.name}}" class="italize_species"> {{each.name}}</option>
+                                {% endfor %}
+
+ <!--                                    <option value="Kulathupuzha" class="italize_species"> Kulathupuzha</option>
+                                    <option value="Palode" class="italize_species"> Palode</option> -->
+                                
+        </select>
+            <br>
+        <label for="division" class="required"><b>Administrative Forest Division:</b></label>
+            <select name="division" id="division_sel" class="nothing" style="width: 200px;" required>
+                                <option value="">Select Division</option>
+                               
+                               {% for each in division_areas %}
+                                    <option value="{{each.name}}" class="italize_species"> {{each.name}}</option>
+                                {% endfor %}
+                                    <!-- <option  class="italize_species"> Trivandrum</option> -->
+                                
+                            </select>
+            <br>
+        </div>
+            <div class="personal_details">
+            <h1>Form II : Transit Pass Application form for Notified Villages </h1>
+    
+            <hr>
+            
+            <label for="uname" class="required"><b>Name:</b></label>
+            <input type="text" placeholder="Enter your name" name="uname" required>
+            <br>
+      
+            <label for="add" class="required"><b>Address:</b></label>
+            <input type="text" placeholder="Enter your address" name="add" required>
+            <br>
+            
+            <label for="sno" class="required"><b>Survey Number:</b></label>
+            <input type="text" placeholder="Enter your survey number" name="sno" required>
+            <br>
+            
+
+            <!-- <label for="treep" class="required"><b>Number of trees proposed to be cut:</b></label>
+            <input type="text" pattern="\d+" placeholder="Enter number of trees" id="treep" title="Only positive numbers allowed" name="treep" required> -->
+            
+            <br>
+            
+            <label for="dist" class="required"><b>District:</b></label>
+            
+            <select name="dist" id ="dist" class="dist" required>
+                <option value="">Select District</option>
+                {% for each in district_name %}
+                    <option value="{{each.district_name}}" class="italize_species"> {{each.district_name}}</option>
+                {% endfor %}
+            </select>
+            
+            <br>
+            <label for="taluka" class="required"><b>Taluka:</b></label>
+            <!-- <input type="text" placeholder="Enter your Taluka" name="taluka" required> -->
+            <select name="taluka" id ="taluka" class="taluka" required>
+                                <option value="">Select Taluka</option>
+                                <!-- <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                                <option value="Nedumangadu">Nedumangadu</option>
+                                <option value="Chirayinkeezhu">Chirayinkeezhu</option>
+                                <option value="Kattakada">Kattakada</option>
+                                <option value="Neyyattinkara">Neyyattinkara</option>
+                                <option value="Varkala">Varkala</option> -->
+
+            </select>
+            <br>
+
+            
+            <label for="vil" class="required"><b>Village:</b></label>
+            <!-- <input type="text" placeholder="Enter your Village" name="vil" required> -->
+            <select name="village" id ="village" class="village" required>
+                <option value="">Select village</option>
+                <!-- <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                <option value="Nedumangadu">Nedumangadu</option>
+                <option value="Chirayinkeezhu">Chirayinkeezhu</option>
+                <option value="Kattakada">Kattakada</option>
+                <option value="Neyyattinkara">Neyyattinkara</option>
+                <option value="Varkala">Varkala</option> -->
+
+</select>
+            
+            <br>
+            
+            
+            <label for="block" class=""><b>Block: (optional)</b></label>
+            <input type="text" placeholder="Enter your Block" name="block" value="N/A">
+
+            <!-- <input type="text" placeholder="Enter your District" name="dist" required> -->
+            <br>
+             <label for="pincode" class="required"><b>Pincode:</b></label>
+            <input type="text" placeholder="Enter your Pincode" name="pincode" >
+            <br>
+        </div>  
+                <br>
+            <div class="file_upload">
+            <label style="width:160px;" for="pro"class="required"><b>Proof of ownership:</b>
+                    <div class="tooltip"><i class="fa fa-question-circle" aria-hidden="true"></i>
+                <span class="tooltiptext">Please upload image of Proof of ownership document.</span>
+            </div>
+            </label>
+            <input type="file" id="myFile" class="file_type_info" name="ownership_proof_img" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required>
+            </div>  
+            <br>
+            
+            <div id='chk_div' class="tree_check">
+                <b class="required">Species of tree or trees proposed to be cut:</b>
+                <!-- <input type="checkbox" id="s1" name="species1" class="chk_species" value="Sandal wood(Santalum album)">
+                <label for="s1"> Sandal wood(Santalum album)</label><br> -->
+                {% for each_speci in trees_species %}
+                <input type="checkbox" id="s{{forloop.counter}}" name="species{{forloop.counter}}" class="chk_species" value="{{each_speci.name}}" data-value="{{each_speci.id}}" oninvalid="this.setCustomValidity('Please select any one of the tree species!')" onchange="this.setCustomValidity('')" required>
+                <label for="s{{forloop.counter}}" class="italize_species"> {{each_speci.name}}</label><br>
+                {% endfor %}
+                <!-- <input type="checkbox" id="s2" name="species2" class="chk_species" value="Rosewood(Dalbergia latifolia)">
+                <label for="s2"> Rosewood(Dalbergia latifolia)</label><br>
+                <input type="checkbox" id="s2" name="species2" class="chk_species" value="Teak(Tectona grandis)">
+                <label for="s2"> Teak(Tectona grandis)</label><br>
+                <input type="checkbox" id="s3" name="species3" class="chk_species" value="Thempavu(Terminalia tomantosa)">
+                <label for="s3">Thempavu(Terminalia tomantosa)</label><br>
+                <input type="checkbox" id="s4" name="species4" class="chk_species" value="Kamoakam(Hopea Parviflora)">
+                <label for="s4">Kamoakam(Hopea Parviflora)</label><br>
+                <input type="checkbox" id="s4" name="species4" class="chk_species" value="Chadachi(Grewia tiliaefolia)">
+                <label for="s4">Chadachi(Grewia tiliaefolia)</label><br>
+                <input type="checkbox" id="s5" name="species5" class="chk_species" value="Chandana vempu(Cedrela toona)">
+                <label for="s5">Chandana vempu(Cedrela toona)</label><br>
+                <input type="checkbox" id="s6" name="species6" class="chk_species" value="Vellakil(Dysoxylum malabaricum)">
+                <label for="s6">Vellakil(Dysoxylum malabaricum)</label><br>
+                <input type="checkbox" id="s7" name="species7" class="chk_species" value="Irul(Xylia xylocarpa)">
+                <label for="s7">Irul(Xylia xylocarpa)</label><br>
+                <input type="checkbox" id="s8" name="species8" class="chk_species" value="Ebony(Diospyrus sp.)">
+                <label for="s8">Ebony(Diospyrus sp.)</label><br><br> -->
+                <input type="hidden" name="tree_species" id="tree_species" value="">
+            </div>
+              <br>
+                <div class="personal_details">
+            <label for="propt" class="required"><b>Purpose for which trees or trees proposed to be cut:</b></label>
+            <input type="text" placeholder="Enter Purpose for which trees or trees proposed to be cut" name="purpose_cut" required>
+            </div>
+            <br><br>
+            <!-- <label for="s9" class="required"><b>Trees have been cut or yet to be cut?</b></label><br>
+            <input type="radio" name="trees_cut" value="yes" required>
+            <label for="yes">Yes, trees have been cut.</label><br>
+            <input type="radio" name="trees_cut" value="no" checked>
+            <label for="no" >No, yet to cut.</label><br> -->
+            <div id="display_log_details">
+                
+            <label for="s9" class="required"><b>Would you like to enter the log details?</b></label><br>
+            <input type="radio" id="yes" name="log_option" value="yes" checked readonly="readonly" >
+            <label for="yes">YES</label><br>
+            <input type="radio" id="no" name="log_option" value="no" readonly="readonly" >
+            <label for="no">NO</label><br>
+<!--             <label for="s9"><b>Add Log Details</b></label><br>
+            <input type="radio" onclick="myInput " id="yes" name="log_option" value="yes">
+            <label for="yes">YES</label><br>
+            <input type="radio" id="no" name="log_option" value="no">
+            <label for="no">NO</label><br> -->
+
+    <br/>
+    <p class="error_filldetails"></p>
+            <div id="tab" class="add_log nice_scroll" style="height:258px; overflow: auto;">
+                <table id="myTable" >
+                    <thead>
+                    <!-- <tr> -->
+                        <td style="text-align:center">
+                            Sr.No
+                        </td>
+                        <td style="text-align: center">
+                            Species
+
+                        </td>
+                        <td style="text-align: center;">
+                            Length(cm)
+                        </td>
+                        <td style="text-align: center;">
+                            Girth(cm)
+                        </td>
+
+                        <td style="text-align: center;">
+                            Volume(cm<sup>3</sup>)
+                        </td>
+                        <td style="text-align: center;">
+                            Latitude(DD)
+                        </td>
+                        <td style="text-align: center;">
+                            Longitude(DD)
+                        </td>
+
+                    <!-- </tr> -->
+                    </thead>
+                    <tbody id='myBody'>
+                    <tr >
+                        <!-- <td><input id="cid" type="float" placeholder=""></td> -->
+                        <td><label class="sr_no">1</label></td>
+                        <td><select name="species[]" id="cid1" class="species" required>
+                                <option>Select</option>
+                                <!-- <option value="Sandal wood(Santalum album)">Sandal wood(Santalum album)</option> -->
+                                {% for each_sp in trees_species %}
+                                    <option value="{{each_sp.name}}" class="italize_species"> {{each_sp.name}}</option>
+                                {% endfor %}
+                                <!-- <option value="Teak(Tectona grandis)"> Teak(Tectona grandis)</option>
+                                <option value="Thempavu(Terminalia tomantosa)">Thempavu(Terminalia tomantosa)</option>
+                                <option value="Kamoakam(Hopea Parviflora)">Kamoakam(Hopea Parviflora)</option>
+                                <option value="Chadachi(Grewia tiliaefolia)">Chadachi(Grewia tiliaefolia)</option>
+                                <option value="Chandana vempu(Cedrela toona)">Chandana vempu(Cedrela toona)</option>
+                                <option value="Vellakil(Dysoxylum malabaricum)">Vellakil(Dysoxylum malabaricum)</option>
+                                <option value="Irul(Xylia xylocarpa)">Irul(Xylia xylocarpa)</option>
+                                <option value="Ebony(Diospyrus sp.)">Ebony(Diospyrus sp.)</option> -->
+                            </select></td>
+                        <td><input id="cid2" name="length[]" type="text" class="length" pattern="\d+(\.\d{1,2})?" title="Please enter valid length" placeholder="" required></td>
+                        <td><input id="cid3" name="breadth[]" type="text" class="breadth" pattern="\d+(\.\d{1,2})?" title="Please enter valid breadth" placeholder="" required></td>
+                        <td><input id="cid4" name="volume[]" type="text" class="volume" placeholder=""></td>
+                        <td><input name="latitude[]" class="latitude" type="text" id="latlng-1" onchange="validateLat(this)" placeholder="" required></td>
+                        <td><input name="longitude[]" class="longitude" type="text" id="latlng-1-long" onchange="validateLng(this)" placeholder="" required></td>
+
+                        <td><i class="fa fa-map-marker map-btn" style="font-size:40px;color:red;text-align: center;" data-target-val="latlng-1"></i></td>
+                        <td><button style="font-size:14px" id="addbutton" ><i
+                                    class="fa fa-plus" ></i></button></td>
+                                    <!-- <td><button onclick="myCreateFunction()" style="font-size:20px" id="addbutton" ><i
+                                    class="fa fa-plus-square-o" ></i></button></td> -->
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- <button id="confirmList"> confirm</button> -->
+            <!-- <div class="">
+                <button type="button" id="show_log" class="save btn">Show Log</button>
+            </div> -->
+            </div>
+            
+            </div>
+<div id="tab2" class="add_log_details nice_scroll" style="height:258px; overflow: auto;">
+                <table id="myTable02" >
+                    <thead>
+                    <!-- <tr> -->
+                        <td style="text-align: center;">
+                            Sr.No
+                        </td>
+                        <td style="text-align: center;">
+                            Species
+                        </td>
+                        <td style="text-align: center;">
+                            Latitude(DD)
+                        </td>
+                        <td style="text-align: center;">
+                            Longitude(DD)
+                        </td>
+
+                    <!-- </tr> -->
+                    </thead>
+                    <tbody id='myBody02'>
+                    <tr >
+                        <!-- <td><input id="cid" type="float" placeholder=""></td> -->
+                        <td><label class="sr_no">1</label></td>
+                        <td><select name="species02[]" id="cid02-1" class="species" required>
+                                <option>Select</option>
+                                <!-- <option value="Sandal wood(Santalum album)">Sandal wood(Santalum album)</option> -->
+                                {% for each_sp in trees_species %}
+                                    <option value="{{each_sp.id}}" class="italize_species"> {{each_sp.name}}</option>
+                                {% endfor %}
+                               
+                            </select></td>
+                        <td><input name="latitude02[]" class="latitude" type="text" id="latlng02-1" onchange="validateLat(this)" placeholder="" required></td>
+                        <td><input name="longitude02[]" class="longitude" type="text" id="latlng02-1-long" onchange="validateLng(this)" placeholder="" required></td>
+
+                        <td><i class="fa fa-map-marker map-btn" style="font-size:40px;color:red;text-align: center;" data-target-val="latlng02-1"></i></td>
+                        <!-- <td><button style="font-size:14px" id="addbutton02" ><i
+                                    class="fa fa-plus" ></i></button></td> -->
+                                    <td><button style="font-size:14px" id="addbutton02" ><i
+                                    class="fa fa-plus" ></i></button></td>
+                                   
+                    </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+                
+            <script>
+               
+                function getConfirmation(lat,lng) {
+               var retVal = confirm("Do you want to continue with selected "+lat+","+lng+"(Latitude,Longitude)\n ?");
+               if( retVal == true ) {
+                  closeModal3();
+                  return true;
+               } else {
+                  // return false;
+                  return true;
+               }
+            }
+                $(document).ready(function(){
+
+
+                    $('#taluka').on('change',function(e){
+                        var taluka = $(this).val();
+                        if ($(this).val()==''){
+                            $('#village').val('');    
+                        }
+                        // $.ajax()
+                        $.ajax({
+                            url: "../admin/load_village/",
+                            type:'GET', 
+                            'data':{
+                                'taluka':taluka},
+                            success: function(data){
+                        // console.log(result,"45654555555555555");
+                            // console.log(data);
+                            var lt = data.div_list.length
+                            // console.log(lt,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+                            // $('#taluka').val(data.div_list[0].taluka_name);
+
+
+                            var temp = '<option value="">Select Village</option>'
+                            // $('#taluka').val(data.div_list[0].taluka_name);
+                            $('#village').empty();
+                            for (i=0;i<lt;i++){
+                                temp+='<option value=' + data.div_list[i].village_name + '>' + data.div_list[i].village_name + '</option>'
+                            }
+                            // console.log(temp,'$$$$$$$$$$$$$$$$$$$$$$$$')
+                            $('#village').append(temp);
+
+                        // alert(data.message);
+                        // location.reload(true);
+                        }});
+
+                    })
+
+
+                    $('#dist').on('change',function(e){
+                        var dist = $(this).val();
+                        if ($(this).val()==''){
+                            $('#taluka').val('');    
+                        }
+                        // $.ajax()
+                        $.ajax({
+                            url: "../admin/load_taluka/",
+                            type:'GET', 
+                            'data':{
+                                'dist':dist},
+                            success: function(data){
+                        // console.log(result,"45654555555555555");
+                            console.log(data);
+                            var lt = data.div_list.length
+                            console.log(lt,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+                            var temp = '<option value="">Select Taluka</option>'
+                            // $('#taluka').val(data.div_list[0].taluka_name);
+                            $('#taluka').empty();
+                            for (i=0;i<lt;i++){
+                                temp+='<option value=' + data.div_list[i].taluka_name + '>' + data.div_list[i].taluka_name + '</option>'
+                            }
+                            console.log(temp,'$$$$$$$$$$$$$$$$$$$$$$$$')
+                            $('#taluka').append(temp);
+
+                        // alert(data.message);
+                        // location.reload(true);
+                        }});
+
+                    })
+
+
+                    $('#division_sel').on('change',function(e){
+                            // console.log('hhhhh');
+                            $('#range_sel').val('');
+                    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    $('#range_sel').on('change',function(e){
+                        var range_area = $(this).val();
+                        if ($(this).val()==''){
+                            $('#division_sel').val('');    
+                        }
+                        // $.ajax()
+                        $.ajax({
+                            url: "../admin/load_division/",
+                            type:'GET', 
+                            'data':{
+                                'area_range':range_area},
+                            success: function(data){
+                        // console.log(result,"45654555555555555");
+                            console.log(data.div_list[0].division_id__name);
+                            $('#division_sel').val(data.div_list[0].division_id__name);
+                            // $('#division_sel').attr('disabled',true);
+
+                        // alert(data.message);
+                        // location.reload(true);
+                        }});
+
+                    })
+
+
+
+                    $('#division_sel').on('change',function(e){
+                            // console.log('hhhhh');
+                            $('#range_sel').val('');
+                    })
+                    $('.chk_species').on('change',function(){
+
+                        if ($('.tree_check input:checkbox').filter(':checked').length < 1){
+                                $(this).siblings('.chk_species').each(function() {
+                            this.setCustomValidity('Please select any one of the tree species!');
+                        });
+                            // alert("Please Check at least one Check Box");
+                            $(this).siblings('.chk_species').attr('required', 'required');
+                            // $(this).siblings('.chk_species').setCustomValidity('Please select any one of the tree species!');
+                            // oninvalid="this.setCustomValidity('Please select any one of the tree species!')" 
+                        // return false;
+                        }
+                            // return false;
+                            // }
+                        else{
+                            $(this).siblings('.chk_species').removeAttr('required');;
+                            $(this).siblings('.chk_species').each(function() {
+                            this.setCustomValidity('');
+                        });
+                        }
+                    });
+                    $('#display_log_details').hide();
+                    // $('*').click(function(){
+                    //     console.log(this);
+                    // });
+                        // <td><input type="float" placeholder=""></td>\
+                                // <option>Select</option>\
+                        var row_count = document.getElementById("myTable").rows.length;
+                        var max_fields = 14;
+                        var row='<tr class="rown" >\
+                        <td><label class="sr_no">'+row_count+'</label></td>\
+                        <td><select name="species[]" class="species sp3" required>\
+                            </select></td>\
+                        <td><input name="length[]" class="length" type="text" placeholder="" pattern="\\d+(\\.\\d{1,2})?" title="Please enter valid length" required></td>\
+                        <td><input name="breadth[]" class="breadth" type="text" placeholder="" pattern="\\d+(\\.\\d{1,2})?" title="Please enter valid breadth" required></td>\
+                        <td><input name="volume[]" class="volume" type="text" placeholder=""></td>\
+                        <td><input name="latitude[]" class="latitude" id="latlng-" type="text" onchange="validateLat(this)" placeholder="" required></td>\
+                        <td><input name="longitude[]" class="longitude" id="latlng-long-" type="text" onchange="validateLng(this)" placeholder="" required></td>\
+                        <td><i class="fa fa-map-marker map-btn" style="font-size:40px;color:red;text-align: center;" data-target-val="latlng-"></i></td>\
+                        <td class="remove_btn"><button style="font-size:14px"  >\
+                        <i class="fa fa-minus"></i></button></td>\
+                    </tr>';
+                    // $('#cid1').
+                        $('#addbutton').click(function(e){
+                                e.preventDefault();
+                                $("#myBody").append(row);
+                               var $options = $("#cid1 > option").clone();
+                               // console.log($options);
+                               // tr:last
+                                // $('.sp3').append($options);
+                                // $(".sp3 option").val(function(idx, val) {
+
+                                $('#myBody tr:last .sp3').append($options);
+                                var addSerialNumber = function () {
+                                $('#myBody tr').each(function(index) {
+                                $(this).find('td:nth-child(1)').html(index+1);
+                                $(this).find('td:nth-child(6)').children('input.latitude').attr('id','latlng-'+parseInt(index+1));
+                                $(this).find('td:nth-child(7)').children('input.longitude').attr('id','latlng-'+parseInt(index+1)+'-long');
+                                $(this).find('td:nth-child(8)').children('.map-btn').attr('data-target-val','latlng-'+parseInt(index+1));
+                                });
+                                };
+
+                                addSerialNumber();
+                                // $("#myBody tr:last .sp3 option").val(function(idx, val) {
+                                // $(this).siblings('[value="'+ val +'"]').remove();
+                                // });
+
+                        })
+                        var row_count2 = document.getElementById("myTable02").rows.length;
+                        var row02='<tr class="rown" >\
+                        <td><label class="sr_no">'+row_count2+'</label></td>\
+                        <td><select name="species02[]" class="species sp302" required>\
+                            </select></td>\
+                        <td><input name="latitude02[]" class="latitude" id="latlng02-" type="text" onchange="validateLat(this)" placeholder="" required></td>\
+                        <td><input name="longitude02[]" class="longitude" id="latlng02-long-" type="text" onchange="validateLng(this)" placeholder="" required></td>\
+                        <td><i class="fa fa-map-marker map-btn" style="font-size:40px;color:red;text-align: center;" data-target-val="latlng02-"></i></td>\
+                        <td class="remove_btn"><button style="font-size:14px"  >\
+                        <i class="fa fa-minus"></i></button></td>\
+                    </tr>';
+                        $('#addbutton02').click(function(e){
+                                e.preventDefault();
+                                $("#myBody02").append(row02);
+                               var $options02 = $("#cid02-1 > option").clone();
+                               // console.log($options);
+                               // tr:last
+                                // $('.sp3').append($options);
+                                // $(".sp3 option").val(function(idx, val) {
+
+                                $('#myBody02 tr:last .sp302').append($options02);
+                                var addSerialNumber02 = function () {
+                                $('#myBody02 tr').each(function(index) {
+                                $(this).find('td:nth-child(1)').html(index+1);
+                                $(this).find('td:nth-child(3)').children('input.latitude').attr('id','latlng02-'+parseInt(index+1));
+                                $(this).find('td:nth-child(4)').children('input.longitude').attr('id','latlng02-'+parseInt(index+1)+'-long');
+                                $(this).find('td:nth-child(5)').children('.map-btn').attr('data-target-val','latlng02-'+parseInt(index+1));
+                                });
+                                };
+
+                                addSerialNumber02();
+                                // $("#myBody tr:last .sp3 option").val(function(idx, val) {
+                                // $(this).siblings('[value="'+ val +'"]').remove();
+                                // });
+
+                        })
+
+                        $(document).on('click','.remove_btn',function(e){
+                            e.preventDefault();
+                            // console.log(this);
+                                $(this).parent().remove();
+                        })
+                     
+                });
+        //        
+            </script>
+            <script type="text/javascript">
+                function log_required(){
+                    $("[name='species[]']").prop("required",true);
+                        $('.length').prop('required',true);
+                        $('.breadth').prop('required',true);
+                        $('.latitude').prop('required',true);
+                        $('.longitude').prop('required',true);
+                }
+                function log_required_false(){
+                    $("[name='species[]']").prop("required",false);
+                        $('.length').prop('required',false);
+                        $('.breadth').prop('required',false);
+                        $('.latitude').prop('required',false);
+                    $('.longitude').prop('required',false);
+                }
+                $(document).ready(function(){
+                    log_required_false();
+                    $('input[name="option"]').on('click',function(e){
+                    if($(this).val()=='yes')
+                    {
+                        $('.veh_details').prop('required',true);
+
+                    }
+                    else{
+                        $('.veh_details').prop('required',false);
+                    }
+                    });
+                    $('input[name="trees_cut"]').on('click',function(e){
+                        // e.preventDefault();
+                    if($(this).val()=='yes')
+                    {
+                        $('#display_log_details').show();
+                        $('#tab2').hide();
+                        $('#yes').prop('required',true);
+
+                    }
+                    else{
+                        $('#display_log_details').hide();
+                        $('#tab2').show();
+                        $('#yes').prop('required',false);
+                        log_required_false();
+                    }
+                    });
+                   $('#yes').click(function(){
+                    $('#tab').show();
+                    $("[name='species[]']").prop("required", true);
+                    // $('.species').each(function(){
+                    //         $(this).prop('required',true);
+                    // });
+
+                    // $('.species').prop('required',true);
+                    $('.length').prop('required',true);
+                    $('.breadth').prop('required',true);
+                    $('.latitude').prop('required',true);
+                        $('.longitude').prop('required',true);
+                   });
+                   $('#no').click(function(e){
+                    // e.preventDefault();
+                    $("[name='species[]']").prop("required", false);
+                    // $('.species').each(function(){
+                    //         $(this).prop('required',false);
+                    // });
+                    // $('.species').prop('required',false);
+                    $('.length').prop('required',false);
+                    $('.breadth').prop('required',false);
+                    $('.latitude').prop('required',false);
+                        $('.longitude').prop('required',false);
+                      $('#tab').hide();  
+                   });  
+                });
+                $("#repeater").createRepeater({
+                showFirstItemToDefault: true,
+                });
+
+                $('#chk_div').on('change',function() {
+                    var checked_values=[];
+                    var checked_values_list=[];
+                    $("input:checkbox[class='chk_species']:checked").each(function () {
+                    // checked_values.push($(this).val());
+                    checked_values.push($(this).attr('data-value'));
+                    checked_values_list.push($(this).val());
+                    // console.log(checked_values+"array");
+                    $("#tree_species").val(checked_values_list);
+                    });
+                // $('.species').empty();
+                // $('.species').append('<option value="">Select</option>');
+                //     for (var index = 0; index < checked_values.length; index++) {
+                //         // console.log(checked_values+"list"+index);
+                //         $('.species').append('<option value="' + checked_values[index] + '" class="italize_species">' + checked_values[index] + '</option>');
+                //         }
+
+                $('.species').empty();
+                $('.species').append('<option value="">Select</option>');
+                    for (var index = 0; index < checked_values.length; index++) {
+                        // console.log(checked_values+"list"+index);
+                        $('.species').append('<option value="' + checked_values[index] + '" class="italize_species">' + checked_values_list[index] + '</option>');
+                        }
+                });
+
+
+                
+            </script>
+            
+            
+            <div class="clearfix" style="clear:both;"></div>
+            <br>
+            <div class="view_log">
+                <div class="tbl_head">
+                    <div class="txt serial">Sr.No</div><div class="txt species_txt">Species</div><div class="txt">Length</div><div class="txt">Breadth</div>
+                    <div class="txt">Volume</div><div class="txt">Latitude</div><div class="txt">Longitude</div>
+                </div>
+                <div id="log_details" class="tbl_body nice_scroll" style="height:250px; overflow:auto;">
+
+                    
+                </div>
+            </div>
+            
+            <br>
+
+
+            <div id="topBar">
+            </div>
+            <div id ="map_content1">  
+            </div>
+
+            <script>
+            
+            $(document).ready( function() {
+                $('#map_content1').hide();
+                $(document).on('click','.map-btn',function(e){
+                    // $('#map_content').show();
+                    openModal3();
+                    $('#latlng-val').val($(this).attr('data-target-val'));
+                    // console.log($(this).parent().siblings().children("latitude"));
+                })
+                // $('#map_content').on('focusout',function(){
+                  
+                //     $(this).hide();
+                // });
+                
+            });
+            </script>
+
+
+            <!-- try end -->
+                <div class="file_upload">
+            <label for="propt" class="custom-file-upload required" ><b>Revenue Application:</b>
+                    <div class="tooltip"><i class="fa fa-question-circle" aria-hidden="true"></i>
+                <span class="tooltiptext">Please upload image of Revenue Application Document .</span>
+            </div>
+            </label>
+            <input type="file" id="myFile1" name="revenue_application_img" class="file_type_info" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required><br><br>
+            <label for="propt"class="required"><b>Revenue Approval:</b>
+                    <div class="tooltip"><i class="fa fa-question-circle" aria-hidden="true"></i>
+                <span class="tooltiptext">Please upload image of Revenue Approval Document.</span>
+            </div>
+            </label>
+            <input type="file" id="myFile6" name="revenue_approval_img" class="file_type_info" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required><br><br>
+            <label for="propt" class="required"><b>Declaration:</b>
+                  <div class="tooltip"><i class="fa fa-question-circle" aria-hidden="true"></i>
+                <span class="tooltiptext">Please upload image of Declaration Document .</span>
+            </div>  
+            </label>
+            <input type="file" id="myFile2" name="declaration_img" class="file_type_info" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required><br><br>
+            <label for="propt" class="required"><b>Location Sketch:</b>
+            <div class="tooltip"><i class="fa fa-question-circle" aria-hidden="true"></i>
+                <span class="tooltiptext">Please upload image of Location Sketch Document .</span>
+            </div></label>
+            <input type="file" id="myFile3" name="location_sketch_img" class="file_type_info" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required><br><br>
+            <label for="propt" class="required"><b>Tree Ownership Details:</b>
+            <div class="tooltip"><i class="fa fa-question-circle" aria-hidden="true"></i>
+                <span class="tooltiptext">Please upload image of Tree Ownership .</span>
+            </div></label>
+            <input type="file" id="myFile4" name="tree_ownership_img" class="file_type_info" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required><br><br>
+            <label for="propt" class="required"><b>Select Photo Id Proof:</b></label>
+            <select name="photo_proof_select" id="photo_proof_select" style="width: 200px;" required>
+                    <option value="">Select Photo Identity Proof</option>
+                    <!-- <option value="aadhar card">Aadhar Card</option>
+                    <option value="passport">Passport</option>
+                    <option value="driving license">Driving License</option>
+                    <option value="government id">Government ID</option> -->
+                    {% for each_proof in proof_list %}
+                    <option value="{{each_proof.name}}">{{each_proof.name}}</option>
+                    {% endfor %}
+            </select><br><br>
+            <label for="propt" class="custom-file-upload required" id="upload-file-msg"><b>Upload Photo ID Proof:</b>
+            <div class="tooltip"><i class="fa fa-question-circle" aria-hidden="true"></i>
+                <span class="tooltiptext">Please upload image of Identity Proof .</span>
+            </div></label>
+            <input type="file" id="myFile5" name="aadhar_card_img" class="file_type_info" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required>
+            </div>
+            <!-- <label for="propt"><b>Adhar Card:</b></label>
+            <input type="file" id="myFile5" name="aadhar_card_img" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)"><br><br>
+            </div> -->
+            
+                <div class="personal_details">
+                    <label for="dest_state" class="required"><b>Select Destination State:</b></label>
+                    <select name="dest_state">
+                        <option>Select State</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chandigarh">Chandigarh</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                        <option value="Daman and Diu">Daman and Diu</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Lakshadweep">Lakshadweep</option>
+                        <option value="Puducherry">Puducherry</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala" selected>Kerala</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Sikkim">Sikkim</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="West Bengal">West Bengal</option>
+
+                    </select>
+            <!-- <input type="text" id="destination_details_state" name="destination_details_state" required><br><br> -->
+            <label for="dest" class="required"><b>Destination Details:</b></label>
+            <input type="text" id="destination_details" name="destination_details" required><br><br>
+            </div>      
+            <label for="Vehicle" class="required"><b>Enter Vehicle Details:</b></label><br>
+            <!-- <input type="radio" onclick="myInput " id="y" name="option" value="yes" required> -->
+            <input type="radio" id="y" name="option" value="yes" required>
+            <label for="yes">YES</label><br>
+            <input type="radio" id="n" name="option" value="no">
+            <label for="no">NO</label><br>
+            <div id="veh">
+                <label for="veh_reg" class="required"><b>Vehicle Registration Number:</b></label>
+                <input type="text" name="veh_reg" class="veh_details" >
+                <label for="driver_name" class="required"><b>Name of the driver:</b></label>
+            <input type="text" name="driver_name" class="veh_details">
+            <label for="phn" class="required"><b>Phone Number of the Driver:</b></label>
+            <input type="text" name="phn" class="veh_details">
+            <label for="mode" class="required"><b>Mode of Transportation:</b></label>
+            <input type="text" name="mode" class="veh_details">
+            <div class="file_upload">
+            <label for="lic_img" class="required"><b>License Image:</b>
+                    <div class="tooltip"><i class="fa fa-question-circle" aria-hidden="true"></i>
+                <span class="tooltiptext">Please upload image of license document .</span>
+            </div>
+            </label>
+            <input type="file" id="myFile" name="lic_img" class="file_type_info" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" class="veh_details">
+            </div>
+            </div>
+            <br>
+            <div class="file_upload">
+            <label for="sign" class="required"  ><b >Signature:</b>
+            <div class="tooltip"><i class="fa fa-question-circle" aria-hidden="true"></i>
+                <span class="tooltiptext">Please upload image of Signature on white paper .</span>
+            </div>
+            </label>
+            <input type="file" name="signature_img" class="file_type_info" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" required>
+            </div>
+            
+
+            <hr>
+
+
+            <br>
+            <button type="submit" class="save btn" id="save_btn">Submit</button>
+            <br>
+            <br>
+        </div>
+
+
+    </form>
+<!-- <div id="myModal2" class="modal">
+  <span class="close cursor" onclick="closeModal2()">&times;</span>
+  <div class="modal-content">
+        <span id="center"><b>Timber Log Details</b></span>
+        <br>
+      </div>
+  </div> -->
+  <div id="myModal2" class="modal">
+   <!-- <span class="close cursor" onclick="closeModal2()">&times;</span> -->
+  <div class="modal-content" id="myModal2content">
+        <span id="center" style="text-decoration-color: greenyellow;"><b></b></span>
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;Application submitted successfully!&nbsp;&nbsp;&nbsp;&nbsp; 
+        
+         <input class="btn" type="button"  value="OK" id="update-btn" onclick="closeModal2()">
+         <br>
+      </div>
+    </div>
+<!-- <div id="myModal3" class="modal"> -->
+    <div id ="map_content" class="modal">
+   <!-- <span class="close cursor" onclick="closeModal2()">&times;</span> -->
+  <div class="modal-content" id="myModal3content">
+        
+           {% include 'my_app/tigram/show_map.html' %} 
+        
+        
+         <input class="btn btn-primary" type="button"  value="Close Map" onclick="closeModal3()">
+         <br>
+      </div>
+    </div>
+<!-- <input type="button" value="Update" id="update-btn"> -->
+        <!-- <input type="button" id="add-more-log" value="Add More" /> -->
+</body>
+        <!-- <script>M.toast({html: "{{message}}", classes: 'green rounded', displayLength:2000});</script> -->
+<script>
+    function openModal2() {
+  document.getElementById("myModal2").style.display = "block";
+}
+    function closeModal2(){
+  document.getElementById("myModal2").style.display = "none";
+}
+ function openModal3() {
+  document.getElementById("map_content").style.display = "block";
+}
+    function closeModal3(){
+  document.getElementById("map_content").style.display = "none";
+}
+if ('{{transit_pass_exist}}' == 'True'){
+        $('.couldapprove').hide( );
+        // $("#reason").hide();
+    }
+//  if($("#form1-form input[type='checkbox']:checked").length){
+//     // $()
+//     $('.tree_check').after('<p>This is required!</p>');
+//     alert('Tree Species must be selected!');
+//     return false;
+// }
+// var focus = 0;
+$("input[name='log_option']").on('change',function(){
+    if($("input[name='log_option']:checked").val()=='no'){
+        $(".error_filldetails").html("");
+        $('#save_btn').prop('disabled', false);
+    }
+
+});
+$("input[name='trees_cut']").on('change',function(){
+    if($("input[name='trees_cut']:checked").val()=='no'){
+        $(".error_filldetails").html("");
+        $('#save_btn').prop('disabled', false);
+    }
+    
+});
+$('#tab').focusout(function(e){
+    var checked_values=[];
+    $("input:checkbox[class='chk_species']:checked").each(function (event) {
+    checked_values.push($(this).val());
+    });
+    
+    // alert(checked_values);
+    var species_values = $("select[name='species[]']")
+                        .map(function(){
+                            // console.log(this);
+                            return $(this).find(":selected").val();
+                            }).get();
+    if($("input[name='log_option']:checked").val()=='yes'){
+
+
+       if(($(checked_values).not(species_values).length === 0 && $(species_values).not(checked_values).length === 0)){
+        // alert('UnMatched!');
+        console.log('Done!');
+        // $(".error_filldetails").html("");
+        // $('#save_btn').prop('disabled', false);
+        var row_len=$('#myBody tr').length;
+        var treepl=$('#treep').val();
+        if( treepl <= row_len){
+        $(".error_filldetails").html("");
+        $('#save_btn').prop('disabled', false);
+        }
+        else{
+                $(".error_filldetails").html("Number of logs must not be less than total trees proposed!").css({'color':'red'});
+            $('#save_btn').prop('disabled', true);
+        }
+        // event.stopImmediatePropagation();
+       }
+       else{
+        // alert(focus);
+            console.log('Not Done!');
+            $(".error_filldetails").html("Add log details for all tree species!").css({'color':'red'});
+            $('#save_btn').prop('disabled', true);
+            // return true;
+            // console.log('Done!');
+           }
+    }
+    else {
+        console.log('done');
+        $(".error_filldetails").html("");
+        $('#save_btn').prop('disabled', false);
+    }
+
+});
+$("#tab").focusin(function(){
+         $(".error_filldetails").html("");
+      });
+$('#treep').on('change',function(){
+    $("#form1-form input:checkbox").prop('checked',false);    
+});
+
+// $("#form1-form input[type='checkbox']").on('change', function(e) {
+//     var limit = $('#treep').val();
+//     // alert(limit);
+//     if(isNaN(limit)==true || limit<1 || limit ==''){
+//         alert('Enter Valid Number of trees proposed to be cut.');
+//         this.checked = false;
+//     } 
+//     else if($(this).siblings(':checked').length >= limit) {
+//         alert('You can only select '+ limit +' species');
+//         this.checked = false;
+//    }
+// });
+// $('input [name="option"]').after('<p>This is required!</p>');
+
+// $('#save_btn').click(function(e){
+// e.preventDefault();
+// $('#form1-form').on('submit',function(e){
+//     // e.preventDefault();
+// // check_required_inputs();
+// if($("#form1-form input[type='checkbox']:checked").length < 1){
+//     $('.tree_check').after('<p>This is required!</p>');
+//     alert('Tree Species must be selected!');
+//     return false;
+// }
+// $('#form1-form').validate();
+// });
+// });
+    function validateFileType($this){
+        // var fileName = document.getElementById("myFile1").value;
+        var fileName = $($this).val();
+        var idxDot = fileName.lastIndexOf(".") + 1;
+        var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+        if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+            $('#save_btn').prop('disabled', false);
+            // alert('uploaded succesfully!');
+        }else{
+            // $('#upload-file-msg').after('<b>Only jpg/jpeg and png files are allowed!</b>').children().css('color', 'red');
+            alert("Only jpg/jpeg and png files are allowed!");
+            $('#save_btn').prop('disabled', true);
+
+        }
+    }
+//     function openModal2() {
+//   document.getElementById("myModal2").style.display = "block";
+// }
+// function closeModal2(){
+//   document.getElementById("myModal2").style.display = "none";
+// }
+                var myInput = document.getElementById("y");
+                var myInputn = document.getElementById("n")
+
+                myInput.onfocus = function () {
+                    document.getElementById("veh").style.display = "block";
+                    
+                    myInputn.onfocus = function () {
+                        document.getElementById("veh").style.display = "none";
+                    
+                        function myFunction() {
+                            document.getElementById("fa fa-plus-square-o").style.display = "block";
+                        }
+                    }
+                }
+                function calVol(length,breadth)
+                {
+                    // var volume = 3.14*length*breadth*breadth ;
+                    var volume= length*(breadth/4)**2;
+                    return volume;
+                }
+                function validateLat($this){
+                    var lat = $($this).val();
+                    if (lat < -90 || lat > 90) {
+                    alert("Latitude must be between -90 and 90 degrees inclusive.");
+                    $('#save_btn').prop('disabled', true);
+                    }
+                    else if (lat == "") {
+                    alert("Enter a valid Latitude!");
+                    $('#save_btn').prop('disabled', true);
+                    }
+                    else{
+                     $('#save_btn').prop('disabled', false);   
+                    }
+                }
+                function validateLng($this){
+                    var lng = $($this).val();
+                    if (lng < -180 || lng > 180) {
+                    alert("Longitude must be between -180 and 180 degrees inclusive.");
+                    $('#save_btn').prop('disabled', true);
+                    // $('#save_btn').hide();
+                    }
+                    else if (lng == "") {
+                    alert("Enter a valid Longitude!");
+                    $('#save_btn').prop('disabled', true);
+                    }
+                    else{
+                     $('#save_btn').prop('disabled', false);   
+                    }
+                }
+                // function ValidateLatLng() {
+                //     var lat = document.getElementById("txtLat").value;
+                //     var lng = document.getElementById("txtLon").value;
+                //     if (lat < -90 || lat > 90) {
+                //     alert("Latitude must be between -90 and 90 degrees inclusive.");
+                //     }
+                //     else if (lng < -180 || lng > 180) {
+                //     alert("Longitude must be between -180 and 180 degrees inclusive.");
+                //     }
+                //     else if (lat == "" || lng == "") {
+                //     alert("Enter a valid Latitude or Longitude!");
+                //     }
+                // }
+                $(document).ready(function(){
+                    // $('#range_sel').on('change',function(){
+                    //         if ($(this).val()!=''){
+                    //             $('#division_sel').val('Trivandrum');
+                    //         }
+                    // });
+                    $(".italize_species").html(function(i, h){
+                            return h.replace(/\(([^\)]+)\)/, "(<i>$1</i>)");
+                    });
+                    // $('.file_type_info').after('<label>(.jpg,.jpeg,.png)</label>');
+                    $('.file_type_info').after('<label>( .jpg,.jpeg,.png)</label>');
+                    // $('.file_type_info').on('change',function(){
+
+                    // });
+                        $('#photo_proof_select').on('change',function(){
+                    if($('#photo_proof_select').val()==''){
+                    // $("input[name='photo_proof_no']").hide();
+                    $(".photo_file_upload").hide();
+                    }
+                    else{
+                    // $("input[name='photo_proof_no']").attr('placeholder','Enter number of '+ $('#photo_proof_select').val());
+                    // $("input[name='photo_proof_no']").show();
+                    $(".photo_file_upload").show();
+                    }
+                    });
+                    // $('.length ,.breadth').on('change', function() {
+                    $(document).on('change','.length ,.breadth', function() {
+                    
+                    var selectedText = $(this).val();
+                    var $this = $(this).parent().parent();
+                    var rowlength =$($this).children().children('.length').val();
+                    var rowbreadth =$($this).children().children('.breadth').val();
+                    // alert($($this).children().children('.length').val()+$($this).children().children('.breadth').val());
+
+                    $($this).children().children('.volume').val(calVol(rowlength,rowbreadth));
+                    });
+                });
+                $(document).ready(function(){
+                    $('.view_log').hide();
+                    $('#show_log').on('click',function(e){
+                        e.preventDefault();
+                        var species_values = $("select[name='species[]']")
+                        .map(function(){
+                            console.log(this);
+                            return $(this).find(":selected").val();
+                            }).get();
+                         alert(species_values);
+                        var length_values = $("input[name='length[]']")
+                        .map(function(){return $(this).val();}).get();
+                        // alert(length_values);
+                        var breadth_values = $("input[name='breadth[]']")
+                        .map(function(){return $(this).val();}).get();
+                        var volume_values = $("input[name='volume[]']")
+                        .map(function(){return $(this).val();}).get();
+                        var latitude_values = $("input[name='latitude[]']")
+                        .map(function(){return $(this).val();}).get();
+                        var longitude_values = $("input[name='longitude[]']")
+                        .map(function(){return $(this).val();}).get();
+                    //     var show_log ='<div class="row">\
+                    // <div class="cell serial">1</div>\
+                    // <div class="cell species ">Teak (Tectona grandis)</div>\
+                    // <div class="cell">487</div>\
+                    // <div class="cell">17</div>\
+                    // <div class="cell">16</div>\
+                    // <div class="cell">123.456.789</div>\
+                    // <div class="cell">987.654.321</div>\
+                    // </div>';
+                    var show_log="";
+                    for(var iter=0;iter<species_values.length;iter++){
+
+                        show_log +='<div class="row">';
+                        show_log +='<div class="cell serial">'+parseInt(iter+1)+'</div>';
+                        show_log +='<div class="cell species_view ">'+species_values[iter]+'</div>';
+                        show_log +='<div class="cell">'+length_values[iter]+'</div>';
+                        show_log +='<div class="cell">'+breadth_values[iter]+'</div>';
+                        show_log +='<div class="cell">'+volume_values[iter]+'</div>';
+                        show_log +='<div class="cell">'+latitude_values[iter]+'</div>';
+                        show_log +='<div class="cell">'+longitude_values[iter]+'</div>';
+                        show_log +='</div>';
+
+                    }
+                    $('#log_details').empty();
+                    $('#log_details').append(show_log);
+                        $('.view_log').show();
+                    // $("#myBody tr").each(function (){
+                    //     show_log+='<div class="row">';
+                    //     $('td', this).each(function () {
+                    //         if($(this).children().attr('class')=='species'){
+                    //             show_log+='<div class="cell species ">'+$(this).children().val()+'</div>';
+                    //          }
+                    //          else if($(this).children().attr('class')=='sr_no'){
+                    //             show_log+='<div class="cell serial ">'+$(this).children().val()+'</div>';
+                    //          }
+                    //          else{
+                    //             show_log+='<div class="cell">'+$(this).children().val()+'</div>';
+                    //          }
+                    //         // alert($(this).text());
+                    //     });
+                    //     show_log+='</div>';
+
+                    //     $('#myBody')
+                    //     console.log($(this).text());
+                    // });
+                        
+
+                    });
+                });
+                   function myFunction() {
+  var x = document.getElementById("snackbar");
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+// if(messages){
+myFunction();
+            </script>
+<!-- {% if messages %}
+        {% for message in messages %}
+        <script type="text/javascript">
+            openModal2();
+        </script>
+        {% endfor %}
+{% else %}
+<script type="text/javascript">
+            closeModal2();
+        </script>
+ {% endif %} -->
+</html>
+{% endblock %}

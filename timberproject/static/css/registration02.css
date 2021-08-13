@@ -1,0 +1,81 @@
+/*{% load static %}*/
+.body{
+    /*background-image: url('../images/image3.jpg');*/
+    background-image: url('../images/image3.jpg');
+    background-size: cover;
+}
+
+.container{
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+    margin-top: 10%;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    opacity: 0.8;
+    font-family: 'Salsa';
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+.clearfix{
+    text-align: center;
+}
+
+.container1{
+    margin: auto;
+    width:40%;
+    
+    padding: 10px;
+    margin-top: 18%;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    opacity: 0.8;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.save{
+    border-radius: 4px;
+    background-color: #70f01a;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 18px;
+    padding: 5px;
+    width: 110px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;   
+}
+
+.change{
+    text-align: center;
+    font-size: 25px;
+    background-color: #70f01a;
+    opacity: 1;
+    padding: auto;
+    border-radius: 4px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+

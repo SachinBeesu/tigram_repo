@@ -1,0 +1,759 @@
+{% load static %}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+
+
+*{ margin:0px; padding:0px; text-decoration:none; list-style:none; font-weight:normal; box-sizing:border-box;}
+
+body{
+ font-family: 'Cairo', sans-serif;
+background:#fff;
+}
+.cont{
+	    height: calc(100vh - 86px);
+    overflow-y: scroll;
+    margin-top: 54px;
+}
+.clearfix{
+clear:both;
+}
+.header{
+background:#fff;
+/*padding:10px 0px;*/
+border-bottom:4px solid #654320;
+position:fixed;
+width:100%;
+left:0px;
+top:0px;
+z-index:10000;
+}
+.header .wrap{
+display:flex;
+justify-content:space-between;
+}
+.logo{
+width:150px;
+display:block;
+}
+.logo img{
+width:100%;
+}
+.header .right{
+display:flex;
+align-items:center;
+justify-content: space-between;
+}
+.header .nav{
+display:flex;
+margin-right:20px;
+align-items:center;
+}
+.header .nav a{
+padding:5px 15px;
+font-size:16px;
+color:#000;
+font-weight:600;
+display:inline-block;
+}
+
+.header button{
+border:1px solid #ccc;
+background:#fff;
+font-size:14px;
+padding:7px 15px;
+margin-left:10px;
+cursor:pointer;
+color:#000;
+}
+.header button .fa{
+margin-right:4px;}
+.header .login_btn{
+
+}
+
+
+.wrap{
+width:80%;
+margin:auto;
+}
+
+.banner{
+position:relative;
+border-bottom:4px solid #654320;
+
+}
+.banner img{
+	width:100%;
+}
+
+.banner .ban_txt_wrap{
+position:absolute;
+width:80%;
+left:10%;
+top:130px;
+}
+.banner .ban_txt{
+font-size:65px;
+line-height:75px;
+color:#fff;
+text-shadow:2px 2px 3px #000;
+margin-bottom:20px;
+}
+.banner .ban_txt span{
+font-weight:700;
+}
+.banner .link_btn{
+padding:5px 20px;
+font-size:18px;
+font-weight:600;
+display:inline-block;
+background:#e53b24;
+color:#fff;
+}
+
+.sec{
+padding:60px 0px;
+} 
+.brand_name{
+text-transform:uppercase;
+font-weight:700;
+}
+.sec .sec_title{
+font-size:25px;
+font-weight:700;
+color:#895d2f;
+
+}
+.sec .txt{
+font-size:16px;
+line-height:24px;
+font-family:Roboto;
+margin-bottom:10px;
+}
+.sec_list li{
+font-size:18px;
+line-height:28px;
+font-family:Roboto;
+list-style:square;
+margin-bottom:5px;
+}
+.sec_title02{
+font-size:20px;
+font-weight:700;
+margin-bottom:5px;
+}
+
+.tps_sec .txt02{
+font-size:20px;
+line-height:28px;
+font-weight:500;
+}
+.various_type{
+	background-image:url("{% static 'images/home_ban_02.jpg' %}");
+	background-position:center top;
+	background-repeat:no-repeat;
+	color:#fff;
+	display:flex;
+}
+.various_type .box{
+	width:25%;
+	height:200px;
+	text-align:center;
+	padding-top:40px;
+} 
+.various_type .txt_01{
+	font-size:50px;
+	line-height:60px;
+	font-weight:700;
+	font-family: 'Cairo', sans-serif;
+}.various_type .txt_02{
+	font-size:25px;
+	font-weight:600;
+	font-family: 'Cairo', sans-serif;
+}
+
+.bg_01{
+background:#efefef;
+}
+.bg_02{
+background:#9ed7d6;
+}
+
+
+.has_menu{
+position:relative;
+}
+.has_menu .sub_nav{
+position:absolute;
+background:#fff;
+width:150px;
+padding-top:8px;
+display:none;
+}
+.sub_nav li:first-child{
+border-bottom:1px solid #ccc;
+}
+.has_menu .sub_nav li a{ 
+display:block;
+}
+.has_menu:hover .sub_nav{
+display:block;
+}
+.has_menu_bar{
+	position:relative;
+}
+.has_menu_bar .sub_nav_bar{
+position:absolute;
+background:#fff;
+background-position: 8px;
+width:150px;
+padding-top:8px;
+display:none;
+}
+.sub_nav_bar li{
+border-bottom:1px solid #ccc;
+}
+.has_menu_bar .sub_nav_bar li a{ 
+display:block;
+}
+.has_menu_bar:hover .sub_nav_bar{
+padding-left:15px;
+display:block;
+/*float: right;*/
+
+}
+
+
+
+/*new css*/
+.top_band{
+height:124px;
+border-bottom:4px solid #012a6c;
+/*background:#fff;*/
+}
+.band_01{
+display:flex;
+justify-content:space-between;
+padding:5px 10px;
+}
+.band_01 .us_aid_logo{
+width:200px;
+}
+.band_01 .us_aid_logo img{
+width:100%;
+}
+
+.band_01 .ministry_logo{
+width:100px;
+}
+.band_01 .ministry_logo img{
+width:100%;
+}
+
+
+.band_02{
+height:50px;
+display: flex;
+    align-items: center;
+justify-content:space-between;
+
+font-size:14px;
+    background: #e9e9e9;
+}
+
+.band_02_wrap{
+width:100%;
+display: flex;
+    align-items: center;
+justify-content:space-between;
+}
+.band_02 .nav{
+display:flex;
+margin-right:10px;
+align-items:center;
+}
+.band_02 .nav a{
+padding:3px 15px;
+font-size:16px;
+line-height:26px;
+padding-bottom:5px;
+color:#012a6c;
+font-weight:600;
+display:inline-block;
+}
+.band_02 .nav a:hover{
+background:#012a6c;
+color:#fff;
+
+}
+
+.logo{
+width:150px;
+padding:0px 0px !important;
+margin-top:0px;
+margin-right:20px;
+margin-left:15px;
+}
+.logo:hover{
+background:transparent !important;
+}
+.logo img{
+width:100%;
+}
+.header .transit_pass{
+	margin-left: 15px;
+}
+.header .transit_pass a{
+background:#012a6c;
+color:#fff !important;
+font-size:14px;
+}
+
+.foot_band{
+background:#012a6c;
+color:#fff;
+font-size:12px;
+padding:7px 0px;
+text-align:center;
+position:fixed;
+bottom:0px;
+left:0px;
+width:100%;
+}
+.nice_scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.nice_scroll::-webkit-scrollbar-track {
+  background: #012a6c;
+}
+
+.nice_scroll::-webkit-scrollbar-thumb {
+  background: #c4113b;
+}
+
+
+.menu_icon {
+  display: inline-block;
+  cursor: pointer;
+margin-right:20px;
+display:none;
+}
+
+.bar1, .bar2, .bar3 {
+  width: 30px;
+  height: 4px;
+  background-color: #c4113b;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 5px);
+  transform: rotate(-45deg) translate(-9px, 5px);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -6px);
+  transform: rotate(45deg) translate(-8px, -6px);
+}
+@media only screen and (min-width:768px) and (max-width:1024px){
+.band_02{
+position:relative;
+}
+.band_02 .nav{
+display:none;
+background:#fff;
+position:absolute;
+right:5px;
+width:200px;
+top:55px;
+}
+.band_02 .nav .right{
+display:block;
+float:none !important;
+    margin-bottom: 10px;
+}
+.band_02 .nav li{
+border-bottom:1px solid #ccc;
+}
+.header .transit_pass a{
+width:170px;
+}
+.transit_pass{
+margin-top:10px;
+border-bottom:none !important;
+}
+.menu_icon{
+display:inline-block;
+}
+.banner .ban_txt {
+    font-size: 35px;
+    line-height: 45px;
+	}
+	.banner .ban_txt br{
+	display:none;
+	}
+	.banner .link_btn {
+    padding: 2px 10px;
+	padding-bottom:4px;
+    font-size: 14px;
+	}
+}
+@media only screen and (max-width:767px){
+.band_02{
+position:relative;
+display:flex;
+align-items:center;
+}
+.band_02 .nav{
+display:none;
+background:#fff;
+position:absolute;
+right:0px;
+top:54px;
+border:1px solid #ccc;
+    width: 100%;
+    margin-right: 0px;
+    box-shadow: 1px 1px 5px #222;
+}
+.band_02 .nav .right{
+display:block;
+float:none !important;
+    margin-bottom: 10px;
+}
+.band_02 .nav li{
+border-bottom:1px solid #ccc;
+}
+.header .transit_pass a{
+width:170px;
+}
+.transit_pass{
+margin-top:10px;
+border-bottom:none !important;
+}
+.band_01 .us_aid_logo {
+    width: 150px;
+}
+.band_01{
+align-items:center;
+}
+.banner .ban_txt_wrap{
+position:static;
+background:url("http://65.1.132.43:8080/static/images/home_ban_01.jpg") no-repeat center center;
+width:100%;	
+    padding: 20px;
+}
+.banner img{
+display:none;
+}
+.banner .ban_txt {
+    font-size: 35px;
+    line-height: 45px;
+	}
+	.banner .ban_txt br{
+	display:none;
+	}
+	.banner .link_btn {
+    padding: 2px 10px;
+	padding-bottom:4px;
+    font-size: 14px;
+	}
+.cont {
+    height: auto;
+    margin-top: 124px;
+	overflow-y: auto;
+}
+.wrap {
+    width: 100%;
+	padding:0px 20px;
+}
+.sec {
+    padding: 20px 0px;
+}
+.foot_band{
+position:static;
+display:block;
+}
+.foot_band .wrap{
+display:block;
+}
+.various_type{
+flex-wrap:wrap;
+}
+.various_type .box {
+width:50%;
+    height: 120px;
+    padding-top: 10px;
+}
+.various_type .txt_01 {
+    font-size: 30px;
+	}
+.various_type .txt_02 {
+    font-size: 18px;
+}	
+.band_02 .nav a{
+display:block;
+}
+.has_menu .sub_nav{
+width:100%;
+}
+.has_menu_bar .sub_nav_bar{
+width:calc(100% - 20px);
+}
+.menu_icon{
+display:inline-block;
+}
+
+}
+
+</style>
+
+
+
+<script>
+</script>
+
+</head>
+
+<body>
+
+<!-- <div class="header"> -->
+	<!-- <div class="wrap">
+		<a href="" class="logo"><img src="{% static 'images/tigram_logo03.jpg' %}" /></a>
+		<div class="right">
+			<ul class="nav">
+				<li><a href="#">Home</a></li>
+				<li>
+				{% if request.user.id %}
+	            {% ifequal group.0 "user" %}
+	            <a href="{% url 'dashboard' %}" > Dashboard</a>
+	            {% else %} 
+	            <a href="{% url 'officer_dashboard' %}" > Dashboard</a>
+	            {% endifequal %}
+	            {% endif %} 
+	        	</li>
+
+				<li><a href="{% url 'query' %}">Help</a></li>
+				{% if request.user.id %}
+				<li>
+                <a href="{% url 'user_logout' %}" class="nav-but">Logout</a></li>
+                {% else %}
+				<li class="has_menu"><a href="#"><i class="fa fa-lock"></i> Login <i class="fa fa-angle-down"></i></a>
+
+					<ul class="sub_nav">
+						<li><a href="{% url 'user_login' %}">User Login</a></li>
+						<li class="has_menu_bar"><a href="#"></i>Officer Login <i class="fa fa-angle-right"></i></a>
+							<ul class="sub_nav_bar">
+								<li><a href="{% url 'staff_login' %}">Revenue Officer Login</a></li>
+								<li><a href="{% url 'staff_login' %}">Deputy Officer Login</a></li>
+								<li><a href="{% url 'staff_login' %}">Forest Range Officer Login</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li><a href="{% url 'signup' %}"><i class="fa fa-file-text"></i> Register</a></li>
+				</li>
+                {% endif %}
+				<li class="transit_pass"><a href="{% url 'application_form' %}"><i class="fa fa-check"></i> Apply Transit Pass</a></li>
+				<li><a href="{% url 'all_reports' %}"> Check Reports</a></li>
+			</ul>
+			
+		</div>
+	</div> -->
+<div class="header top_band sticky-top bg-white ">
+	<div class="band_01 ">
+		<div class="us_aid_logo"><img src="{% static 'images/USAID__LOGO.jpeg' %}" alt="" /></div>
+			<div class="ministry_logo ">
+			<!-- <img src="{% static 'images/MINISTRY_LOGO2.png' %}" alt="" style="height:60px;" /> -->
+			<img src="{% static 'images/KeralaForest.png' %}" alt="" style="height:60px;" />
+				</div>
+		<div class="ministry_logo " style="display:flex;justify-content:flex-end;">
+			<img src="{% static 'images/MINISTRY_LOGO2.png' %}" alt="" style="height:60px;" /></div>
+	</div>
+	<div class="band_02">
+		<div class="right band_02_wrap">
+			<div><a href="{% url 'index' %}" class="logo"><img src="{% static 'images/tigram_logo02.png' %}" alt="" /></a></div>
+			<ul class="nav">
+				
+				<li><a href="#">Home</a></li>
+				<li>
+				{% if request.user.id %}
+	            {% ifequal group.0 "user" %}
+	            <a href="{% url 'dashboard' %}" > Dashboard</a>
+	            {% else %} 
+	            <a href="{% url 'officer_dashboard' %}" > Dashboard</a>
+	            {% endifequal %}
+	            {% endif %} 
+	        	</li>
+
+				<li><a href="{% url 'query' %}">Help</a></li>
+				<div class="right" style="float: right;">
+				<!-- <div class="user_logout"> -->
+				{% if request.user.id %}
+				<li>
+                <a href="{% url 'user_logout' %}" class="nav-but">Logout</a></li>
+                {% else %}
+				<li class="has_menu"><a href="#"><i class="fa fa-lock"></i> Login <i class="fa fa-angle-down"></i></a>
+
+					<ul class="sub_nav">
+						<li><a href="{% url 'user_login' %}">User Login</a></li>
+						<li class="has_menu_bar"><a href="#"></i>Officer Login <i class="fa fa-angle-right"></i></a>
+							<ul class="sub_nav_bar">
+								<li><a href="{% url 'staff_login' %}">Revenue Officer Login</a></li>
+								<li><a href="{% url 'staff_login' %}">Deputy Officer Login</a></li>
+								<li><a href="{% url 'staff_login' %}">Forest Range Officer Login</a></li>
+								<li><a href="{% url 'staff_login' %}">Division Officer Login</a></li>
+                <li><a href="{% url 'staff_login' %}">State Officer Login</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li><a href="{% url 'signup' %}"><i class="fa fa-file-text"></i> Register</a></li>
+				</li>
+                {% endif %}
+				<li><a href="{% url 'all_reports' %}"> Check Reports</a></li>
+				<li class="transit_pass"><a href="{% url 'application_form' %}"><i class="fa fa-check"></i> Apply Transit Pass</a></li>
+				</div>
+			</ul>
+      <div class="menu_icon" onclick="menuIconToggle(this)">
+  <div class="bar1"></div>
+  <div class="bar2"></div>
+  <div class="bar3"></div>
+</div>
+<script>
+function menuIconToggle(x) {
+  x.classList.toggle("change");
+}
+$(document).ready(function(){
+  $(".menu_icon").click(function(){
+    $(".band_02 .nav").slideToggle("fast");
+  });
+});
+</script>
+			
+		</div>
+			<!-- <ul class="nav">
+				<li><a href="{% url 'index' %}" class="logo"><img src="{% static 'images/tigram_logo02.png' %}" alt="" /></a></li>
+				<li><a href="{% url 'index' %}">Home</a></li>
+				<li><a href="{{request.META.HTTP_REFERER|escape}}">Back</a></li>
+				{% if request.user.id %}
+				{% ifequal groups.0 "user" %}
+				<li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+				{% else %}
+				<li><a href="{% url 'officer_dashboard' %}">Dashboard</a></li>
+				<li><a href="{% url 'all_reports' %}">Reports</a></li>
+				{% endifequal %}
+				{% endif %}
+			</ul>
+			<div class="user_logout">
+		
+				{% if request.user.id %}
+				<div class="user_name"><a href="{% url 'view_profile' request.user.id %}"><i class="fa fa-user"></i>  {{request.user.name | capfirst}}</a></div>
+				<a href="{% url 'user_logout' %}" class="logout"><i class="fa fa-sign-out"></i> Logout</a>
+				{% endif %}
+			</div> -->
+	</div>
+</div>	
+<!-- </div> -->
+<div class="cont nice_scroll">
+<div class="banner">
+	<img src="{% static 'images/home_ban_01.jpg' %}">
+	<div class="ban_txt_wrap">
+		<div class="ban_txt">The <span>Easiest Way</span> To Get Your<br> <span>Timber Transit</span>.</div>
+		<a href="{% url 'application_form' %}" class="link_btn">Apply Now</a>
+	</div>
+</div>
+<div class="sec about_us">
+	<div class="wrap">
+			<div class="sec_title">About <span class="brand_name">Tigram</span></div>
+			<div class="txt">“Tigram” was created to facilitate timber tracing facility.The process starts with the applicant registering through the web application.Once registered,the applicant gets access to utilize the online portal. In order to file an application for timber transit, applicant has to enter all details as per Form 1 along with the permission received from revenue department, destination details and vehicle details to begin with the transit pass issuing process. All these documents and form are mandatory except for the vehicle details which can even be updated later. The application and all supported documents will be forwarded first to the revenue department for verification. On approval, these documents will further be passed on to the forest department for validation and assertion. </div>
+			<div class="txt">The transit request will be reviewed by Deputy Range Forest Officer and Range Forest Officer for its completeness along with physical inspection, then a transit pass will be issued which can be utilized by the applicant. To ensure secure and legal transit, a limit of 7 days has been allotted to the applicant for the transportation after which the pass becomes invalid. Also, to ensure that no delay or issue is caused for the applicant. A limit of 15 days is set within which the transit pass shall either be issued or rejected. Not adhering to which will lead to an automatic issuance of transit pass for the applicant. The status at each stage of inspection will be made available for the applicant by means of an application status page.</div>
+	</div>	
+</div>
+<!--
+<div class="sec bg_01 tps_sec">
+	<div class="wrap">
+			<div class="sec_title">Transit Pass System</div>
+			<div class="txt txt02">The system provides seamless issuance of transit pass. This system helps in monitoring and keeping records of transit permits for inter-state and intra-state transportation of timber from private lands/government/private depot and other minor forest produce.
+			</div>
+			
+			<div class="sec_title02">Key Features of National Transit Pass System</div>
+			<ul class="sec_list">
+			<li>It is a role based and work flow based application available as desktop based web portal as well as mobile application.</li>
+<li>Registration and submission of the applications for Transit Permit (TP) or Online application for Species grown on private land which are exempted from transit pass regime and Online application submission for Species grown on private land which are not exempted from transit pass regime.</li>
+<li>Online generation of Transit Permit on the basis of category of species.</li>
+<li>E-payment system: Payment can be made online through mobile app/web portal before downloading T.P.</li>
+			</ul>
+			
+	</div>	
+</div>
+-->
+<div class="various_type">
+		<div class="box">
+			<div class="txt_01">{{no_of_app}}</div>
+			<div class="txt_02">Applications</div>
+		</div>
+		<div class="box">
+			<div class="txt_01">{{no_of_tp}}</div>
+			<div class="txt_02">TP Issued</div>
+		</div>
+		<div class="box">
+			<div class="txt_01">{{no_of_tp_pending}}</div>
+			<div class="txt_02">TP Pending</div>
+		</div>
+		<div class="box">
+			<div class="txt_01">{{no_of_tp_rejected}}</div>
+			<div class="txt_02">TP Rejected</div>
+		</div>
+	</div>
+</div>
+<!--
+<div class="sec ">
+	<div class="wrap">
+			<div class="sec_title02">Key Benefits of National Transit Pass System</div>
+			<ul class="sec_list">
+			<li>Expedite issuance of transit permits for timber forest produce without physically going to forest offices.</li>
+<li>Replace manual paper based transit system by online transit system One permit for whole India for transit of timber for ease of doing business.</li>
+<li>Seamless movement across state borders from origin to destination through help of Mobile App.</li>
+<li>Prevent hardships of timber, farmers and transporters in obtaining permits and at forest check posts.</li>
+<li>Promotion of agro-forestry activities.</li>
+<li>Saving of transportation cost and time which will benefit farmers and traders and will in turn help in increasing farmer's income</li>
+			</ul>
+			
+	</div>	
+</div>
+-->
+<script>
+$(document).ready(function(){
+  $("").click(function(){
+    $("").toggleClass("view_mode");
+  });
+});
+</script>
+<div class="foot_band ">
+
+<div style="display:flex;justify-content:space-between;">
+			
+		<div style="margin-left:100px;">Developed by Bhugol GIS Pvt. Ltd.</div>
+		<div>Insight Development Consultancy Group (IDCG)</div>
+		<div style="margin-right:100px;">Kerala Forest Research Institute (KFRI)</div>
+		</div>
+<!--
+<marquee direction = "left">
+</marquee>-->
+</div>
+
+</body>
+
+</html>

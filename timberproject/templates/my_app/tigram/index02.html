@@ -1,0 +1,168 @@
+{% load static %}
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="main.js"></script>
+<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+<body class="b1">
+    <header class="header">
+         <img src="{% static 'media/logo/TGRAM_LOGO.jpeg' %}" style="float: left;"  width="100px" height="100px" />
+        TIGRAM
+        <img src="{% static 'media/logo/default_logo.png' %}" style="float: right;"  width="200px" height="100px" />
+    </header>
+    <nav class=nav>
+        <div class="d-r">
+            <a href="{% url 'index' %}" class="h1-button">HOME</a>
+            {% if request.user.id %}
+            {% ifequal group.0 "user" %}
+            <a href="{% url 'dashboard' %}" class="h1-button"> Dashboard</a>
+            {% else %}
+            <a href="{% url 'officer_dashboard' %}" class="h1-button"> Dashboard</a>
+            {% endifequal %}
+            {% endif %}
+            <a href="#" class="h2-button">About Us</a>
+            <a href="#" class="h3-button">State Transit Rules</a>
+            <a href="#" class="h4-button">Download Mobile App</a>
+        </div>
+        <div class="right">
+                {% if request.user.id %}
+                <a href="{% url 'user_logout' %}">Logout</a>
+                {% else %}
+                <a href="#" class="h5-button">
+                    <form id="user_type" action="{% url 'user_login' %}" method="get">
+                    <select name="login_type" id="log1">
+                        <option>Select Login Type</option>
+                        <option value="user">Login</option>
+                        <option value="officer">Department Login</option>
+                    </select>
+                    </form>
+                </a>
+                <!-- <a href="{% url 'user_login' %}">Login </a> -->
+                <a href="{% url 'signup' %}" class="h6-button">Register</a>
+                {% endif %}
+            <a href="#" class="h7-button">FAQ</a>
+        </div>
+    </nav>
+    
+    <div class="slides">
+        <img class="mySlides" src="{% static 'images/image2.jpg' %}" style="width:100%; height: 90%;">
+        <img class="mySlides" src="{% static 'images/i4.jpg' %}" style="width:100%; height: 90%;">
+        <img class="mySlides" src="{% static 'images/i6.jpg' %}" style="width:100%; height: 90%;">
+        <div class="centered">Portal for Movement of Timber
+            <div>
+                <div a href="#" class="button">Contact Us</a></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var myIndex = 0;
+        carousel();
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) { myIndex = 1 }
+            x[myIndex - 1].style.display = "block";
+            setTimeout(carousel, 3000);
+        }
+    </script>
+
+    <div class="d1" style="width:100%; height:35%;">
+
+        &nbsp;<label id="lbl">Transit pass system</label><br>&nbsp;
+        <i class="fa fa-check"></i>
+        <label id="lbl1">
+            The system provides seamless issuance of transit pass.
+            This system helps in monitoring and keeping records of transit permits for
+            inter-state and intra-state transportation of timber from private lands/government/private depot and other
+            minor forest produce.</label><br>&nbsp;
+        &nbsp;<label id="lbl2">Key features of National Transit Pass System</label><br>&nbsp;
+        <i class="fa fa-check"></i>
+        It is a role based and work flow based application available as desktop
+        based web portal as well as mobile application.<br>&nbsp;
+        <i class="fa fa-check"></i>
+        registration and submission of the applications for Transit Permit (TP) or
+        Online application for Species grown on private land which are exempted from transit pass
+        regime and Online application submission
+        for Species grown on private land which are not exempted from transit pass regime.<br>&nbsp;
+        <i class="fa fa-check"></i>
+        Online generation of Transit Permit on the basis of category of species.<br>&nbsp;
+        <i class="fa fa-check"></i>
+        E-payment system: Payment can be made online through mobile app/web portal before downloading T.P.</label>
+    </div>
+
+    <div class="c2"><img class="fakeimg" src="{% static 'images/image4.jpg' %}" style="width:100%; height: 80%;"></div>
+    <div class="row" style="width:100%; ">
+        <div class="column">
+            <h3>{{no_of_app}}</h3>
+            <p>Applications</p>
+        </div>
+
+        <div class="column">
+            <h3>{{no_of_tp}}</h3>
+            <p>TP issued</p>
+        </div>
+
+
+        <div class="column">
+            <h3>{{no_of_tp_pending}}</h3>
+            <p>TP pending</p>
+        </div>
+
+
+        <div class="column">
+            <h3>{{no_of_tp_rejected}}</h3>
+            <p>TP rejected</p>
+        </div>
+    </div>
+    <div class="i">
+        <div><img class="fakeimg" src="{% static 'images/image5.jpg' %}" style="width:100%; height: 110%;">
+            <div class="call">
+                <div class="f1"><b>Key benefits of National Transit Pass System</b></div>
+
+                <p class="f2">
+                    <i class="fa fa-check"></i>Expedite issuance of transit permits for timber
+                    forest produce without physically going to forest offices.<br>
+                    <i class="fa fa-check"></i>
+                    Replace manual paper based transit system by online transit system
+                    One permit for whole India for transit of timber for ease of
+                    doing business.<br>
+                    <i class="fa fa-check"></i>
+                    Seamless movement across state borders from origin to destination through help of Mobile App.<br>
+                    <i class="fa fa-check"></i>
+                    Prevent hardships of timber, farmers and transporters in obtaining permits and
+                    at forest check posts.<br>
+                    <i class="fa fa-check"></i>
+                    Promotion of agro-forestry activities.<br>
+                    <i class="fa fa-check"></i>
+                    Saving of transportation cost and time which will benefit farmers and traders and will in turn help
+                    in
+                    increasing farmers’ income<br>
+                </p>
+            </div>
+
+        </div>
+    </div>
+    <footer class="footer">
+        <img src="{% static 'media/logo/default_logo.png' %}" style="float: left;"  width="100px" height="100px" /></th>
+        <img src="{% static 'media/logo/default_logo.png' %}"  width="250px" height="100px" /></th>
+        <img src="{% static 'media/logo/default_logo.png' %}" style="float: right;" width="100px" height="100px" /></th>
+    </footer>
+
+
+
+</body>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#log1').on('change',function(){
+            $('#user_type').submit();
+        });
+    });
+</script>
+
+</html>

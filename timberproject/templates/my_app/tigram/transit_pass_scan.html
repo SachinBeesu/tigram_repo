@@ -1,0 +1,132 @@
+{% extends 'my_app/tigram/top_band_cont.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/viewapplication.css' %}">
+	<!-- <link rel="stylesheet" href="css/viewapplication.css"> -->
+    <!-- <link rel="stylesheet" href="{% static 'css/dash.css' %}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    
+<style type="text/css">
+  /*.img-gallery1 {
+    display: block;
+    max-width:180px;
+    max-height:180px;
+    width: auto;
+    height: auto;
+}*/
+.modal{
+    overflow: auto;
+}
+</style>
+</head>
+
+<body>
+    
+	<div class="cont_sec cont nice_scroll">	
+		<div class="wrap">
+    <table class="table1">
+        <tr class="layout">
+
+            <th id="col2" style="text-align:center; ">TIGRAM</th>
+
+        </tr>
+
+
+    </table>
+    <table class="table2">
+        <!-- <tr>
+            <td class="head">Name:</td>
+            <td>{{tp.0.name}}</td>
+        </tr>
+        <tr>
+            <td class="head">Address:</td>
+            <td>{{applications.0.address}}</td>
+        </tr>
+        <tr>
+            <td class="head">Survey No.</td>
+            <td>{{applications.0.survey_no}}</td>
+        </tr>
+        <tr>
+            <td class="head">Name of the Village/Taluka/Block and District where the land on which the tree or trees
+                stand/lie:</td>
+            <td>{{applications.0.village}}</td>
+        </tr> -->
+
+        <!-- <tr>
+            <td class="head">List showing the species of tree or trees proposed to be cut,etc:</td>
+            <td>{{applications.0.species_of_trees}}</td>
+        </tr> -->
+        <tr>
+            <td class="head">Transit Pass Created Date:</td>
+            <td>{{applications.0.transit_pass_created_date}}</td>
+        </tr>
+        <tr>
+            <td class="head">Purpose for which trees are proposed to be cut,etc:</td>
+            <td>{{applications.0.purpose}}</td>
+        </tr>
+        <tr>
+            
+        <td class="head">Approved By:</td>
+            <!-- <td>{{application.0.approved_by.name}}</td> -->
+            <td>{{authorizer_name}}</td>
+        </tr>
+        <tr>
+            <td class="head">Destination:</td>
+            <td>{{applications.0.destination_details}}</td>
+        </tr>
+    </table>
+    <h3 style="font-size:20px;">Wood Log Description details:</h3>
+
+
+    <table style="border: 1px solid black;">
+        <tr>
+         
+          <th  style="width: 45px;padding-top: 7px; background-color: #000000;font-size: 15px;"><p style="color: white;">Sr.NO</p></th>
+          <th style="width: 300px; padding-top: 7px; background-color: black;font-size: 15px"><p style="color: white;">Species of Log</p></th>
+          <th style="padding-top: 7px; background-color: black;font-size: 15px"><p style="color: white;">Length(cm)</p></th>
+          <th style="padding-top: 7px; background-color: black;font-size: 15px"><p style="color: white;">Girth(cm)</p></th>
+          <th style="padding-top: 7px; background-color: black;font-size: 15px"><p style="color: white;">Volume(cm<sup>3</sup>)</p></th>
+          <!-- <th style="padding-top: 7px; background-color: black;font-size: 15px"><p style="color: white;">QR Code</p></th> -->
+          <th style="padding-top: 7px; background-color: black;font-size: 15px"><p style="color: white;">Latitude</p></th>
+          <th style="padding-top: 7px; background-color: black;font-size: 15px"><p style="color: white;">Longitude</p></th>
+        </tr>
+        {% for each in log_details %}
+        <tr>
+        
+          <td style="text-align: center;font-size: 16px">{{forloop.counter}}</td>
+          <td style="width :300px !important; text-align: center;font-size: 16px">{{each.species_of_tree}}</td>
+          <td style="text-align: center;font-size: 16px">{{each.length}}</td>
+          <td style="text-align: center;font-size: 16px">{{each.breadth}}</td>
+          <td style="text-align: center;font-size: 16px">{{each.volume}}</td>
+          <td style="text-align: center;font-size: 16px">{{each.latitude}}</td>
+          <!-- <td><img class="qr_img" src="{{main_url}}{{each.log_qr_code_img}}" /></td> -->
+
+          <!-- <td><img class="qr_img" src="http://65.1.132.43:8080/static/media/qr_code/{{each.log_qr_code_img}}" /></td> -->
+          <td style="text-align: center;font-size: 16px">{{each.longitude}}</td>
+          
+        </tr>
+        {% endfor %}
+
+
+      </table>
+	<br/>
+	<br/>
+    	
+    <a href="{% url 'transit_pass_pdf' applications.0.id %}"><i class="fa fa-arrow-down"></i>Download Full Details </a>
+</div>
+	</div>
+
+</body>
+<script type="text/javascript">
+
+</script>
+</html>
+{% endblock %}

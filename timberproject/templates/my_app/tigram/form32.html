@@ -1,0 +1,399 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/form1.css' %}">
+    <link rel="stylesheet" href="css/form1.css">
+    <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+    <link rel="stylesheet" href="css/dash.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <script src="{% static 'js/repeater.js' %}"></script>
+    <style>
+        #tab {
+            display: none;
+            color: #000;
+            position: relative;
+            padding: 10px;
+            margin-top: 5px;
+        }
+
+        #veh {
+            display: none;
+            color: #000;
+            position: relative;
+            padding: 10px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+     <nav class=nav>
+            <div class="right">
+                <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+                <a href="{% url 'view_profile' request.user.id %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+            </div>
+        </nav>
+    <form class="form" action="{% url 'application_form' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container">
+            <h1>Form 1</h1>
+	
+            <hr>
+			<br>
+            <label for="uname"><b>Name:</b></label>
+            <input type="text" placeholder="Enter your name" name="uname" required>
+            <br>
+            <br>
+            <label for="add"><b>Address:</b></label>
+            <input type="text" placeholder="Enter your address" name="add" required>
+            <br>
+            <br>
+            <label for="sno"><b>Survey Number:</b></label>
+            <input type="text" placeholder="Enter your survey number" name="sno" required>
+            <br>
+            <br>
+
+            <label for="treep"><b>Trees proposed to be cut:</b></label>
+            <input type="number" placeholder="Enter number of trees" name="treep" required>
+            <br>
+            <br>
+            <label for="vil"><b>Village:</b></label>
+            <input type="text" placeholder="Enter your Village" name="vil" required>
+            <br>
+            <br>
+            <label for="taluka"><b>Taluka:</b></label>
+            <input type="text" placeholder="Enter your Taluka" name="taluka" required>
+            <br>
+            <br>
+            <label for="block"><b>Block:</b></label>
+            <input type="text" placeholder="Enter your Block" name="block" required>
+            <br>
+            <br>
+            <label for="dist"><b>District:</b></label>
+            <input type="text" placeholder="Enter your District" name="dist" required>
+            <br>
+            <br>
+            <label for="pro"><b>Proof of ownership:</b></label>
+            <input type="file" id="myFile" name="ownership_proof_img">
+
+            <br>
+            <br>
+            <div id='chk_div' class="tree_check">
+                <b>Species of tree or trees proposed to be cut:</b>
+                <!-- <input type="checkbox" id="s1" name="species1" class="chk_species" value="Sandal wood(Santalum album)">
+                <label for="s1"> Sandal wood(Santalum album)</label><br> -->
+                <input type="checkbox" id="s2" name="species2" class="chk_species" value="Rosewood(Dalbergia latifolia)">
+                <label for="s2"> Rosewood(Dalbergia latifolia)</label><br>
+                <input type="checkbox" id="s2" name="species2" class="chk_species" value="Teak(Tectona grandis)">
+                <label for="s2"> Teak(Tectona grandis)</label><br>
+                <input type="checkbox" id="s3" name="species3" class="chk_species" value="Thempavu(Terminalia tomantosa)">
+                <label for="s3">Thempavu(Terminalia tomantosa)</label><br>
+                <input type="checkbox" id="s4" name="species4" class="chk_species" value="Kamoakam(Hopea Parviflora)">
+                <label for="s4">Kamoakam(Hopea Parviflora)</label><br>
+                <input type="checkbox" id="s4" name="species4" class="chk_species" value="Chadachi(Grewia tiliaefolia)">
+                <label for="s4">Chadachi(Grewia tiliaefolia)</label><br>
+                <input type="checkbox" id="s5" name="species5" class="chk_species" value="Chandana vempu(Cedrela toona)">
+                <label for="s5">Chandana vempu(Cedrela toona)</label><br>
+                <input type="checkbox" id="s6" name="species6" class="chk_species" value="Vellakil(Dysoxylum malabaricum)">
+                <label for="s6">Vellakil(Dysoxylum malabaricum)</label><br>
+                <input type="checkbox" id="s7" name="species7" class="chk_species" value="Irul(Xylia xylocarpa)">
+                <label for="s7">Irul(Xylia xylocarpa)</label><br>
+                <input type="checkbox" id="s8" name="species8" class="chk_species" value="Ebony(Diospyrus sp.)">
+                <label for="s8">Ebony(Diospyrus sp.)</label><br><br>
+                <input type="hidden" name="tree_species" id="tree_species" value="">
+            </div>
+            <label for="propt"><b>Purpose for which trees or trees proposed to be cut:</b></label>
+            <input type="text" placeholder="Enter Purpose for which trees or trees proposed to be cut" name="purpose_cut">
+            <br><br>
+            <label for="s9"><b>Add Log Details</b></label><br>
+            <input type="radio" onclick="myInput " id="yes" name="log_option" value="yes">
+            <label for="yes">YES</label><br>
+            <input type="radio" id="no" name="log_option" value="no">
+            <label for="no">NO</label><br>
+
+
+            <div id="tab" style="height:300px; overflow: auto;">
+                <table id="myTable" >
+                    <thead>
+                    <!-- <tr> -->
+                        <td>
+                            SR.NO
+                        </td>
+                        <td>
+                            Species
+
+                        </td>
+                        <td>
+                            LENGTH
+                        </td>
+                        <td>
+                            BREADTH
+                        </td>
+
+                        <td>
+                            VOLUME
+                        </td>
+                        <td>
+                            LATITUDE
+                        </td>
+                        <td>
+                            LONGITUDE
+                        </td>
+
+                    <!-- </tr> -->
+                    </thead>
+                    <tbody id='myBody'>
+                    <tr >
+                        <td><label class="sr_no">1</label></td>
+                        <td><select name="species[]" id="cid1" class="species">
+                                <option>Select</option>
+                                <!-- <option value="Sandal wood(Santalum album)">Sandal wood(Santalum album)</option> -->
+                                <option value="Rosewood(Dalbergia latifolia)">Rosewood(Dalbergia latifolia)</option>
+                                <option value="Teak(Tectona grandis)"> Teak(Tectona grandis)</option>
+                                <option value="Thempavu(Terminalia tomantosa)">Thempavu(Terminalia tomantosa)</option>
+                                <option value="Kamoakam(Hopea Parviflora)">Kamoakam(Hopea Parviflora)</option>
+                                <option value="Chadachi(Grewia tiliaefolia)">Chadachi(Grewia tiliaefolia)</option>
+                                <option value="Chandana vempu(Cedrela toona)">Chandana vempu(Cedrela toona)</option>
+                                <option value="Vellakil(Dysoxylum malabaricum)">Vellakil(Dysoxylum malabaricum)</option>
+                                <option value="Irul(Xylia xylocarpa)">Irul(Xylia xylocarpa)</option>
+                                <option value="Ebony(Diospyrus sp.)">Ebony(Diospyrus sp.)</option>
+                            </select></td>
+                        <td><input id="cid2" name="length[]" type="text" class="length" placeholder="enter length of the log"></td>
+                        <td><input id="cid3" name="breadth[]" type="text" class="breadth" placeholder="enter breadth of the log"></td>
+                        <td><input id="cid4" name="volume[]" type="text" class="volume" placeholder="enter volume of the log"></td>
+                        <td><input name="latitude[]" class="latitude" type="text" placeholder="enter latitude of the log"></td>
+                        <td><input name="longitude[]" class="longitude" type="text" placeholder="enter longitude of the log"></td>
+                        <td><button style="font-size:20px" id="addbutton" ><i
+                                    class="fa fa-plus-square-o" ></i></button></td>
+                                    <!-- <td><button onclick="myCreateFunction()" style="font-size:20px" id="addbutton" ><i
+                                    class="fa fa-plus-square-o" ></i></button></td> -->
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- <button id="confirmList"> confirm</button> -->
+            </div>
+
+            <script>
+                // function createRow()
+                // function createSelect(checked_values){
+                //     $('.species').empty();
+                //     for (var index = 0; index < checked_values.length; index++) {
+                //         console.log(checked_values+"list"+index);
+                //         $('.species').append('<option value="' + checked_values[index] + '">' + checked_values[index] + '</option>');
+                //         }
+                // }
+               
+                function calVol(length,breadth)
+                {
+                    // var volume = 3.14*length*breadth*breadth ;
+                    var volume= length*(breadth/4)**2;
+                    return volume;
+                }
+                $(document).ready(function(){
+                    // $('.length ,.breadth').on('change', function() {
+                    $(document).on('change','.length ,.breadth', function() {
+                    
+                    var selectedText = $(this).val();
+                    var $this = $(this).parent().parent();
+                    var rowlength =$($this).children().children('.length').val();
+                    var rowbreadth =$($this).children().children('.breadth').val();
+                    // alert($($this).children().children('.length').val()+$($this).children().children('.breadth').val());
+
+                    $($this).children().children('.volume').val(calVol(rowlength,rowbreadth));
+                    });
+                });
+
+                $(document).ready(function(){
+                    // $('*').click(function(){
+                    //     console.log(this);
+                    // });
+                        var row_count = document.getElementById("myTable").rows.length;
+                        var max_fields = 14;
+                        var row='<tr class="rown" >\
+                        <td><label class="sr_no">'+row_count+'</label></td>\
+                        <td><select name="species[]" class="species sp3"  >\
+                                <option>Select</option>\
+                            </select></td>\
+                        <td><input name="length[]" class="length" type="text" placeholder="enter length of the log"></td>\
+                        <td><input name="breadth[]" class="breadth" type="text" placeholder="enter breadth of the log"></td>\
+                        <td><input name="volume[]" class="volume" type="text" placeholder="enter volume of the log"></td>\
+                        <td><input name="latitude[]" class="latitude" type="text" placeholder="enter latitude of the log"></td>\
+                        <td><input name="longitude[]" class="longitude" type="text" placeholder="enter longitude of the log"></td>\
+                        <td class="remove_btn"><button style="font-size:20px"  >\
+                        <i class="fa fa-minus-square-o"></i></button></td>\
+                    </tr>';
+                    // $('#cid1').
+                        $('#addbutton').click(function(e){
+                                e.preventDefault();
+                                $("#myBody").append(row);
+                               var $options = $("#cid1 > option").clone();
+                               console.log($options);
+                                $('.sp3').append($options);
+                                $(".sp3 option").val(function(idx, val) {
+                                $(this).siblings('[value="'+ val +'"]').remove();
+                                });
+                                var addSerialNumber = function () {
+                                $('#myBody tr').each(function(index) {
+                                $(this).find('td:nth-child(1)').html(index+1);
+                                });
+                                };
+
+                                addSerialNumber();
+
+                        })
+                        $(document).on('click','.remove_btn',function(e){
+                            e.preventDefault();
+                            // console.log('this');
+                                $(this).parent().remove();
+                        })
+                        $(document).on('change','.length ,.breadth', function() {
+
+                            var selectedText = $(this).val();
+                            var $this = $(this).parent().parent();
+                            var rowlength =$($this).children().children('.length').val();
+                            var rowbreadth =$($this).children().children('.breadth').val();
+                            // alert($($this).children().children('.length').val()+$($this).children().children('.breadth').val());
+                            // alert(rowbreadth+"  "+rowlength);
+                            // console.log(((rowbreadth/4)**2)*rowlength);
+
+                            $($this).children().children('.volume').val(calVol(rowlength,rowbreadth));
+                        });
+                        
+                });
+        //         $('#confirmList').click(function(){
+        //             // console.log($(this).parent().children());
+        //             var ary = [];
+        // $(function () {
+        //     $('#myBody tr').each(function (a, b) {
+
+        //         var name = $('.species', b).val();
+        //         var length = $('.length', b).val();
+        //         var breadth = $('.breadth', b).val();
+        //         var volume = $('.volume', b).val();
+        //         var latitude = $('.latitude', b).val();
+        //         var longitude = $('.longitude', b).val();
+        //         ary.push({ Species: name, Length: length, Breadth: breadth,Latitude:latitude,Longitude:longitude });
+               
+        //     });
+        //     alert(JSON.stringify( ary));
+        // });
+
+        //         });
+            </script>
+            <!-- <script type="text/javascript"></script> -->
+            <script type="text/javascript">
+                $(document).ready(function(){
+                   $('#yes').click(function(){
+                    $('#tab').show();
+                   });
+                   $('#no').click(function(){
+                      $('#tab').hide();  
+                   });  
+                });
+                $("#repeater").createRepeater({
+                showFirstItemToDefault: true,
+                });
+
+                $('#chk_div').on('change',function() {
+                    var checked_values=[];
+                    $("input:checkbox[class=chk_species]:checked").each(function () {
+                    checked_values.push($(this).val());
+                    console.log(checked_values+"array");
+                    $("#tree_species").val(checked_values);
+                    });
+                // $('.species').
+                // createSelect(checked_values);
+                $('.species').empty();
+                $('.species').append('<option value="">Select</option>');
+                    for (var index = 0; index < checked_values.length; index++) {
+                        console.log(checked_values+"list"+index);
+                        $('.species').append('<option value="' + checked_values[index] + '">' + checked_values[index] + '</option>');
+                        }
+
+                });
+
+                // function myCreateFunction() {
+                //     var table = document.getElementById("myTable");
+                //     var row = table.insertRow(2);
+                //     var cell1 = row.insertCell(0);
+                //     var cell2 = row.insertCell(1);
+                //     var cell3 = row.insertCell(2);
+                //     var cell4 = row.insertCell(3);
+                //     var cell5 = row.insertCell(4);
+                //     cell1.innerHTML = document.getElementById("cid");
+                //     cell2.innerHTML = document.getElementById("cid1");
+                //     cell3.innerHTML = document.getElementById("cid2");
+                //     cell4.innerHTML = document.getElementById("cid3");
+                //     cell5.innerHTML = document.getElementById("cid4");}
+            </script>
+            <br>
+
+            <label for="propt"><b>Revenue Application:</b></label>
+            <input type="file" id="myFile1" name="revenue_application_img"><br><br>
+            <label for="propt"><b>Revenue Approval:</b></label>
+            <input type="file" id="myFile1" name="revenue_approval_img"><br><br>
+            <label for="propt"><b>Declaration:</b></label>
+            <input type="file" id="myFile2" name="declaration_img"><br><br>
+            <label for="propt"><b>Location Sketch:</b></label>
+            <input type="file" id="myFile3" name="location_sketch_img"><br><br>
+            <label for="propt"><b>Tree Ownership Details:</b></label>
+            <input type="file" id="myFile4" name="tree_ownership_img"><br><br>
+            <label for="propt"><b>Adhar Card:</b></label>
+            <input type="file" id="myFile5" name="aadhar_card_img"><br><br>
+
+            <label for="dest"><b>Destination Details:</b></label>
+            <input type="text" id="destination_details" name="destination_details"><br><br>
+
+            <label for="Vehicle"><b>Enter Vehicle Details:</b></label><br>
+            <input type="radio" onclick="myInput " id="y" name="option" value="yes">
+            <label for="yes">YES</label><br>
+            <input type="radio" id="n" name="option" value="no">
+            <label for="no">NO</label><br>
+            <div id="veh">
+                <label for="veh_reg"><b>Vehicle Registration Number:</b></label>
+                <input type="text" name="veh_reg" >
+                <label for="driver_name"><b>Name of the driver:</b></label>
+            <input type="text" name="driver_name" >
+            <label for="phn"><b>Phone Number of the Driver:</b></label>
+            <input type="text" name="phn" >
+            <label for="mode"><b>Mode of Transportation:</b></label>
+            <input type="text" name="mode" >
+            <label for="lic_img"><b>License Image:</b></label>
+            <input type="file" id="myFile" name="lic_img">
+            </div>
+            <label for="sign"><b>Signature:</b></label>
+            <input type="file" name="signature_img"><br><br>
+            <script>
+                var myInput = document.getElementById("y");
+                var myInputn = document.getElementById("n")
+
+                myInput.onfocus = function () {
+                    document.getElementById("veh").style.display = "block";
+
+                    myInputn.onfocus = function () {
+                        document.getElementById("veh").style.display = "none";
+
+                        function myFunction() {
+                            document.getElementById("fa fa-plus-square-o").style.display = "block";
+                        }
+                    }
+                }
+            </script>
+            <hr>
+			<br>
+            <button type="submit" class="save btn">Submit</button>
+			<br>
+			<br>
+        </div>
+
+
+    </form>
+
+</body>
+
+</html>

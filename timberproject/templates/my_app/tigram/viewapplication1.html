@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/viewapplication.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css' %}">
+    <script type="text/javascript" src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js' %}"></script> -->
+</head>
+
+<body>
+    <nav class=nav>
+        <a href="{% url 'officer_dashboard' %}" class="h6-button" id="icon"><i class="fa fa-chevron-circle-left"></i>&nbsp;&nbsp;Back</a>
+            <div class="right">
+                <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+                <a href="{% url 'view_profile' request.user.id %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+            </div>
+        </nav>
+    <table class="table1">
+        <tr class="layout hide">
+            <th id="th1"><img src="{% static 'media/logo/default_logo.png' %}"  width="100px" height="100px" /></th>
+            <!-- <th id="th1">icon</th> -->
+            <th id="col2">TIGRAM</th>
+            <th id="th1"><img src="{% static 'media/logo/default_logo.png' %}"  width="100px" height="100px" /></th>
+            <!-- <th id="th1">icon</th> -->
+        </tr>
+    </table>
+    <table class="table2">
+        <tr>
+            <td class="head">Name:</td>
+            <td>{{applications.0.name}}</td>
+        </tr>
+        <tr>
+            <td class="head">Address:</td>
+            <td>{{applications.0.address}}</td>
+        </tr>
+        <tr>
+            <td class="head">Survey No. and extent of the field or fields on which the tree or trees proposed to be
+                cut,uprooted or burnt stand:</td>
+            <td>{{applications.0.survey_no}}</td>
+        </tr>
+        <tr>
+            <td class="head">Name of the Village/Taluka/Block and District where the land on which the tree or trees
+                stand/lie:</td>
+            <td>{{applications.0.village}}</td>
+        </tr>
+        <tr>
+            <td class="head">Proof of ownership of the trees:</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="head">List showing the species of tree or trees proposed to be cut,etc:</td>
+            <td>{{applications.0.species_of_trees}}</td>
+        </tr>
+        <tr>
+            <td class="head">Purpose for which trees are proposed to be cut,etc:</td>
+            <td>{{applications.0.purpose}}</td>
+        </tr>
+        <tr>
+            <td class="head">Details of generation proposed:</td>
+            <td></td>
+        </tr>
+    </table>
+    <div>
+        <span id="center">VOLUME DESCRIPTIONS</span>
+        <br>
+        <table class="table3">
+            <thead>
+                
+            <tr>
+                <th id="vol">Sr. No.</th>
+                <th id="vol">Length</th>
+                <th id="vol">Breadth</th>
+                <th id="vol">Volume</th>
+            </tr>
+            </thead>
+                <!-- <td>11</td>
+                <td>12</td>
+                <td>13</td>
+                <td>14</td> -->
+
+                {% for each in timber_log %}
+            <tr>
+                <td>{{forloop.counter }}</td>
+                <td>{{each.length}}</td>
+                <td>{{each.breadth}}</td>
+                <td>{{each.volume}}</td>
+            </tr>
+                {% endfor %}
+            <tr>
+                <td colspan="3" id="end">Total</td>
+                <td>144</td>
+            </tr>
+        </table><br>
+        <table class="table4">
+            <tr>
+                <td class="img">Revenue Application:</td>
+                <td><img src="{% static '/media/upload/revenue_application/' %}{{ image_documents.revenue_application }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="img">Revenue Approval:</td>
+                <td><img src="{% static '/media/upload/revenue_approval/' %}{{ image_documents.revenue_approval }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="img">Declaration:</td>
+                <td><img src="{% static '/media/upload/declaration/' %}{{ image_documents.declaration }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="img">Location Sketch:</td>
+                <td><img src="{% static '/media/upload/location_sketch/' %}{{ image_documents.location_sktech }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="img">Tree Ownership Details:</td>
+                <td><img src="{% static '/media/upload/tree_ownership/' %}{{ image_documents.tree_ownership_detail }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="img">Adhar Card:</td>
+                <td><img src="{% static '/media/upload/aadhar_card/' %}{{ image_documents.aadhar_detail }}"  width="30%" /></td>
+            </tr>
+            <tr>
+                <td class="head">Destination Details:</td>
+                <td></td>
+            </tr>
+        </table>
+        <div><br>
+            <span id="center">VEHICLE DETAILS</span>
+            <table class="table2">
+                <tr>
+                    <td class="head">Vehicle Registration Number:</td>
+                    <td>MH05DO1017</td>
+                </tr>
+                <tr>
+                    <td class="head">Name of the driver:</td>
+                    <td>Suraj Koyate</td>
+                </tr>
+                <tr>
+                    <td class="head">Phone Number of the Driver:</td>
+                    <td>9983992837</td>
+                </tr>
+                <tr>
+                    <td class="head">Mode of Transportation:</td>
+                    <td>Road</td>
+                </tr>
+                <tr>
+                    <td class="img">License Image:</td>
+                    <td><img src="{% static '/media/upload/license/' %}{{ vehicle.license_image }}"  width="30%" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="sig"><img src="{% static '/media/upload/signature/' %}{{ image_documents.signature_img }}"  width="30%" /><br>Signature of Applicant</td>
+                </tr>
+            </table>
+        </div>
+
+        <label class="couldapprove">ADD REMARKS:</label>
+        <input type="text" class="couldapprove" id="reason" name="remarks" required>
+        <div class="center1"><br>
+            <button type="button" class="btn couldapprove">APPROVED</button>
+            <button type="button" class="btn couldapprove">REJECT</button>
+        </div>
+        <form action="{% url 'approve_transit_pass' applications.0.id %}" id="contactForm1" method="POST">
+    </form>
+
+
+</body>
+<script type="text/javascript">
+    if ('{{transit_pass_exist}}' == 'True'){
+        $('.couldapprove').hide( );
+        // $("#reason").hide();
+    }
+    var frm = $('#contactForm1');
+    $(document).ready(function(){
+
+
+    $('.couldapprove').click(function(e){
+        e.preventDefault();
+    var reason = $('#reason').val();
+    console.log($(this).text()+"---here");
+    var type_approve = $(this).text();
+    var token = '{{csrf_token}}';
+    $.ajax({
+            headers: { "X-CSRFToken": token },
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: {'reason':reason,'type':type_approve},
+            success: function (data) {
+                // alert(data.message);
+                $('#message').text(data.message);
+                alert(data.message);
+                $('.couldapprove').hide();
+                // console.log(data);
+            },
+            error: function (data) {
+                // console.log('An error occurred.');
+                alert(data.message);
+                // console.log(data);
+            },
+        });
+    });
+    });
+</script>
+</html>

@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/ulogin.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <script src="main.js"></script> -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+
+</head>
+
+<body class="body">
+     <form action="{% url 'user_login' %}" method="POST">
+            {% csrf_token %}
+    <div class="container">
+        <div class="off-login">
+            <label><b>Login</b></label>
+        </div><br>
+        <div class="input-container">
+            <i class="fa fa-user icon"></i>
+            <input class="input-field" type="text" placeholder="Email or Mobile Number " name="uname" id="email">
+        </div>
+
+        <!-- <div class="input-container">
+            <i class="fa fa-phone icon"></i>
+            <input class="input-field" type="text" placeholder="Mobile Number" name="num" id="num">
+        </div> -->
+
+        <div class="input-container">
+            <i class="fa fa-key icon"></i>
+            <input class="input-field" type="password" placeholder="Password" name="psw" id="pass">
+        </div>
+        <div>
+            <button type="submit" class="btn">Login</button>
+        </div><br>
+        <div> <span class="btn"><a href="{% url 'forgot_password' %}">Forget Password</a></span></div>
+        <div> <span class="reg"><a href="{% url 'signup' %}">Registration</a></span></div>
+
+    </div>
+    </form>
+</body>
+<script type="text/javascript">
+    $('.error').text('{{error}}');
+    var error = '{{error}}';
+    if (error.length >0){
+        alert(error);
+    }
+</script>
+</html>

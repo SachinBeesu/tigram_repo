@@ -1,0 +1,262 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/form1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <style>
+        #tab {
+            display: none;
+            color: #000;
+            position: relative;
+            padding: 10px;
+            margin-top: 5px;
+        }
+
+        #veh {
+            display: none;
+            color: #000;
+            position: relative;
+            padding: 10px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+     <nav class=nav>
+            <div class="right">
+                <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+                <a href="{% url 'view_profile' request.user.id %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+            </div>
+        </nav>
+    <form class="form" action="{% url 'application_form' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container">
+            <h1>Form 1</h1>
+
+            <hr>
+            <label for="uname"><b>Name:</b></label>
+            <input type="text" placeholder="Enter your name" name="uname" required>
+            <br>
+            <br>
+            <label for="add"><b>Address:</b></label>
+            <input type="text" placeholder="Enter your address" name="add" required>
+            <br>
+            <br>
+            <label for="sno"><b>Survey Number:</b></label>
+            <input type="text" placeholder="Enter your survey number" name="sno" required>
+            <br>
+            <br>
+
+            <label for="treep"><b>Trees proposed to be cut:</b></label>
+            <input type="number" placeholder="Enter number of trees" name="treep" required>
+            <br>
+            <br>
+            <label for="vil"><b>Village:</b></label>
+            <input type="text" placeholder="Enter your Village" name="vil" required>
+            <br>
+            <br>
+            <label for="taluka"><b>Taluka:</b></label>
+            <input type="text" placeholder="Enter your Taluka" name="taluka" required>
+            <br>
+            <br>
+            <label for="block"><b>Block:</b></label>
+            <input type="text" placeholder="Enter your Block" name="block" required>
+            <br>
+            <br>
+            <label for="dist"><b>District:</b></label>
+            <input type="text" placeholder="Enter your District" name="dist" required>
+            <br>
+            <br>
+            <label for="pro"><b>Proof of ownership:</b></label>
+            <input type="file" id="myFile" name="ownership_proof_img">
+
+            <br>
+            <br>
+            <div id='chk_div' >
+                <b>Species of tree or trees proposed to be cut:</b><br>
+                <input type="checkbox" id="s1" name="species1" class="chk_species" value="Sandal wood(Santalum album)">
+                <label for="s1"> Sandal wood(Santalum album)</label><br>
+                <input type="checkbox" id="s2" name="species2" class="chk_species" value="Teak(Tectona grandis)">
+                <label for="s2"> Teak(Tectona grandis)</label><br>
+                <input type="checkbox" id="s3" name="species3" class="chk_species" value="Thempavu(Terminalia tomantosa)">
+                <label for="s3">Thempavu(Terminalia tomantosa)</label><br>
+                <input type="checkbox" id="s4" name="species4" class="chk_species" value="Kamoakam(Hopea Parviflora)">
+                <label for="s4">Kamoakam(Hopea Parviflora)</label><br>
+                <input type="checkbox" id="s4" name="species4" class="chk_species" value="Chadachi(Grewia tiliaefolia)">
+                <label for="s4">Chadachi(Grewia tiliaefolia)</label><br>
+                <input type="checkbox" id="s5" name="species5" class="chk_species" value="Chandana vempu(Cedrela toona)">
+                <label for="s5">Chandana vempu(Cedrela toona)</label><br>
+                <input type="checkbox" id="s6" name="species6" class="chk_species" value="Vellakil(Dysoxylum malabaricum)">
+                <label for="s6">Vellakil(Dysoxylum malabaricum)</label><br>
+                <input type="checkbox" id="s7" name="species7" class="chk_species" value="Irul(Xylia xylocarpa)">
+                <label for="s7">Irul(Xylia xylocarpa)</label><br>
+                <input type="checkbox" id="s8" name="species8" class="chk_species" value="Ebony(Diospyrus sp.)">
+                <label for="s8">Ebony(Diospyrus sp.)</label><br><br>
+                <input type="hidden" name="tree_species" id="tree_species" value="">
+            </div>
+            <label for="propt"><b>Purpose for which trees or trees proposed to be cut:</b></label>
+            <input type="text" placeholder="Enter Purpose for which trees or trees proposed to be cut" name="purpose_cut">
+            <br><BR>
+            <label for="s9"><b>Add Log Details</b></label><br>
+            <input type="radio" onclick="myInput " id="yes" name="log_option" value="yes">
+            <label for="yes">YES</label><br>
+            <input type="radio" id="no" name="log_option" value="no">
+            <label for="no">NO</label><br>
+
+
+            <div id="tab">
+                <table id="myTable">
+                    <tr>
+                        <td>
+                            SR.NO
+                        </td>
+                        <td>
+                            Species
+
+                        </td>
+                        <td>
+                            LENGTH
+                        </td>
+                        <td>
+                            BREADTH
+                        </td>
+
+                        <td>
+                            VOLUME
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td><input id="cid" type="float" placeholder=""></td>
+                        <td><select id="cid1">
+                                <option>Select</option>
+                                <option value="s1">Sandal wood(Santalum album)</option>
+                                <option value="s2"> Teak(Tectona grandis)</option>
+                                <option value="s3">Thempavu(Terminalia tomantosa)</option>
+                                <option value="s4">Kamoakam(Hopea Parviflora)</option>
+                                <option value="s5">Chadachi(Grewia tiliaefolia)</option>
+                                <option value="s6">Chandana vempu(Cedrela toona)</option>
+                                <option value="s7">Vellakil(Dysoxylum malabaricum)</option>
+                                <option value="s8">Irul(Xylia xylocarpa)</option>
+                                <option value="s9">Ebony(Diospyrus sp.)</option>
+                            </select></td>
+                        <td><input id="cid2" type="text" placeholder="enter length of the log"></td>
+                        <td><input id="cid3" type="text" placeholder="enter breadth of the log"></td>
+                        <td><input id="cid4" type="text" placeholder="enter volume of the log"></td>
+                        <td><button onclick="myCreateFunction()" style="font-size:20px" id="add" ><i
+                                    class="fa fa-plus-square-o" ></i></button></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <script>
+                var myInput = document.getElementById("yes");
+                var myInputn = document.getElementById("no");
+
+                myInput.onfocus = function () {
+                    document.getElementById("tab").style.display = "block";
+
+                    myInputn.onfocus = function () {
+                        document.getElementById("tab").style.display = "none";
+
+                        function myFunction() {
+                            document.getElementById("fa fa-plus-square-o").style.display = "block";
+                        }
+                    }
+                }
+            </script>
+            <!-- <script type="text/javascript"></script> -->
+            <script type="text/javascript">
+                $('#chk_div').on('change',function() {
+                    var checked_values=[];
+                    $("input:checkbox[class=chk_species]:checked").each(function () {
+                    checked_values.push($(this).val());
+                    console.log(checked_values+"array");
+                    $("#tree_species").val(checked_values);
+                    });
+                });
+
+                function myCreateFunction() {
+                    var table = document.getElementById("myTable");
+                    var row = table.insertRow(2);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    var cell4 = row.insertCell(3);
+                    var cell5 = row.insertCell(4);
+                    cell1.innerHTML = document.getElementById("cid");
+                    cell2.innerHTML = document.getElementById("cid1");
+                    cell3.innerHTML = document.getElementById("cid2");
+                    cell4.innerHTML = document.getElementById("cid3");
+                    cell5.innerHTML = document.getElementById("cid4");}
+            </script>
+            <br>
+
+            <label for="propt"><b>Revenue Application:</b></label>
+            <input type="file" id="myFile1" name="revenue_application_img"><br><br>
+            <label for="propt"><b>Revenue Approval:</b></label>
+            <input type="file" id="myFile1" name="revenue_approval_img"><br><br>
+            <label for="propt"><b>Declaration:</b></label>
+            <input type="file" id="myFile2" name="declaration_img"><br><br>
+            <label for="propt"><b>Location Sketch:</b></label>
+            <input type="file" id="myFile3" name="location_sketch_img"><br><br>
+            <label for="propt"><b>Tree Ownership Details:</b></label>
+            <input type="file" id="myFile4" name="tree_ownership_img"><br><br>
+            <label for="propt"><b>Adhar Card:</b></label>
+            <input type="file" id="myFile5" name="aadhar_card_img"><br><br>
+
+            <label for="dest"><b>Destination Details:</b></label>
+            <input type="text" id="destination_details" name="destination_details"><br><br>
+
+            <label for="Vehicle"><b>Enter Vehicle Details:</b></label><br>
+            <input type="radio" onclick="myInput " id="y" name="option" value="yes">
+            <label for="yes">YES</label><br>
+            <input type="radio" id="n" name="option" value="no">
+            <label for="no">NO</label><br>
+            <div id="veh">
+                <label for="veh_reg"><b>Vehicle Registration Number:</b></label>
+                <input type="text" name="veh_reg" required>
+                <label for="driver_name"><b>Name of the driver:</b></label>
+            <input type="text" name="driver_name" required>
+            <label for="phn"><b>Phone Number of the Driver:</b></label>
+            <input type="text" name="phn" required>
+            <label for="mode"><b>Mode of Transportation:</b></label>
+            <input type="text" name="mode" required>
+            <label for="lic_img"><b>License Image:</b></label>
+            <input type="file" id="myFile" name="lic_img">
+            </div>
+            <label for="sign"><b>Signature:</b></label>
+            <input type="file" name="signature_img"><br><br>
+            <script>
+                var myInput = document.getElementById("y");
+                var myInputn = document.getElementById("n")
+
+                myInput.onfocus = function () {
+                    document.getElementById("veh").style.display = "block";
+
+                    myInputn.onfocus = function () {
+                        document.getElementById("veh").style.display = "none";
+
+                        function myFunction() {
+                            document.getElementById("fa fa-plus-square-o").style.display = "block";
+                        }
+                    }
+                }
+            </script>
+            <hr>
+            <button type="submit" class="save">Save & Next</button>
+        </div>
+
+
+    </form>
+
+</body>
+
+</html>

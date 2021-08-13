@@ -1,0 +1,208 @@
+{% extends 'my_app/tigram/admin/menu-left.html' %}
+{% block content %}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<!-- <link rel="stylesheet" href="master.css"> -->
+<style>
+.main_cont {
+
+    padding: 10px 20px;
+}
+.dash_tiles{
+padding:10px 0px;
+display:flex;
+flex-wrap:wrap;
+}
+.dash_tiles .tile{
+min-width:33.33%;
+height:150px;
+border:10px solid #fff;
+color:#fff;
+text-align:right;
+padding-right:25px;
+padding-top:17px;
+font-size:20px;
+position:relative;
+}
+.dash_tiles .tile .txt_01{
+font-size:40px;
+font-weight:800;
+}
+.dash_tiles .fa{
+font-size: 60px;
+    position: absolute;
+    left: 34px;
+    top: 32px;
+    color: #fff;
+    opacity: 0.6;
+}
+.graph_box{
+padding-left:20px;
+padding-top:10px;
+}
+.graph_box iframe{
+width:100% !important;
+max-width:100% !important;
+}
+.pie_box{
+padding-right:20px;
+}
+
+</style>
+</head>
+
+<body>
+<!-- {{context}} -->
+
+<div class="main_cont ">
+	<div class="dash_tiles">
+		<div class="tile " style="background:#0166c2">
+			<i class="fa fa-users"></i>
+			<div class="txt_01">{{context.active_users_no}}</div>
+			<div class="txt_02">Active Users</div>
+		</div>
+		<div class="tile " style="background:#fd8300">
+			<i class="fa fa-file-text"></i>
+			<div class="txt_01">{{context.application_no}}</div>
+			<div class="txt_02">Applicants</div>
+		</div>
+		<div class="tile " style="background:#852dd1">
+			<i class="fa fa-black-tie"></i>
+			<div class="txt_01">{{context.officer_no}}</div>
+			<div class="txt_02">Officers</div>
+		</div>
+		<div class="tile " style="background:#f71024">
+			<i class="fa fa-th-large"></i>
+			<div class="txt_01">{{context.div_no}}</div>
+			<div class="txt_02">Divisions</div>
+		</div>
+		<div class="tile " style="background:#51b03b">
+			<i class="fa fa-tree"></i>
+			<div class="txt_01">{{context.range_no}}</div>
+			<div class="txt_02">Ranges</div>
+		</div>
+		<div class="tile " style="background:#505050">
+			<i class="fa fa-money"></i>
+			<div class="txt_01">{{context.revenue_no}}</div>
+			<div class="txt_02">Revenue Officers</div>
+		</div>
+		
+	</div>
+	
+	<div class="graph_pie" style="display:flex">
+		<div class="graph_box" style="width:70%;">
+			<canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+
+<script>
+// var xValues = [100,200,300,400,500,600,700,800,900,1000];
+
+// new Chart("myChart", {
+//   type: "line",
+//   data: {
+//     labels: xValues,
+//     datasets: [{ 
+//       data: [860,1140,1060,1060,1070,1110,1330,2210,7830,2478],
+//       borderColor: "red",
+//       fill: false
+//     }, { 
+//       data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
+//       borderColor: "green",
+//       fill: false
+//     }, { 
+//       data: [300,700,2000,5000,6000,4000,2000,1000,200,100],
+//       borderColor: "blue",
+//       fill: false
+//     }]
+//   },
+//   options: {
+//     legend: {display: false}
+//   }
+// });
+var xValues = [100,200,300,400,500,600,700,800,900,1000];
+
+new Chart("myChart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{ 
+      data: [860,1140,1060,1060,1070,1110,1330,2210,7830,2478],
+      borderColor: "red",
+      fill: false
+    }, { 
+      data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
+      borderColor: "green",
+      fill: false
+    }, { 
+      data: [300,700,2000,5000,6000,4000,2000,1000,200,100],
+      borderColor: "blue",
+      fill: false
+    }]
+  },
+  options: {
+    legend: {display: false}
+  }
+});
+</script>
+		</div>
+		<div class="pie_box" style="width:30%;">
+		
+<canvas id="myChart02" style="width:100%;max-width:100%"></canvas>
+
+<script>
+// var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+// var yValues = [55, 49, 44, 24, 15];
+var xValues =["Pending Applications","Rejected Applications","Approved Applications"];
+var tp_pen='{{context.no_of_tp_pending}}';
+var tp_rej='{{context.no_of_tp_rejected}}';
+var no_of_tp='{{context.no_of_tp}}';
+var yValues = [tp_pen, tp_rej,no_of_tp];
+var barColors = [
+  "#0166c2",
+  "#f71024",
+  "#51b03b",
+  "#852dd1",
+  "#fd8300",
+];
+
+new Chart("myChart02", {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Total Applications"
+    }
+  }
+});
+</script>
+		<!-- </div> -->
+	<!-- </div> -->
+<!-- </div> -->
+
+<!-- </div>
+</div> -->
+
+<script>
+$(document).ready(function(){
+  $(".panel_menu").click(function(){
+    
+  });
+});
+</script>
+</body>
+
+</html>
+{% endblock content %}

@@ -1,0 +1,255 @@
+{% extends 'my_app/tigram/top_band_cont.html' %}
+{% load static %}
+{% block content %}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+
+
+*{ margin:0px; padding:0px; text-decoration:none; list-style:none; font-weight:normal; box-sizing:border-box;}
+
+body{
+ font-family: 'Cairo', sans-serif;
+background:#fff;
+}
+.clearfix{
+clear:both;
+}
+/*.top_band{
+height:50px;
+display:flex;
+align-items:center;
+padding:0px 20px;
+justify-content:space-between;
+}
+.top_band .links a{
+margin:0px 10px;
+text-decoration:underline;
+}
+.top_band button{
+cursor:pointer;
+}*/
+.cont{
+width:100%;
+background-image:url("{% static 'images/bg_05.jpg' %}");
+background-repeat:no-repeat;
+background-position:center center;
+width:100%;
+overflow-y: auto;
+padding-top:calc(50vh - 220px);
+}
+
+.pro_form{
+width:400px;
+background:rgba(255,255,255,0.9);
+margin:auto;
+}
+.pro_form .title{
+padding:10px 20px;
+font-size:16px;
+border:1px solid #ccc; 
+text-transform:uppercase;
+font-weight:bold;
+margin-bottom:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#fff;
+text-align:center;
+}
+.pro_form .title span{
+font-weight:bold;
+}
+.edit_btn{
+background:#efefef;
+padding:5px 10px;
+cursor:pointer;
+box-shadow:1px 1px 5px #ccc;
+}
+.edit_btn:hover{
+background:#000;
+color:#fff;
+}
+.user_img{
+width:150px;
+height:150px;
+border-radius:50%;
+overflow:hidden;
+margin:auto;
+margin-bottom:20px;
+position:relative;
+}
+.edit_img{
+position:absolute;
+top:calc(75px - 20px);
+left:calc(75px - 20px);
+background:none;
+border:none;
+cursor:pointer;
+outline:none;
+opacity:0.5;
+}
+.edit_img:hover{
+opacity:1;
+}
+.user_img img{
+width:100%;
+}
+.user_details{
+padding:0px 20px;
+margin-bottom:30px;
+}
+
+.user_details .lbl{
+width:100px;
+float:left;
+font-weight:700;
+font-size:14px;
+margin-top:8px;
+}
+.user_details .input_box{
+width:100%;
+margin-bottom:20px;
+}
+.user_details .input_box input,.user_details .input_box textarea{
+width:100%;
+padding:7px;
+font-family: 'Cairo', sans-serif;
+font-size:16px;
+line-height:22px;
+outline:none;
+border:1px solid #ccc;
+background:#fff;
+}
+.user_details .input_box textarea{
+height:105px;
+resize:none;
+padding:7px;
+margin-bottom:10px;
+font-size:16px;
+line-height:22px;
+}
+.top_band button{
+background:none;
+border:none;
+font-size:16px;
+}
+.cancel_update{
+text-align:center;
+margin-bottom:10px;
+}
+.cancel_update button{
+background:none;
+border:none;
+padding:7px 15px;
+color:#fff;
+text-transform:uppercase;
+margin:0px 10px;
+cursor:pointer;
+cursor:pointer;
+box-shadow:1px 1px 5px #ccc;
+font-weight:700;
+font-size:14px;
+}
+.cancel_btn{
+background:#000 !important;
+
+}
+.update_btn{
+background: #6174ff !important;
+}
+
+.login_btn{
+width:200px;
+}
+
+
+
+.view_mode input,.view_mode textarea{
+} 
+.view_mode .cancel_update{
+display:none;
+}
+.view_mode .edit_img{
+display:none;
+}
+
+.forgot_regis{
+display:flex;
+justify-content:space-between;
+padding:20px;
+}
+.forgot_regis a{
+text-decoration:underline;
+line-height:30px;
+
+}
+.forgot_pass{
+color:red;
+} 
+.regis{
+color:#222;
+}
+</style>
+
+
+
+<script>
+</script>
+
+</head>
+
+<body>
+
+<form action="{% url 'staff_login' %}" method="POST">
+	{% csrf_token %}
+<div class="cont">
+	<div class="pro_form ">
+		<div class="title warn" style="color: red;"><span>{{message}}</span> </div>
+		<div class="title"><span>Officer Login</span> </div>
+		<div class="user_details">
+			<div class="input_box"><input type="text" value="" name="uname" placeholder="User Name"  /></div>
+			<div class="input_box"><input type="password" value="" name="psw" placeholder="Password"  /></div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="cancel_update">
+			<button type="submit" class="update_btn login_btn">Login</button>
+		</div>
+		<div class="forgot_regis">
+			<a href="#" class="regis">Change Password</a>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+</form>
+<script>
+$(document).ready(function(){
+  $(".edit_btn").click(function(){
+    $(".pro_form").toggleClass("view_mode");
+  });
+  var msg = '{{message}}';
+	if (msg.length<1){
+		$('.warn').hide();
+	}
+	if('{{response_code}}' == 'error'){
+		$('.warn').css('color', 'red');
+	}
+	else{
+		$('.warn').css('color', 'green');
+	} 
+  // $(".edit_btn").click(function(){
+  //   $(".pro_form").toggleClass("view_mode");
+});
+</script>
+
+</body>
+
+</html>
+{% endblock %}

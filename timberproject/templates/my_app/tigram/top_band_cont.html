@@ -1,0 +1,300 @@
+{% load static%}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+
+*{ margin:0px; padding:0px; text-decoration:none; list-style:none; font-weight:normal; box-sizing:border-box;}
+
+
+body{
+font-family: 'Open Sans', sans-serif !important;
+background:#fff;
+}
+.top_band{
+height:124px;
+border-bottom:4px solid #012a6c;
+/*background:#fff;*/
+}
+.band_01{
+display:flex;
+justify-content:space-between;
+padding:5px 10px;
+}
+.band_01 .us_aid_logo{
+width:200px;
+}
+.band_01 .us_aid_logo img{
+width:100%;
+}
+
+.band_01 .ministry_logo{
+width:100px;
+}
+.band_01 .ministry_logo img{
+width:100%;
+}
+
+
+.band_02{
+height:50px;
+
+display:flex;
+justify-content:space-between;
+padding-right:15px;
+font-size:14px;
+    background: #e9e9e9;
+}
+.band_02 .nav{
+display:flex;
+margin-right:20px;
+align-items:center;
+}
+.band_02 .nav a{
+padding:3px 15px;
+font-size:16px;
+line-height:26px;
+padding-bottom:5px;
+color:#012a6c;
+font-weight:600;
+display:inline-block;
+}
+.band_02 .nav a:hover{
+background:#012a6c;
+color:#fff;
+
+}
+.logo{
+width:150px;
+padding:0px 0px !important;
+margin-top:0px;
+margin-right:20px;
+margin-left:15px;
+}
+.logo:hover{
+background:transparent !important;
+}
+.logo img{
+width:100%;
+}
+
+.user_logout{
+display:flex;
+align-items:center;
+} 
+.user_logout .logout{
+padding:2px 10px;
+padding-bottom:4px;
+line-height:24px;
+margin-left:20px;
+background:none;
+border:1px solid #aaa;
+font-size:14px;
+font-family: 'Open Sans', sans-serif;
+color:#000;
+cursor:pointer;
+}
+.user_logout .logout:hover{
+background:#c3103a;
+color:#fff;
+}
+.user_name{
+color:green;
+font-weight:500;
+}
+
+
+
+/*----------------- For Content ---------------------------*/
+
+
+/*.nice_scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.nice_scroll::-webkit-scrollbar-track {
+  background: #012a6c;
+}
+
+.nice_scroll::-webkit-scrollbar-thumb {
+  background: #c4113b;
+}*/
+
+.nice_scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.nice_scroll::-webkit-scrollbar-track {
+  background: #012a6c;
+}
+
+.nice_scroll::-webkit-scrollbar-thumb {
+  background: #c4113b;
+}
+
+.cont{
+  background-image: url(img/bg_01.jpg);
+  background-size: cover;
+  /*background-attachment: fixed;*/
+  padding-top: 50px;
+  padding-bottom: 50px;
+  height:calc(100vh - 124px);
+  overflow-y:scroll;
+}
+/*.wrap{
+width:80%;
+margin:auto;
+height:2000px;
+background:#fff;
+}*/
+
+.foot_band{
+background:#012a6c;
+color:#fff;
+font-size:12px;
+padding:7px 0px;
+text-align:center;
+position:fixed;
+bottom:0px;
+left:0px;
+width:100%;
+}
+@media only screen and (max-width:767px){
+
+
+.band_01 .us_aid_logo {
+    width: 150px;
+}
+.band_01{
+align-items:center;
+}
+
+.cont {
+    height: auto;
+    margin-top: 124px;
+	overflow-y: auto;
+}
+.wrap {
+    width: 100%;
+	padding:0px 20px;
+}
+.sec {
+    padding: 20px 0px;
+}
+.foot_band{
+position:static;
+display:block;
+}
+.foot_band .wrap{
+display:block;
+}
+.foot_band div{
+display:block !important;
+
+}
+.foot_band div div{
+margin-left:0px !important;
+margin-right:0px !important;
+}
+.various_type{
+flex-wrap:wrap;
+}
+.various_type .box {
+width:50%;
+    height: 120px;
+    padding-top: 10px;
+}
+.various_type .txt_01 {
+    font-size: 30px;
+	}
+.various_type .txt_02 {
+    font-size: 18px;
+}	
+
+.has_menu .sub_nav{
+width:100%;
+}
+.has_menu_bar .sub_nav_bar{
+width:calc(100% - 20px);
+}
+.menu_icon{
+display:inline-block;
+}
+
+}
+
+</style>
+
+
+</head>
+
+<body>
+<div class="top_band sticky-top bg-white ">
+<div class="band_01 ">
+		<div class="us_aid_logo"><img src="{% static 'images/USAID__LOGO.jpeg' %}" alt="" /></div>
+			<div class="ministry_logo ">
+			<!-- <img src="{% static 'images/MINISTRY_LOGO2.png' %}" alt="" style="height:60px;" /> -->
+			<img src="{% static 'images/KeralaForest.png' %}" alt="" style="height:60px;" />
+				</div>
+		<div class="ministry_logo " style="display:flex;justify-content:flex-end;">
+			<img src="{% static 'images/MINISTRY_LOGO2.png' %}" alt="" style="height:60px;" /></div>
+	</div>
+<div class="band_02">
+		<ul class="nav">
+			<li><a href="{% url 'index' %}" class="logo"><img src="{% static 'images/tigram_logo02.png' %}" alt="" /></a></li>
+			<li><a href="{% url 'index' %}">Home</a></li>
+			<!-- <li><a href="{{request.META.HTTP_REFERER|escape}}">Back</a></li> -->
+			{% if request.user.id %}
+			{% ifequal groups.0 "user" %}
+			{% ifnotequal current_page 'dashboard'  %}
+			<li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+			{% endifnotequal %}
+			{% else %}
+			{% ifnotequal current_page 'dashboard'  %}
+			<li><a href="{% url 'officer_dashboard' %}">Dashboard</a></li>
+			{% endifnotequal %}
+						
+			{% ifnotequal current_page 'report_section'  %}
+			<li><a href="{% url 'all_reports' %}">Reports</a></li>
+			{% endifnotequal %}
+			{% endifequal %}
+			{% endif %}
+		</ul>
+		<div class="user_logout">
+	<!-- 		<div class="user_name"><i class="fa fa-user"></i> Revenue Officer</div>
+			<a href="index.html" class="logout"><i class="fa fa-sign-out"></i> Logout</a> -->
+			{% if request.user.id %}
+			<div class="user_name"><a href="{% url 'view_profile' request.user.id %}"><i class="fa fa-user"></i>  {{request.user.name | capfirst}}</a></div>
+			<a href="{% url 'user_logout' %}" class="logout"><i class="fa fa-sign-out"></i> Logout</a>
+			{% endif %}
+		</div>
+</div>
+</div>
+<!-- <div class="cont nice_scroll">
+	<div class="wrap"> -->
+		<!-- <div> -->
+			
+		{% block content %}
+		{% endblock %}
+		<!-- </div> -->
+<!-- 	</div>
+</div>
+ -->
+<div class="foot_band sticky-bottom">
+<div style="display:flex;justify-content:space-between;">
+			
+		<div style="margin-left:100px;">Developed by Bhugol GIS Pvt. Ltd.</div>
+		<div>Insight Development Consultancy Group (IDCG)</div>
+		<div style="margin-right:100px;">Kerala Forest Research Institute (KFRI)</div>
+		</div>
+<!--
+<marquee direction = "left">
+</marquee>-->
+</div>
+</body>
+
+</html>

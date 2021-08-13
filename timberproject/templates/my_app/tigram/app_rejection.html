@@ -1,0 +1,381 @@
+{% extends 'my_app/tigram/top_band_cont.html' %}
+{% load static %}
+{% block content %}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+ <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+
+*{ margin:0px; padding:0px; text-decoration:none; list-style:none; font-weight:normal; box-sizing:border-box;}
+
+body{
+font-family: 'Roboto', sans-serif;
+background-color:#fff;
+/*background-image:url('{% static "images/bg_01.jpg" %}');*/
+background-image:url('{% static "images/i5.jpg" %}');
+background-position:center top;
+background-repeat:no-repeat;
+}
+.wrap{
+width:90%;
+margin:auto;
+margin-top:80px;
+height:500px;
+background:#fff;
+}
+.main_box{
+}
+.tbl_wrap{
+width:60%;
+padding-left:30px;
+margin-top:30px;
+}
+.tbl_title{
+font-size:18px;
+font-weight:500;
+margin-bottom:10px;
+}
+.pie_chart{
+width:40%;
+overflow:hidden;
+}
+.table_pie{
+display:flex;
+width:100%;
+}
+#piechart{
+padding-top:0px;
+}
+#piechart g:nth-child(1) {
+}
+
+
+.main_lbl{
+font-size:20px;
+font-weight:bold;
+background:#fff;
+padding:10px 10px;
+}
+.tbl_col{
+width:25%;
+color:#222;
+font-size:14px;
+padding:5px 10px;
+border-left:1px solid #ccc;
+border-right:1px solid #ccc;
+min-height:40px;
+line-height:22px;
+align-items:center;
+display:flex;
+}
+.tbl_head{
+background:#3366cc;
+display:flex;
+width:calc(100% - 8px);
+padding:0px;
+align-items:center;
+}
+.tbl_head .tbl_col{
+color:#fff;
+}
+
+.tbl_cont{
+	padding:0px;
+	height:228px;
+	border:1px solid #ccc;
+}
+
+.tbl_cont_row{
+display:flex;
+padding:0px;
+min-height:40px;
+align-items:center;
+border-bottom:1px solid #ccc;
+}
+.tbl_cont_row:nth-child(even){
+background:#f8f8f8;
+}
+
+.tbl_nice_scroll {
+  overflow-y: scroll !important;
+}
+.tbl_nice_scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tbl_nice_scroll::-webkit-scrollbar-track {
+  background: #fff;
+  border-left: 1px solid #ccc;
+}
+
+.tbl_nice_scroll::-webkit-scrollbar-thumb {
+  background: #aaa;
+}
+
+.filter_row{
+background:#efefef;
+padding:10px 10px;
+border-top:2px solid #aaa;
+display:flex;
+}
+
+.select_range{
+display:flex; 
+align-items:center;
+}
+
+.range_sel_wrap{
+border:1px solid #aaa;
+display:flex;
+margin-left:10px;
+}
+.range_sel{
+padding:5px 12px;
+font-size:12px;
+font-weight:bold;
+border-right:1px solid #222;
+cursor:pointer;
+height:26px;
+background:#fff;
+}
+.range_sel:hover{
+background:#3366cc;
+color:#fff;
+}
+.range_sel.active{
+background:#3366cc;
+color:#fff;
+}
+.range_sel:last-child{
+border-right:none;
+}
+.select_range .lbl{
+font-size:14px;
+font-weight:500;
+}
+.custome_range{
+display:flex;
+margin-left:40px;
+align-items:center;
+}
+.custome_range .lbl{ 
+font-size:14px;
+margin-left:10px;
+font-weight:500;
+}
+.custome_range input{
+margin-left:10px;
+height:26px;
+}
+
+.col_01{
+min-width:80px;
+}
+.col_02,.col_03{
+min-width:calc(50% - 40px);
+}
+.col_01, .col_03{
+justify-content:center;
+}
+.bg_darkred{
+background:#db0000;
+}
+.tbl_cont_row .col_03{
+font-weight:500;
+}
+</style>
+
+
+</head>
+
+<body>
+
+
+<div class="wrap">
+	<div class="main_lbl">Table 01</div>
+	<div class="main_box">
+		<div class="filter_row">
+			<div class="select_range">
+				<div class="lbl">Select Range:</div>
+				<div class="range_sel_wrap">
+				<div class="range_sel" value='1'>1M</div>
+				<div class="range_sel" value='3' >3M</div>
+				<div class="range_sel" value='6'>6M</div>
+				<!-- <div class="range_sel active">6M</div> -->
+				<div class="range_sel" value='12'>1 Year</div>
+				<!-- <div class="range_sel" value='24'>Last Year</div> -->
+				</div>
+			</div>
+			<div class="custome_range">
+				<div class="lbl">From - To Date:</div>
+				<input type="date" name="From Date" min={{early_date}} max={{today}} class="date-range date-value" value="{{from_date}}"/>
+				<div class="lbl">-</div>
+				<input type="date"  name="To Date" min={{early_date}} max={{today}} class="date-range date-value" value="{{to_date}}"/>
+			</div>
+		</div>
+	</div>
+		<div class="table_pie">
+		<div class="tbl_wrap">
+			<div class="tbl_title">Application Rejection Reasons :</div>
+			<div class="tbl_head bg_darkred">
+				<div class="tbl_col col_01">Sr. No</div>
+				<div class="tbl_col col_02">Reasons for Rejection</div>
+				<div class="tbl_col col_03">Percentage</div>
+			</div>
+			<div class="tbl_cont tbl_nice_scroll">
+
+				<!-- <div class="tbl_cont_row">
+					<div class="tbl_col col_01">01</div>
+					<div class="tbl_col col_02">Blurred Images</div>
+					<div class="tbl_col col_03">20%</div>
+				</div>
+				<div class="tbl_cont_row">
+					<div class="tbl_col col_01">02</div>
+					<div class="tbl_col col_02">Proof of ownership not submitted </div>
+					<div class="tbl_col col_03">25%</div>
+				</div>
+				<div class="tbl_cont_row">
+					<div class="tbl_col col_01">03</div>
+					<div class="tbl_col col_02">Unclear Destination Details</div>
+					<div class="tbl_col col_03">40%</div>
+				</div>
+				<div class="tbl_cont_row">
+					<div class="tbl_col col_01">04</div>
+					<div class="tbl_col col_02">Invalid Identity Proof</div>
+					<div class="tbl_col col_03">15%</div>
+				</div> -->
+				{% for each in app_list %}
+				<div class="tbl_cont_row">
+					<div class="tbl_col col_01">{{forloop.counter}}</div>
+					<div class="tbl_col col_02">{{each.reason_office}}</div>
+					<div class="tbl_col col_03">{{dict_of_percentages.}}{{each.reason_office}}%</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="pie_chart">
+			<div id="piechart"></div>
+		</div>			
+		</div>
+	</div>
+</div>
+
+<body>
+	
+			<form action="{% url 'reject_reason' %}" method="GET" id="table-form">
+				<input type="hidden" name="select_mon" id="select_mon" value="{{select_mon}}"  />
+				<input type="hidden" name="from_date" id="from_date"  value="{{from_date}}" class="date-value" />
+				<input type="hidden" name="to_date" id="to_date" value="{{to_date}}" class="date-value"/>
+			</form>
+</body>
+
+<script type="text/javascript">
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+// Draw the chart and set the chart values
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+  ['Task', 'Hours per Day'],
+  ['Work', 8],
+  ['Eat', 2],
+  ['TV', 4],
+  ['Gym', 2],
+  ['Sleep', 8]
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'My Average Day', 'width':550, 'height':400};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+ var token = '{{csrf_token}}';
+$(document).ready(function(){
+	var sel_mon='{{select_mon}}';
+	if(sel_mon){
+		
+			// $(this).addclass('active');
+		$('.range_sel[value='+sel_mon+']').addClass('active');
+	}
+	// $('.range_sel').change(function(){
+	// 	var select_mon=$(this).attr('value');
+	// 	console.log(select_mon);
+	// 	$.ajax({
+	// 		headers: { "X-CSRFToken": token },
+	// 		url:'{% url "reject_reason" %}',
+	// 		data:{
+	// 			'select_mon':select_mon,
+	// 		},
+	// 		type:'POST',
+	// 		success:function(data){
+	// 			// $("#my_friends tbody").prepend(
+ //    //                 `<tr>
+ //    //                 <td>${fields["nick_name"]||""}</td>
+ //    //                 <td>${fields["first_name"]||""}</td>
+ //    //                 <td>${fields["last_name"]||""}</td>
+ //    //                 <td>${fields["likes"]||""}</td>
+ //    //                 <td>${fields["dob"]||""}</td>
+ //    //                 <td>${fields["lives_in"]||""}</td>
+ //    //                 </tr>`
+ //    //             );
+ //    alert(data);
+	// 		}
+
+	// 	})
+	// });
+	$('.date-range').on('change',function(e){
+		e.preventDefault();
+		$('#select_mon ').val('');
+		if(sel_mon){
+		$('.range_sel [value='+sel_mon+']').removeClass('active');
+		}	
+			var date_val=$(this).val();
+			console.log(date_val);
+			if($(this).attr('name')=='From Date'){
+			$('#from_date').attr('value',date_val);
+
+			}
+			else{
+			$('#to_date').attr('value',date_val);
+			}
+			$('#table-form').submit();
+		})
+	$('.range_sel').on('click',function(e){
+		e.preventDefault();
+		$(".date-value").val('');
+			var select_mon=$(this).attr('value');
+			$('#select_mon').attr('value',select_mon);
+			$('#table-form').submit();
+	// 	console.log(select_mon);
+		console.log($(this).attr('value'));
+			// $.ajax({
+			// headers: { "X-CSRFToken": token },
+			// url:'{% url "reject_reason" %}',
+			// data:{
+			// 	'select_mon':select_mon,
+			// },
+			// type:'POST',
+			// success:function(data){
+				
+  //   alert(data);
+		// 	}
+
+		// })
+	});
+});
+</script>
+
+</body>
+
+</html>
+{% endblock %}

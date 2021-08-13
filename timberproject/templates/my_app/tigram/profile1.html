@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <nav class=nav>
+        <div class="right">
+            <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+        </div>
+        <a href="{% url 'index' %}" class="h6-button" id="icon"><i class="fa fa-chevron-circle-left"></i>&nbsp;&nbsp;Back</a>
+    </nav>
+        <div class="sidenav">
+            {% if 'user' in groups %}
+            <a href="{% url 'dashboard' %}"><i class="fa fa-bars"></i>&nbsp;&nbsp;Dashboard</a>
+            {% else %}
+            <a href="{% url 'officer_dashboard' %}"><i class="fa fa-bars"></i>&nbsp;&nbsp;Dashboard</a>
+            {% endif %}
+            <!-- <a href="#"><i class="fa fa-bars"></i>&nbsp;&nbsp;Dashboard</a> -->
+            <a href="{% url 'edit_profile' request.user.id %}"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit</a>
+            <!--<a href="#"><i class="fa fa-shield"></i>&nbsp;&nbsp;ASSETS</a>
+            <a href="#"><i class="fa fa-file-text"></i>&nbsp;&nbsp;WORK ORDER</a>
+            <a href="#"><i class="fa fa-user-plus"></i>&nbsp;&nbsp;MANAGE USER</a>
+            <a href="#"><i class="fa fa-cog"></i>&nbsp;&nbsp;SETTING</a>
+            <a href="#"><i class="fa fa-book"></i>&nbsp;&nbsp;REPORT</a>
+            -->
+        </div>
+    <div class="div2">
+        <h3>USER PROFILE:</h3>
+        <div class="container">
+        <div id="profile-container">
+            <!-- <image id="profileImage" src="{% static 'images/noprofile.jfif' %}"/> -->
+            {% if user.profile_pic %}
+            <image id="profileImage" src="{% static 'media/upload/profile/' %}{{user.profile_pic}}"/> 
+            {% else %}
+           <image id="profileImage" src="{% static 'images/noprofile.jfif' %}"/>
+           {% endif %}
+         </div>
+            <div class="box">Contact&nbsp;:&nbsp;{{user.phone}}<br><br>
+                Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{user.email}}
+            </div>
+        </div>
+        <div class="info">
+            <br>
+            Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{user.name}}<br><br>
+            Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{user.address}}<br><br>
+            <!-- Aadhar No.&nbsp;:&nbsp;<br><br> -->
+        </div>
+    <div class="row">
+        <div class="column">
+            <h3>{{count.no_of_app}}</h3>
+            <p>Applications</p>
+        </div>
+
+        <div class="column">
+            <h3>{{count.no_of_tp}}</h3>
+            <p>TP issued</p>
+        </div>
+
+
+        <div class="column">
+            <h3>{{count.no_of_tp_pending}}</h3>
+            <p>TP pending</p>
+        </div>
+
+
+        <div class="column">
+            <h3>{{count.no_of_tp_rejected}}</h3>
+            <p>TP rejected</p>
+        </div>
+    </div>
+</div>
+</body>

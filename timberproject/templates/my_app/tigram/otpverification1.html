@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/verification.css' %}" >
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+</head>
+
+<body class="body">
+    <div class="container">
+        <div class="off-login">
+            <label><b>Verify OTP</b></label>
+        </div>
+        
+        <br>
+        <label><b>OTP Send on Email OR Phone Number :{{context.email}}</b></label>   
+
+        <form action="{% url 'Otp_verify' %}" method="POST">
+            {% csrf_token %}
+        <input type="text" placeholder="Enter the OTP" name="uname" id="ID" required>
+   
+        </br>
+        
+        <div><button type="submit" class="btn">Verify</button> </div><br> </form>
+        <div> <span class="change"><a href="#">RESEND OTP</a></span></div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="checkstatus.css"> -->
+    <link rel="stylesheet" href="{% static 'css/checkstatus.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    
+</head>
+<body class="body">
+    <nav class=nav>
+        <div class="right">
+            <!-- <a href="index.html" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+            <a href="#" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a> -->
+            <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+            <a href="{% url  'view_profile' request.user.id  %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+        </div>
+    </nav>
+    <form class="form">
+        <table  class="table" style="width:100% ; border:3px rgb(0, 0, 0) solid;" >
+            <tr style="background-color:#ffffff">
+                <th>Sr.No</th>
+                <th>Application No.</th> 
+                <th>Application Date</th>
+                <th>Application Status</th>
+                <th>Current Status</th>
+                <th>TP Status</th>
+                <th id="remark">Remark</th>
+                <th id="query">Query</th>
+                <th>TP Issuing Date</th>
+                <th>TP Number</th>
+                <th>TP Expiry Date</th>
+                <th>Download Tp</th>
+                <th>Download Report</th>
+              </tr>
+              {% for each in application %}
+                <tr>
+                <td>{{each.sr}}</td>
+                <td>{{each.applicant_no}}</td>
+                <td>{{each.created_date}}</td>
+                <td>{{each.application_status}}</td>
+                <td>{{each.current_status}}</td>
+                <td>{{each.verification_status}}</td>
+                <td>{{each.remark}}</td>
+                <td>{{each.query}}</td>
+                <td>{{each.tp_issue_date}}</td>
+                <td>{{each.tp_number}}</td>
+                <td>{{each.expiry_date}}</td>
+                <!-- <td></td>  -->
+                <!-- <td></td> -->
+                {% if each.application_status == 'Approved' %}
+                <td><button id="tp_download" class="btn" onclick="myfuncion('{{each.applicant_no}}');" style="width:90px"><a href="{% url 'transit_pass_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+
+                <td><button class="btn" onclick="myfuncion('{{each.applicant_no}}');" style="width:90px"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                {% else %}
+                <td><button class="btn" style="width:90px" disabled="disabled"><i class="fa fa-download"></i> Download</button></td>
+                <td><button class="btn" style="width:90px" disabled="disabled"><i class="fa fa-download"></i> Download</button></td>
+                {% endif %}
+                </tr>
+              {% endfor %}
+              
+        </table>
+
+    </form>
+</div>
+<div class="pag">
+<div class="pagination">
+    <a href="#">&laquo;</a>
+    <a href="#" class="active">1</a>
+    <a href="#">2</a>
+    <!-- <a href="#">3</a>
+    <a href="#">4</a>
+    <a href="#">5</a>
+    <a href="#">6</a> -->
+    <a href="#">&raquo;</a>
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+    function myfuncion(){
+        alert("DOWNLOAD INPROGRESS!!!");
+        
+    }
+
+</script>
+</html>

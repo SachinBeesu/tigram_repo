@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>List of Application</title>
+</head>
+<body>
+	<h2>Applications</h2>
+	<table border="1" style="text-align: center;">
+	<thead>
+		<th>Application ID</th>
+		<th>Applicant Name</th>
+		<th>Species Of Trees</th>
+		<th>Survey No.</th>
+		<th>Purpose</th>
+		<th>Action</th>
+	</thead>
+	<tbody>
+	{% for each in applications %}
+		<tr>
+			<td>{{each.id}}</td>
+			<td>{{each.name}}</td>
+			<td>{{each.species_of_trees}}</td>
+			<td>{{each.survey_no}}</td>
+			<td>{{each.purpose}}</td>
+			<td><a href="{% url 'application_view' each.id  %}">View Application</a></td>
+		</tr>
+		<br>
+	{% endfor %}
+	</tbody>	
+	</table>
+{{applications}}
+</body>
+</html>

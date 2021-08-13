@@ -1,0 +1,1253 @@
+{% extends 'my_app/tigram/top_band_cont.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/officerdash.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+
+    <!-- Jquery -->
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css" href="{% static 'js/DataTables/datatables.css' %}">
+    <script type="text/javascript" charset="utf8" src="{% static 'js/DataTables/datatables.js' %}"></script>
+    
+    <!-- <link rel="stylesheet" type="text/css" href="css/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="css/datatables.css">
+    <script type="text/javascript" charset="utf8" src="js/datatables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="js/datatables.js"></script> -->
+    
+    
+<style>
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+
+body{
+/*font-family: 'Roboto', sans-serif;*/
+}
+.cont{
+    background-image: url('{%static "/images/bg_08.jpg" %}');
+    /*max-height: calc(100vh - 250px);*/
+}
+
+.bg_orange{
+background:orange;
+}
+.div2{
+margin-bottom:30px;
+padding:10px;
+background: #ffffff;
+}
+.div1{
+background: #ffffff;
+width: 750px;
+}
+#myTable01,#myTable02{
+border-top:1px solid #ccc;
+border-left:1px solid #ccc;
+margin-top:10px;
+display:block;
+font-family: 'Roboto', sans-serif;
+}
+
+#myTable01 tr:nth-child(even),#myTable02 tr:nth-child(even){
+background: #f8f7f7;
+}
+#myTable thead{
+border-top:1px solid #ccc;
+}
+
+.pending_approve{
+display:flex;
+}
+.pending_approve div{
+
+padding:10px 20px;
+color:#222;
+cursor:pointer;
+font-size:16px;
+border-radius:10px 10px 0px 0px;
+background:#efefef;
+opacity:0.8;
+}
+.dataTables_scroll
+{
+    overflow:auto;
+}
+.pending_approve .pending_btn.active{
+background:orange;
+color:#fff;
+font-weight:bold;
+opacity:1;
+}
+.pending_approve .approve_btn.active{
+background:green;
+color:#fff;
+font-weight:bold;
+opacity:1;
+}
+.pending_approve .deemed_approve_btn.active{
+background:#6012F3;
+color:#fff;
+font-weight:bold;
+opacity:1;
+}
+.pending_approve .noc_btn.active{
+background:#127FF3;
+color:#fff;
+font-weight:bold;
+opacity:1;
+}
+.pending_table thead tr{
+background:orange;
+color:#fff;
+}
+/*.approve_table{
+}*/
+.approved_table thead tr{
+background:green;
+color:#fff;
+}
+.deemed_approved_table thead tr{
+background:#6012F3;
+color:#fff;
+}
+.noc_table thead tr{
+background:#127FF3;
+color:#fff;
+}
+.pending_table, .approved_table,.deemed_approved_table,.noc_table{
+position:relative;
+}
+
+.hide{
+display:none !important;
+}
+.dataTables_filter{
+margin-bottom:10px;
+}
+.dataTables_filter input{
+width:250px;
+}
+.dataTables_length select{
+margin:0px 4px;
+}
+.dataTables_wrapper .dataTables_paginate{
+margin-top:7px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+padding: 3px 1em !important;
+}
+.select_filter{
+position:absolute;
+left:200px;
+top:10px;
+z-index:1000;
+}
+.select_filter select{
+width:170px;
+margin-left:10px;
+padding:5px;
+border:1px solid #ccc;
+border-radius:3px;
+
+}
+/*.table{*/
+/*height:406px;*/
+/*overflow-y:scroll;*/
+/*}*/
+
+table thead tr th:nth-child(1){
+min-width:40px!important;
+}
+table thead tr th:nth-child(2){
+/*min-width:70px!important ;*/
+min-width:170px!important ;
+}
+table thead tr th:nth-child(3){
+min-width:150px;
+}
+table thead tr th:nth-child(4){
+min-width:50px;
+}
+table thead tr th:nth-child(5){
+min-width:250px;
+}
+table thead tr th:nth-child(6){
+min-width:70px;
+}
+table thead tr th:nth-child(7){
+min-width:70px;
+}
+table thead tr th:nth-child(8){
+min-width:120px;
+}
+table thead tr th:nth-child(9){
+min-width:90px;
+}
+table thead tr th:nth-child(10){
+min-width:90px;
+}
+table thead tr th:nth-child(11){
+min-width:70px;
+}
+table thead tr th:nth-child(12){
+min-width:250px;
+text-align:left;
+}
+table thead tr th:nth-child(13){
+text-align:left;
+}
+/*table thead tr th:nth-child(14){
+min-width:70px;
+}*/
+/*table thead tr td{
+
+object-fit:cover;
+}
+*/
+/*table thead tr th:nth-child(1){
+min-width:50px;
+}
+table thead tr th:nth-child(2){
+min-width:50px;
+}
+table thead tr th:nth-child(3){
+min-width:150px;
+}
+table thead tr th:nth-child(4){
+min-width:50px;
+}
+table thead tr th:nth-child(5){
+min-width:250px;
+}
+table thead tr th:nth-child(6){
+min-width:70px;
+}
+table thead tr th:nth-child(7){
+min-width:70px;
+}
+table thead tr th:nth-child(8){
+min-width:120px;
+}
+table thead tr th:nth-child(9){
+min-width:90px;
+}
+table thead tr th:nth-child(10){
+min-width:90px;
+}
+table thead tr th:nth-child(11){
+min-width:70px;
+}
+table thead tr th:nth-child(12){
+min-width:250px;
+text-align:left;
+}
+table tbody tr th:nth-child(13){
+text-align:left;
+}
+table thead tr th:nth-child(14){
+min-width:70px;
+}*/
+.down_btn{
+padding:5px 8px;
+padding-bottom:4px;
+border:none;
+border:1px solid #000;
+color:#000;
+background:#fff;
+cursor:pointer;
+}
+.down_btn:hover{
+border:1px solid blue;
+color:blue;
+}
+.view_app,.qr_code{
+color:#000;
+}
+.view_app:hover,.qr_code:hover{
+color:blue;
+}
+table{
+color:#000 !important;
+}
+.wrap{
+width:80%;
+margin:auto;
+/*height:2000px;*/
+/*background:#fff;*/
+}
+.dataTable{
+   text-align: center;
+}
+div.dataTables_wrapper {
+width:100% !important;
+}
+.qr_img{
+    /*width:200px !important;*/
+    width:240px !important;
+    height:240px !important;
+}
+/*div.log-qr-item {
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    width: 120px;
+}*/
+/*img {
+    width: 100px;
+    height: 100px;
+    background-color: grey;
+}*/
+/*.log-qr-item-caption {
+    display: block;
+}*/
+#myModal2{
+    align-self: center;
+    position: absolute;
+    max-height: calc(100vh - 50px);
+}
+.center {
+        width: 70%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+/*.modal-body {
+    overflow-y: auto;
+}*/
+
+@media print{
+    div.log-qr-item {
+    /* To correctly align image, regardless of content height: */
+    vertical-align: top;
+    display: inline-block;
+    /* To horizontally center images and caption */
+    text-align: center;
+    /* The width of the container also implies margin around the images. */
+    
+    width: 120px; 
+    }
+    .log-qr-item-caption{
+        padding-top: -25px;
+        float: left;
+    }
+
+}
+/*.filter-range{
+        float:left;
+        overflow: hidden;
+    }
+
+    .filter-range-inner{
+        width: 400px;
+        padding: 10px;
+        border: 1px solid #a29415;
+    }*/
+
+</style>    
+</head>
+
+<body>
+    
+    <!-- <nav class=nav>
+        <h2>{{text_show}}  Dashboard</h2>
+        <div class="right">
+            <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+            <a href="{% url 'view_profile' request.user.id %}" class="h7-button"><i class="fa fa-user-circle fa-2x"></i></a>
+        </div>
+    </nav> -->
+    <div class="cont nice_scroll">
+        
+        <div class="wrap">
+            {% if group == "division officer" or group == "state officer" %}
+            <form action="{% url 'officer_dashboard' %}" method="GET" id="select-form">
+                
+<!--     <a class="btn btn-primary slide-toggle" style="height:35px ;">
+        <i class="fa fa-filter" id="slide-toggle"></i></a> -->
+    <div style="background-color: white;width: 850px; text-align:center;border-radius:5px ;height:35px ;" class="filter-range" id="filter-range">
+        <label>Administrative Forest Division:</label>
+        <!-- {{area_range_name}} -->
+        <select name="div_name" id="div_name_select" style="margin-top: 5px;">
+            <option value="">All Division</option>
+            <!-- <option>Trivandrum</option> -->
+            {% for each_div in division_name %}
+                <option value="{{each_div}}" {% if area_div_name == each_div %} selected {% endif %}>{{each_div}}</option>
+            {% endfor %}
+        </select>
+        <label>Administrative Forest Range:</label>
+        <!-- {{area_range_name}} -->
+        <select name="range_name" id="range_name_select" style="margin-top: 5px;">
+            <option value="">All Ranges</option>
+            <!-- <option>Trivandrum</option> -->
+
+            {% for each_range in area_range %}
+                <option value="{{each_range}}" {% if area_range_name == each_range %} selected {% endif %}>{{each_range}}</option>
+            {% endfor %}
+        </select>
+    </div>
+            </form>
+    {% endif %}
+     <div class="pending_approve">
+    <div class="pending_btn active">Pending</div><div class="approve_btn">Approved/Rejected</div><div class="deemed_approve_btn">Deemed Approval</div>
+ {% ifnotequal group 'revenue officer' %}
+  <div class="noc_btn">NOC Applications</div>
+  {% endifnotequal %}
+  <!-- <div class="form2_table_btn">Notified Villages Form</div> -->
+  </div>
+    <div class="div2  pending_table" >
+         
+        <!-- <table id="myTable01" class="table nice_scroll2" style=""> -->
+        <table id="myTable01" class="table " style="">
+            <div class="select_filter">
+            
+            <select id="sel_application_no1" name=1 class="select-application01">
+                <option value="">Select Application No. </option>
+                {% for no in pending_application_no %}
+                <option>{{no}}</option>
+                <!-- <option>Applicant No 02</option> -->
+                {% endfor %}
+            </select>
+            <select id="sel_application_name1" name=2 class="select-application01">
+                <option value="">Select Application Name </option>
+                {% for name in pending_application_names %}
+                <option>{{name}}</option>
+                <!-- <option>Applicant No 02</option> -->
+                {% endfor %}
+            </select>
+            <select id="sel_application_date1" name=3 class="select-application01">
+                <option value="">Select Application Date </option>
+                {% for each in pending_application_date %}
+                <option>{{each}}</option>
+                <!-- <option>Applicant No 02</option> -->
+                {% endfor %}
+            </select>
+            
+            </div>
+            <thead>
+                
+                <tr style="">
+                    <th>Sr.No</th>
+                    <th>Application No.</th>
+                    <th>Applicant Name</th>
+                    <th>Application Date</th>
+                    <!-- <th id="query">Query</th> -->
+                    <th>Current Status</th>
+                    <th>Notified / Non-Notified Villages</th>
+                    <th>Days left for Approval</th>
+                    <th>Approved Date</th>
+                    <th>Action</th>
+                    <th>Download TP</th>
+                    <th>Download Report</th>
+                    <th>Get QR Codes</th>
+                    <th id="remark">Remark</th>
+                    <th>Remark Date</th>
+                </tr>
+            </thead>
+    <tbody class="applications_list">
+
+           {% for each in pending_applicant %}
+                <tr>
+                    <td>{{each.sr}}</td>
+                    <!-- <td>{{each.applicant_no}}</td> -->
+                    <td>{{each.application_no}}</td>
+                    <td>{{each.applicant_name}}</td>
+                    <td>{{each.created_date}}</td>
+                    <!-- <td>{{each.query}}</td> -->
+                    <td>{{each.current_status}}</td>
+                    <td>{% if each.is_form_two %}Notified{% else %} Non-notified {% endif %}</td>
+                    <td>{{each.days_left_for_approval}}</td>
+                    <td>{{each.tp_issue_date}}</td>
+                    <td>
+                        <!-- <a href="{% url 'application_view' each.applicant_no  %}">View Application</a> -->
+                        <a href="{% url 'application_view' each.applicant_no  %}" class="view_app"><i class="fa fa-eye"></i> View Application</a>
+                     &nbsp;
+                     {% if group == 'deputy range officer' %}
+                     
+                        {% if each.application_status == 'Submitted' or  each.application_status == 'Pending' %}
+                        <a href="{% url 'edit_application' each.applicant_no  %}">Edit Application</a>
+                        {% endif %}
+                    {% endif %}
+                    </td>
+                    {% if each.application_status == 'Approved' %}
+                    <td>
+                        <!-- <button class="down_btn"><i class="fa fa-download"></i> Download</button> -->
+                        <button class="down_btn"><a href="{% url 'transit_pass_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    <td><button class="down_btn"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                   <!--  <td><button class="down_btn"><a href="{% url 'qr_code_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Print</a></button></td> -->
+                    <td><a href="{% url 'qr_code_pdf' each.applicant_no %}" class="qr_code"><i class="fa fa-qrcode"></i> QR Code</a></td>
+                    <td>{{each.remark}}</td>
+                    {% else %}
+                    <td></td>
+                    <td><button class="down_btn"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    <!-- <td><button class="btn" style="width:90px" disabled><i class="fa fa-download"></i> Download</button></td> -->
+                    <td></td>
+                    <td>{{each.remark}}</td>
+                    {% endif %}
+
+                    <td>{{each.remark_date}}</td>
+                </tr>
+            {% endfor %}
+
+    </tbody>
+        </table>
+
+    </div>
+    
+    <div class="div2  approved_table hide" >
+         
+        <table id="myTable02" class="table " >
+            <div class="select_filter">
+            
+            <select id="sel_application_no2" name=1 class="select-application02">
+                <option value="">Select Application No. </option>
+                {% for each in approved_application_no %}
+                <option>{{each}}</option>
+                {% endfor %}
+            </select>
+            <select id="sel_application_name2" name=2 class="select-application02">
+                <option value="" >Select Application Name </option>
+                {% for name in approved_application_names %}
+                <option>{{name}}</option>
+                {% endfor %}
+            </select>
+            <select id="sel_application_date2" name=3 class="select-application02">
+                <option value="">Select Application Date </option>
+                {% for created_date in approved_application_date %}
+                <option>{{created_date}}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <thead >
+                
+                <tr >
+                    <th>Sr.No</th>
+                    <th>Application No.</th>
+                    <th>Applicant Name</th>
+                    <th>Application Date</th>
+                    <th>Current Status</th>
+                    <th>Notified / Non-Notified Villages</th>
+                    <th>Approved Date</th>
+                    <th>Action</th>
+                    <th>Download TP</th>
+                    <th>Download Report</th>
+                    <th>Get QR Codes</th>
+                    <th id="remark">Remark</th>
+                    <th>Remark Date</th>
+                </tr>
+            </thead>
+    <tbody>
+
+
+            {% for each in approved_applicant %}
+                <tr>
+                    <td>{{each.sr}}</td>
+                    <td>{{each.application_no}}</td>
+                    <td>{{each.applicant_name}}</td>
+                    <td>{{each.created_date}}</td>
+                    <td>{{each.current_status}}</td>
+                    <td>{% if each.is_form_two %}Notified{% else %} Non-notified {% endif %}</td>
+                    <td>{{each.tp_issue_date}}</td>
+                    <td>
+                        <a href="{% url 'application_view' each.applicant_no  %}" class="view_app"><i class="fa fa-eye"></i> View Application</a>
+                     &nbsp;
+                     {% if group == 'deputy range officer' %}
+                       {% if each.application_status == 'Submitted' or  each.application_status == 'Pending' %}
+                        <a href="{% url 'edit_application' each.applicant_no  %}" class="view_app"><i class="fa fa-pencil"></i>Edit Application</a>
+                        {% endif %}
+                    {% endif %}
+                    </td>
+                    {% if each.application_status == 'Approved' %}
+                    <td>
+                        <button class="down_btn"><a href="{% url 'transit_pass_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    <td><button class="down_btn"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+ 
+                    <td><a href="{% url 'qr_code_pdf' each.applicant_no %}" class="qr_code"><i class="fa fa-qrcode"></i> QR Code</a><br>
+                    <a onclick="return get_qr({{each.applicant_no}});" class="qr_code" ><i class="fa fa-print" ></i>Print QR Code</a>                    
+                    </td>
+                    <td>{{each.remark}}</td>
+                    {% else %}
+                    <td></td>
+                    <td><button class="down_btn"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    <td></td>
+                    <td>{{each.remark}}</td>
+                    {% endif %}
+
+                    <td>{{each.remark_date}}</td>
+                </tr>
+            {% endfor %}
+             
+
+    </tbody>
+        </table>
+
+    </div>
+    <div class="div2  deemed_approved_table hide" >
+         
+        <table id="myTable03" class="table " >
+            <div class="select_filter">
+            
+            <select id="sel_application_no3" name=1 class="select-application03">
+                <option value="">Select Application No. </option>
+                {% for each in deemed_approved_application_no %}
+                <option>{{each}}</option>
+                {% endfor %}
+            </select>
+            <select id="sel_application_name3" name=2 class="select-application03">
+                <option value="" >Select Application Name </option>
+                {% for name in deemed_approved_application_names %}
+                <option>{{name}}</option>
+                {% endfor %}
+            </select>
+            <select id="sel_application_date3" name=3 class="select-application03">
+                <option value="">Select Application Date </option>
+                {% for created_date in deemed_approved_application_date %}
+                <option>{{created_date}}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <thead >
+                
+                <tr >
+                    <th>Sr.No</th>
+                    <th>Application No.</th>
+                    <th>Applicant Name</th>
+                    <th>Application Date</th>
+                    <th>Current Status</th>
+                    <th>Approved Date</th>
+                    <th>Action</th>
+                    <th>Download TP</th>
+                    <th>Download Report</th>
+                    <th>Get QR Codes</th>
+                    <th id="remark">Remark</th>
+                    <th>Remark Date</th>
+                </tr>
+            </thead>
+    <tbody>
+
+
+            {% for each in deemed_approved_applicant %}
+                <tr>
+                    <td>{{each.sr}}</td>
+                    <td>{{each.application_no}}</td>
+                    <td>{{each.applicant_name}}</td>
+                    <td>{{each.created_date}}</td>
+                    <td>Deemed Approved</td>
+                    <td>{{each.tp_issue_date}}</td>
+                    <td>
+                        <a href="{% url 'application_view' each.applicant_no  %}" class="view_app"><i class="fa fa-eye"></i> View Application</a>
+                     &nbsp;
+                     
+                    </td>
+                    <td>
+                        <button class="down_btn"><a href="{% url 'transit_pass_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    <td><button class="down_btn"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+ 
+                    <td><a href="{% url 'qr_code_pdf' each.applicant_no %}" class="qr_code"><i class="fa fa-qrcode"></i> QR Code</a></td>
+                    <td>{{each.remark}}</td>
+
+                    <td>{{each.remark_date}}</td>
+                </tr>
+            {% endfor %}
+             
+
+    </tbody>
+        </table>
+
+    </div>
+    <div class="div2  noc_table hide" >
+         
+        <table id="myTable04" class="table " >
+            <div class="select_filter">
+            
+            <select id="sel_application_no4" name=1 class="select-application04">
+                <option value="">Select Application No. </option>
+                {% for each in noc_application_no %}
+                <option>{{each}}</option>
+                {% endfor %}
+            </select>
+            <select id="sel_application_name4" name=2 class="select-application04">
+                <option value="" >Select Application Name </option>
+                {% for name in noc_application_names %}
+                <option>{{name}}</option>
+                {% endfor %}
+            </select>
+            <select id="sel_application_date4" name=3 class="select-application04">
+                <option value="">Select Application Date </option>
+                {% for created_date in noc_application_date %}
+                <option>{{created_date}}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <thead >
+                
+                <tr style="width:100%;" >
+                    <th>Sr.No</th>
+                    <th>Application No.</th>
+                    <th>Applicant Name</th>
+                    <th>Application Date</th>
+                    <th>Download NOC</th>
+                </tr>
+            </thead>
+    <tbody>
+
+
+            {% for each in noc_applicant %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td >{{each.application_no}}</td>
+                    <td>{{each.applicant_name}}</td>
+                    <td>{{each.created_date}}</td>
+                    <td>
+                        <button class="down_btn"><a href="{% url 'new_noc_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    
+                </tr>
+            {% endfor %}
+             
+
+    </tbody>
+        </table>
+
+    </div>
+    <div class="div2  form2_table hide" >
+         
+        <table id="myTable05" class="table " >
+            <div class="select_filter">
+            
+            <select id="sel_application_no5" name=1 class="select-application05">
+                <option value="">Select Application No. </option>
+                {% for each in approved_application_no %}
+                <option>{{each}}</option>
+                {% endfor %}
+            </select>
+            <select id="sel_application_name5" name=2 class="select-application05">
+                <option value="" >Select Application Name </option>
+                {% for name in approved_application_names %}
+                <option>{{name}}</option>
+                {% endfor %}
+            </select>
+            <select id="sel_application_date5" name=3 class="select-application05">
+                <option value="">Select Application Date </option>
+                {% for created_date in approved_application_date %}
+                <option>{{created_date}}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <thead >
+                
+                <tr >
+                    <th>Sr.No</th>
+                    <th>Application No.</th>
+                    <th>Applicant Name</th>
+                    <th>Application Date</th>
+                    <th>Current Status</th>
+                    <th>Approved Date</th>
+                    <th>Action</th>
+                    <th>Download TP</th>
+                    <th>Download Report</th>
+                    <th>Get QR Codes</th>
+                    <th id="remark">Remark</th>
+                    <th>Remark Date</th>
+                </tr>
+            </thead>
+    <tbody>
+
+
+            {% for each in approved_applicant %}
+                <tr>
+                    <td>{{each.sr}}</td>
+                    <td>{{each.application_no}}</td>
+                    <td>{{each.applicant_name}}</td>
+                    <td>{{each.created_date}}</td>
+                    <td>{{each.current_status}}</td>
+                    <td>{{each.tp_issue_date}}</td>
+                    <td>
+                        <a href="{% url 'application_view' each.applicant_no  %}" class="view_app"><i class="fa fa-eye"></i> View Application</a>
+                     &nbsp;
+                     {% if group == 'deputy range officer' %}
+                       {% if each.application_status == 'Submitted' or  each.application_status == 'Pending' %}
+                        <a href="{% url 'edit_application' each.applicant_no  %}" class="view_app"><i class="fa fa-pencil"></i>Edit Application</a>
+                        {% endif %}
+                    {% endif %}
+                    </td>
+                    {% if each.application_status == 'Approved' %}
+                    <td>
+                        <button class="down_btn"><a href="{% url 'transit_pass_pdf' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    <td><button class="down_btn"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+ 
+                    <td><a href="{% url 'qr_code_pdf' each.applicant_no %}" class="qr_code"><i class="fa fa-qrcode"></i> QR Code</a><br>
+                    <a onclick="return get_qr({{each.applicant_no}});" class="qr_code" ><i class="fa fa-print" ></i>Print QR Code</a>                    
+                    </td>
+                    <td>{{each.remark}}</td>
+                    {% else %}
+                    <td></td>
+                    <td><button class="down_btn"><a href="{% url 'user_report' each.applicant_no %}"><i class="fa fa-download"></i> Download</a></button></td>
+                    <td></td>
+                    <td>{{each.remark}}</td>
+                    {% endif %}
+
+                    <td>{{each.remark_date}}</td>
+                </tr>
+            {% endfor %}
+             
+
+    </tbody>
+        </table>
+
+    </div>
+    <div id="myModal2" class="modal center">
+  <div class="modal-content ">
+<!--         <span id="center">
+        </span> -->
+        <div class="modal-header" ><h3>QR Details</h3>
+        <a class="btn btn-danger right" onclick="closeModal2()">&times;</a>
+        </div>
+        <div class="modal-body nice_scroll2" id="tlog-div" style="max-height:400px; overflow: auto;">
+               <table id="log-qr-table"  style="border: 1px solid black;margin: 0;padding: 0;" >
+        <thead>
+            
+        <tr>
+         
+          <!-- <th  style="width: 45px;padding-top: 7px; background-color: #000000;font-size: 15px;"><p style="color: white;">Sr.NO</p></th>
+          <th style="width: 300px; padding-top: 7px; background-color: black;font-size: 15px"><p style="color: white;">Species of Log</p></th>
+          <th style="padding-top: 7px; background-color: black;font-size: 15px"><p style="color: white;">Length(cm)</p></th>
+          <th style="padding-top: 7px; background-color: black;font-size: 15px"><p style="color: white;">Girth(cm)</p></th>
+          <th style="padding-top: 7px; background-color: black;font-size: 15px"><p style="color: white;">Volume(cm<sup>3</sup>)</p></th>
+          <th style="padding-top: 7px; background-color: black;font-size: 15px"><p style="color: white;">QR Code</p></th>
+          <th style="padding-top: 7px; background-color: black;font-size: 15px"><p style="color: white;">Print</p></th> -->
+          <th  style="width: 45px;background-color: #000000;font-size: 15px;"><p style="color: white;">Sr.NO</p></th>
+          <th style="width: 300px; background-color: black;font-size: 15px"><p style="color: white;">Species of Log</p></th>
+          <th style=" background-color: black;font-size: 15px" ><p style="color: white;">Length(cm)</p></th>
+          <th style=" background-color: black;font-size: 15px"><p style="color: white;">Girth(cm)</p></th>
+          <th style=" background-color: black;font-size: 15px"><p style="color: white;">Volume(cm<sup>3</sup>)</p></th>
+          <th style=" background-color: black;font-size: 15px"><p style="color: white;">QR Code</p></th>
+          <th style=" background-color: black;font-size: 15px"><p style="color: white;">Print</p></th>
+        </tr>
+        </thead>
+        <tbody id="log_table">
+            
+        </tbody>
+       
+
+      </table>
+         </div>
+       <div class="modal-footer">
+        <input type="button" class="btn btn-danger" value="Print All QR" onclick="printClass();">
+    </div>
+       
+      </div>
+    </div>
+     <div class="div1">
+        <h2>Summary Report</h2>
+        <form class="form">
+            <div id="piechart">
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                        // ['Rejected', '{{no_of_tp_rejected}}'],
+                var rejected='{{no_of_tp_rejected}}';
+                console.log(rejected);
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Applications', 'Per Day'],
+                        // ['Application', 8],
+                        ['Approved',parseInt('{{no_of_tp}}')],
+                        ['Rejected', parseInt(rejected)],
+                        ['Pending', parseInt('{{no_of_tp_pending}}')],
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'width': 746, 'height': 450 };
+
+                    // Display the chart inside the div element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+            </script>     
+            
+           
+        </div>
+        </form>
+         <button class="btn1"><a href="{% url 'summary_report' %}"><i class="fa fa-download"></i>Download</a></button>
+    </div>
+    
+    </div>
+    </div>
+</body>
+<script type="text/javascript">
+    
+    var message = "{{message}}";
+    if(message.length>0)
+    {
+        alert(message);
+    }
+    function openModal2() {
+  document.getElementById("myModal2").style.display = "block";
+}
+function closeModal2(){
+  document.getElementById("myModal2").style.display = "none";
+}
+    function get_qr(app_id){
+        // alert(app_id);
+        $("#log_table tr").remove();
+        openModal2();
+        var token = '{{csrf_token}}';
+        var row='';
+        var tp_qr = '';
+            $.ajax({
+                headers: { "X-CSRFToken": token },
+                type: 'POST',
+                url: "../get_log_qr_details/"+app_id,
+                data: {'app_id':app_id},
+                success: function (data) {
+                    // alert(data.message);
+                    // $('#message').text(data.message);
+                    // alert(data.log_details.length);
+                    tp_qr = "<div class='tp_details_class' >Transit Pass QR Code:<div id='tp_qr_code'><img class='qr_img'  src='/static/media/qr_code/"+data.transitpass[0].qr_code_img+"' /></div><a class='btn btn-danger' onclick='printDiv(\"tp_qr_code\")'>Print</a> </div>";
+                    $('.tp_details_class').remove();
+                    $('#tlog-div').prepend(tp_qr);
+                    for(var i=0;i<data.log_details.length;i++){
+                        row='\
+                        <tr>\
+                      <td style="text-align: center;font-size: 16px">'+parseInt(i+1)+'</td>\
+                      <td style="width :300px !important; text-align: center;font-size: 16px">'+data.log_details[i].species_of_tree+'</td>\
+                      <td style="text-align: center;font-size: 16px">'+data.log_details[i].length+'</td>\
+                      <td style="text-align: center;font-size: 16px">'+data.log_details[i].breadth+'</td>\
+                      <td style="text-align: center;font-size: 16px">'+data.log_details[i].volume+'</td>\
+                      <td id="log_qr'+i+'" class="printable-part" >\
+                            <div class="log-qr-item">\
+                            <img title="log_'+i+'" alt="#LS'+i+'" class="qr_img" src="/static/media/qr_code/'+data.log_details[i].log_qr_code_img+'" />\
+                            </div>\
+                      </td>\
+                    <td style="text-align: center;font-size: 16px"><a class="btn btn-danger" onclick="printDiv('+i+')">Print</a> </td>\
+                      </tr>';
+                        $('#log_table').append(row);
+                    }
+
+                    // $('.couldapprove').hide();
+                    // console.log(data);
+                },
+                error: function (data) {
+                    // console.log('An error occurred.');
+                    alert(data);
+                    // console.log(data);
+                    },
+          });
+        return true;
+    }
+    function printDiv(id)
+{
+alert(id);
+    $('.log-qr-item-caption').hide();
+if(id=="tp_qr_code"){
+    var divToPrint=document.getElementById('tp_qr_code');
+  }
+  else{
+   var divToPrint=document.getElementById('log_qr'+id); 
+  }
+
+  var newWin=window.open('','Print-Window');
+
+  newWin.document.open();
+
+  newWin.document.write('<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+
+  newWin.document.close();
+
+  setTimeout(function(){newWin.close();},10);
+
+}
+   function printClass() 
+{
+
+    var divToPrint = document.getElementsByClassName("printable-part");
+    // var divToPrint=document.getElementById('log_qr'+id);
+    l = divToPrint.length;
+    var newWin=window.open('','Print-Window');
+
+    newWin.document.open();
+    newWin.document.write('<html><body onload="window.print()">');
+    for (var i = 0; i < l; i++){
+            newWin.document.write('<div style="text-align:center;">'+divToPrint[i].innerHTML+
+                           ' <span class="log-qr-item-caption" style="padding-top:-25px;" >#LS'+parseInt(i+1)+'</span></div>');
+    }
+    newWin.document.write('</body></html>');
+
+    newWin.document.close();
+
+    setTimeout(function(){newWin.close();},10);
+
+}
+    $(document).ready(function(){
+            $('.log-qr-item-caption').hide();
+        $(document).on('.dataTable > thead > tr > th[class="sorting"]','click',function(){
+            $('.dataTables_scrollBody thead tr').css({'visibility':'collapse'});
+        })
+    var indexOfMyCol = 2;
+      var table=$('#myTable01').DataTable({
+        "scrollY": 400,
+        "scrollX": true,
+        "bDestroy": true,
+        // colReorder: true,
+        // 'info': false,
+        "columnDefs": [
+            { width: 150, targets: 1 }
+        ],
+        "fixedHeader": {
+            header: true,
+            footer: true
+        },
+        "initComplete": function(settings, json) {
+        $('.dataTables_scrollBody thead tr').css({'visibility':'collapse'});
+        // $('.dataTables_scrollBody').css({'overflow-x':'hidden'});
+    }
+      });
+      var headers = table.columns().header().toArray();
+
+$(headers).on('click', function () {
+    // do something
+     $('.dataTables_scrollBody thead tr').css({'visibility':'collapse'});
+});
+
+      var table2=$('#myTable02').removeAttr('width').DataTable({
+        "scrollY": 400,
+        "scrollX": true,
+        // "scrollX": true,
+        "sScrollXInner": "100%",
+        "bDestroy": true,
+        // "autoWidth": false,
+        //  "columnDefs": [
+        //     { 'width': 150, 'targets': 1 }
+        // ],
+        // scroller: true,
+        // 'colReorder': true,
+        'overflow':true,
+        "fixedHeader": {
+            header: true,
+            footer: true
+        },
+        "initComplete": function(settings, json) {
+        $('.dataTables_scrollBody thead tr').css({'visibility':'collapse'});
+        $("#myTable02").wrap("<div style=' width:100%;position:sticky;'></div>");
+        // $('.dataTables_scrollBody').css({'overflow-x':'hidden'});
+    }
+      });
+      var headers2 = table2.columns().header().toArray();
+
+$(headers2).on('click', function () {
+    // do something
+     $('.dataTables_scrollBody thead tr').css({'visibility':'collapse'});
+});
+var table3=$('#myTable03').removeAttr('width').DataTable({
+        "scrollY": 400,
+        "scrollX": true,
+        // "scrollX": true,
+        "sScrollXInner": "100%",
+        "bDestroy": true,
+        // "autoWidth": false,
+        //  "columnDefs": [
+        //     { 'width': 150, 'targets': 1 }
+        // ],
+        // scroller: true,
+        // 'colReorder': true,
+        'overflow':true,
+        "fixedHeader": {
+            header: true,
+            footer: true
+        },
+        "initComplete": function(settings, json) {
+        $('.dataTables_scrollBody thead tr').css({'visibility':'collapse'});
+        $("#myTable03").wrap("<div style=' width:100%;position:sticky;'></div>");
+        // $('.dataTables_scrollBody').css({'overflow-x':'hidden'});
+    }
+      });
+      var headers3 = table3.columns().header().toArray();
+
+$(headers3).on('click', function () {
+    // do something
+     $('.dataTables_scrollBody thead tr').css({'visibility':'collapse'});
+});
+// var tb4=$('#myTable04').DataTable();
+// tb4.columns.adjust().draw();
+var table4=$('#myTable04').DataTable({
+        "scrollY": 400,
+        "scrollX": true,
+        // "scrollX": true,
+        "sScrollXInner": "100%",
+        "bDestroy": true,
+        // "autoWidth": false,
+        //  "columnDefs": [
+        //     { 'width': 150, 'targets': 1 }
+        // ],
+        // scroller: true,
+        // 'colReorder': true,
+        'overflow':true,
+        "fixedHeader": {
+            header: true,
+            footer: true
+        },
+        "initComplete": function(settings, json) {
+        $('.dataTables_scrollBody thead tr').css({'visibility':'collapse'});
+        $("#myTable04").wrap("<div style=' width:100%;position:sticky;' ></div>");
+            // table4.columns.adjust().draw(); 
+        // $('.dataTables_scrollBody').css({'overflow-x':'hidden'});
+    }
+      });
+
+      // $('#myTable04').DataTable().columns().adjust();
+      var headers4 = table4.columns().header().toArray();
+$(headers4).on('click', function () {
+    // do something
+     $('.dataTables_scrollBody thead tr').css({'visibility':'collapse'});
+});
+// $('.noc_table').wrap('<div class="dataTables_scroll" />');
+      // table2.columns.adjust().draw();
+    
+        $(".pending_btn").click(function(){
+  $(".pending_table").removeClass("hide");
+  $(".approved_table").addClass("hide");
+  $(".pending_btn").addClass("active");
+  $(".approve_btn").removeClass("active");
+  $(".deemed_approved_table").addClass("hide");
+  $(".deemed_approve_btn").removeClass("active");
+   $(".noc_table").addClass("hide");
+  $(".noc_btn").removeClass("active");
+  
+}); 
+$(".approve_btn").click(function(){
+  $(".approved_table").removeClass("hide");
+  $(".pending_table").addClass("hide");
+  $(".approve_btn").addClass("active");
+  $(".pending_btn").removeClass("active");
+ $(".deemed_approved_table").addClass("hide");
+  $(".deemed_approve_btn").removeClass("active");
+   $(".noc_table").addClass("hide");
+  $(".noc_btn").removeClass("active");
+}); 
+$(".deemed_approve_btn").click(function(){
+    $(".deemed_approved_table").removeClass("hide");
+  $(".approved_table").addClass("hide");
+  $(".pending_table").addClass("hide");
+  $(".deemed_approve_btn").addClass("active");
+  $(".approve_btn").removeClass("active");
+  $(".pending_btn").removeClass("active");
+  $(".noc_table").addClass("hide");
+  $(".noc_btn").removeClass("active");
+}); 
+$(".noc_btn").click(function(){
+     $(".noc_table").removeClass("hide");
+  $(".noc_btn").addClass("active");
+  $(".approved_table").addClass("hide");
+  $(".pending_table").addClass("hide");
+    $(".deemed_approved_table").addClass("hide");
+  $(".deemed_approve_btn").removeClass("active");
+  $(".approve_btn").removeClass("active");
+  $(".pending_btn").removeClass("active");
+  // $('#myTable04').DataTable();
+}); 
+    
+    $('.select-application01').on('change',function(){
+        // $(this).attr('name').val()
+        var sel_applicant01 =$(this).attr('name');
+        var filter_applicant = $(this).val();
+        // table.columns(2).search(filter_applicant).draw();
+        console.log('yes;;');
+       if(filter_applicant==''){
+            console.log(filter_applicant);
+        table.columns(sel_applicant01).search('').draw(); 
+        }
+        else{
+
+        table.columns(sel_applicant01).search(filter_applicant).draw();
+        }
+        $('.dataTables_scrollBody thead tr').css({'visibility':'collapse'});
+    });
+        $('.select-application02').on('change',function(){
+        // $(this).attr('name').val()
+        var sel_applicant01 =$(this).attr('name');
+        var filter_applicant = $(this).val();
+        var token = '{{csrf_token}}';
+        // pushData(filter_applicant);
+        // table2.columns(2).search(filter_applicant).draw();
+        if(filter_applicant==''){
+            console.log(filter_applicant);
+        table2.columns(sel_applicant01).search('').draw(); 
+        }
+        else{
+
+        table2.columns(sel_applicant01).search(filter_applicant).draw();
+        }
+        $('.dataTables_scrollBody thead tr').css({'visibility':'collapse'});
+
+    });
+        $('.select-application03').on('change',function(){
+        // $(this).attr('name').val()
+        var sel_applicant01 =$(this).attr('name');
+        var filter_applicant = $(this).val();
+        var token = '{{csrf_token}}';
+        // pushData(filter_applicant);
+        // table2.columns(2).search(filter_applicant).draw();
+        if(filter_applicant==''){
+            console.log(filter_applicant);
+        table3.columns(sel_applicant01).search('').draw(); 
+        }
+        else{
+
+        table3.columns(sel_applicant01).search(filter_applicant).draw();
+        }
+        $('.dataTables_scrollBody thead tr').css({'visibility':'collapse'});
+
+    });
+        $('.select-application04').on('change',function(){
+        // $(this).attr('name').val()
+        var sel_applicant01 =$(this).attr('name');
+        var filter_applicant = $(this).val();
+        var token = '{{csrf_token}}';
+        // pushData(filter_applicant);
+        // table2.columns(2).search(filter_applicant).draw();
+        if(filter_applicant==''){
+            console.log(filter_applicant);
+        table4.columns(sel_applicant01).search('').draw(); 
+        }
+        else{
+
+        table4.columns(sel_applicant01).search(filter_applicant).draw();
+        }
+        $('.dataTables_scrollBody thead tr').css({'visibility':'collapse'});
+
+    });
+    });
+
+$(document).ready(function(){
+    // {% if area_range_name == '' %}
+    // $("#filter-range").hide();
+    // {% else %}
+    // $("#slide-toggle").toggleClass('fa-filter fa-remove');
+    // {% endif %}
+    //     $(".slide-toggle").click(function(){
+    //         $(".filter-range").animate({
+    //             width: "toggle"
+    //         });
+            
+    //         $("#slide-toggle").toggleClass('fa-filter fa-remove');
+    //     });
+        $('#range_name_select').on('change',function(){
+            $('#select-form').submit();
+        });
+        $('#div_name_select').on('change',function(){
+            $('#select-form').submit();
+        });
+    });
+</script>
+</html>
+{% endblock %}

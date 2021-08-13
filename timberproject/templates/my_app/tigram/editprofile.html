@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/editprofile.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <nav class=nav>
+        <div class="right">
+            <a href="{% url 'user_logout' %}" class="h6-button" id="icon"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
+        </div>
+        <a href="index.html" class="h6-button" id="icon"><i class="fa fa-chevron-circle-left"></i>&nbsp;&nbsp;Back</a>
+    </nav>
+        <div class="sidenav">
+            {% if 'user' in groups %}
+            <a href="{% url 'dashboard' %}"><i class="fa fa-bars"></i>&nbsp;&nbsp;Dashboard</a>
+            {% else %}
+            <a href="{% url 'officer_dashboard' %}"><i class="fa fa-bars"></i>&nbsp;&nbsp;Dashboard</a>
+            {% endif %}
+            <!--<a href="#"><i class="fa fa-shield"></i>&nbsp;&nbsp;ASSETS</a>
+            <a href="#"><i class="fa fa-file-text"></i>&nbsp;&nbsp;WORK ORDER</a>
+            <a href="#"><i class="fa fa-user-plus"></i>&nbsp;&nbsp;MANAGE USER</a>
+            <a href="#"><i class="fa fa-cog"></i>&nbsp;&nbsp;SETTING</a>
+            <a href="#"><i class="fa fa-book"></i>&nbsp;&nbsp;REPORT</a>
+            -->
+        </div>
+    <div class="div2">
+        <h3>USER PROFILE:</h3>
+        <div class="container">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+            </script>
+            <form action="{% url 'edit_profile' request.user.id %}" method="POST" enctype="multipart/form-data" >
+                {% csrf_token %}
+        <div id="profile-container">
+            {% if user.profile_pic %}
+            <image id="profileImage" src="{% static 'media/upload/profile/' %}{{user.profile_pic}}"/> 
+            {% else %}
+           <image id="profileImage" src="{% static 'images/noprofile.jfif' %}"/>
+           {% endif %}
+           <i class="fa fa-pencil fa-2x" id="profileicon"></i>
+        </div>
+        <input id="imageUpload" type="file" name="profile_photo" placeholder="Photo"   capture>
+               <script>
+                       $("#profileImage").click(function(e) {
+                $("#imageUpload").click();
+            });
+                $("#profileicon").click(function(e) {
+                $("#imageUpload").click();
+            });
+            
+            function fasterPreview( uploader ) {
+                if ( uploader.files && uploader.files[0] ){
+                      $('#profileImage').attr('src', 
+                         window.URL.createObjectURL(uploader.files[0]) );
+                }
+            }
+            
+            $("#imageUpload").change(function(){
+                fasterPreview( this );
+            });
+                   </script>
+            <div class="box">Contact&nbsp;:&nbsp;<input type="text" id="fname" name="contact" value="{{user.phone}}"><br><br>
+                Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<input type="text" id="fname" name="email" value="{{user.email}}">
+            </div>
+        </div>
+        <div class="info">
+            <br>
+            Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<input type="text" id="fname" name="name" value="{{user.name}}"><br><br>
+            Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<input type="text" id="fname" name="address" value="{{user.address}}"><br><br>
+            <!-- Aadhar No.&nbsp;:&nbsp;<input type="text" id="fname" name="aadhar"> --><button type="submit" class="save" >Save</button>
+            <script>
+                var message='{{updated}}';
+                if(message.length>0){
+                    alert("Changes Saved Successfully!!!");
+                }
+                function myFunction() {
+                  alert("Changes Saved Successfully!!!");
+                }
+                </script>
+                
+        </div>
+        </form>
+    <div class="row">
+        <div class="column">
+            <h3>{{count.no_of_app}}</h3>
+            <p>Applications</p>
+        </div>
+
+        <div class="column">
+            <h3>{{count.no_of_tp}}</h3>
+            <p>TP issued</p>
+        </div>
+
+
+        <div class="column">
+            <h3>{{count.no_of_tp_pending}}</h3>
+            <p>TP pending</p>
+        </div>
+
+
+        <div class="column">
+            <h3>{{count.no_of_tp_rejected}}</h3>
+            <p>TP rejected</p>
+        </div>
+    </div>
+</div>
+</body>

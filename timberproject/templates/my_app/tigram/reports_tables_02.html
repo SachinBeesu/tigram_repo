@@ -1,0 +1,2880 @@
+{% extends 'my_app/tigram/top_band_cont.html' %}
+{% load static %}
+{% block content %}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+
+
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+ <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<!-- <link rel="stylesheet" href="{% static 'bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css' %}"> -->
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/r/dt/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.9,af-2.0.0,b-1.0.3,b-colvis-1.0.3,b-html5-1.0.3,b-print-1.0.3,se-1.0.1/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/r/dt/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.9,af-2.0.0,b-1.0.3,b-colvis-1.0.3,b-html5-1.0.3,b-print-1.0.3,se-1.0.1/datatables.min.js"></script> -->
+
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.flash.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.html5.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.print.min.js"></script> -->
+
+
+<!-- different -->
+<!--  <link href="css/datatables.min.css" rel="stylesheet" />
+    <link href="css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="css/buttons.bootstrap.min.css" rel="stylesheet" />
+    <link href="css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="css/buttons.bootstrap4.min.css" rel="stylesheet" />
+    <link href="css/select.bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/js/jszip.min.js"></script>
+<script src="~/Content/js/pdfmake.min.js"></script>
+<script src="~/Content/js/vfs_fonts.js"></script>
+<script src="~/Content/js/jquery.dataTables.min.js"></script>
+<script src="~/Content/js/dataTables.bootstrap4.min.js"></script>
+<script src="~/Content/js/dataTables.buttons.min.js"></script>
+<script src="~/Content/js/buttons.bootstrap4.min.js"></script>
+<script src="~/Content/js/buttons.flash.min.js"></script>
+<script src="~/Content/js/buttons.html5.min.js"></script>
+<script src="~/Content/js/dataTables.select.min.js"></script> -->
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+<style>
+
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+
+*{ margin:0px; padding:0px; text-decoration:none; list-style:none; font-weight:normal; box-sizing:border-box;}
+
+.cont{
+    background-image: url('{%static "/images/bg_05.jpg" %}');
+}
+
+body{
+font-family: 'Roboto', sans-serif;
+background-image:url(bg_01.jpg);
+background-position:center top;
+background-repeat:no-repeat;
+}
+
+.main_cont{
+width:100%;
+/*height:100vh;*/
+padding:60px;
+}
+
+/*-------------------------------- Accord Style -----------------------*/
+
+.accordion {
+  background-color: #fff;
+  color: #444;
+  cursor: pointer;
+  padding:10px 15px;
+  width: 100%;
+  border: none !important;
+  text-align: left;
+  outline: none !important;
+  font-size: 15px;
+  transition: 0.4s;
+  margin-top:10px;
+}
+
+.accordion.active, .accordion:hover {
+  background-color: #007bff;
+  color:#fff;
+}
+
+.accord_head:after {
+  content: '\f107';
+  color: #777;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+  font-family: FontAwesome;
+    font-style: normal;
+
+    font-size:20px;
+}
+
+.accord_head.active:after {
+  content: "\f106";
+  font-family: FontAwesome;
+    font-style: normal;
+color: #fff; 
+    font-size:20px;
+}
+.accord_head:hover:after {
+color: #fff; }
+
+.panel {
+  padding: 0px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+.accord_cont{
+
+}
+
+.accord_head{
+font-size:16px;
+font-weight:bold;
+outline:none;
+border:1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+/*-------------------------------- Accord Style ends-----------------------*/
+
+/*.nice_scroll {
+  overflow-y: scroll !important;
+}
+.nice_scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.nice_scroll::-webkit-scrollbar-track {
+  background: #000;
+ 
+}
+
+.nice_scroll::-webkit-scrollbar-thumb {
+  background: #aaa;
+}*/
+
+/*-------------------------------- NiceScroll ends-----------------------*/
+
+/*-------------------------------- Table & Chart -----------------------*/
+
+.table_chart{
+display:flex;
+justify-content:space-between;
+padding:20px;
+}
+
+/*.table_chart .data_table{
+width:60%;
+}*/
+.table_chart .data_table{
+width:65%;
+}
+.table_chart .data_table_max{
+width:95%;
+}
+.chart_box{
+width:35%;
+margin-top:100px;
+}
+.tbl_title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+/*-------------------------------- Filter Row -----------------------*/
+.filter_row{
+background:#efefef;
+padding:10px 15px;
+display:flex;
+}
+
+.select_range{
+display:flex; 
+align-items:center;
+}
+
+.range_sel_wrap{
+border:1px solid #aaa;
+display:flex;
+margin-left:10px;
+}
+.range_sel{
+padding:5px 10px;
+font-size:12px;
+font-weight:bold;
+border-right:1px solid #aaa;
+cursor:pointer;
+height:26px;
+background:#fff;
+}
+.range_sel:hover{
+background:#007bff;
+color:#fff;
+}
+.range_sel.active{
+background:#007bff;
+color:#fff;
+}
+.range_sel:last-child{
+border-right:none;
+}
+.select_range .lbl{
+font-size:14px;
+font-weight:500;
+}
+.custome_range{
+display:flex;
+margin-left:25px;
+align-items:center;
+}
+.custome_range .lbl{ 
+font-size:14px;
+margin-left:10px;
+font-weight:500;
+}
+.custome_range input{
+margin-left:10px;
+height:26px;
+font-family:roboto;
+font-weight:500;
+padding-left:5px;
+border:1px solid #aaa;
+outline:none;
+width: 158px;
+font-size:13px;
+}
+/*.filter-range{
+        float:left;
+        overflow: hidden;
+    }
+
+    .filter-range-inner{
+        width: 400px;
+        padding: 10px;
+        border: 1px solid #a29415;
+    }*/
+/*-------------------------------- Filter Row Ends -----------------------*/
+
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+
+<div class="main_cont  cont nice_scroll">
+    {% if groups.0 == "division officer" or groups.0 == "state officer" %}
+    <form action="{% url 'all_reports' %}" method="GET" id="select-form">
+    <!--  <a class="btn btn-primary slide-toggle" style="height:35px ;"><i class="fa fa-filter" id="slide-toggle"></i></a> -->
+    <!-- <div style="background-color: white; text-align:center;border-radius:5px ;height:35px ;width: 850px;" class="filter-range" id="filter-range"> -->
+        {% if groups.0 == "state officer" %}
+        <div style="background-color: white; text-align:center;border-radius:5px ;height:35px ;width: 850px;" class="filter-range" id="filter-range">
+         <label>Administrative Forest Division:</label>
+        <!-- {{area_range_name}} -->
+        <select name="div_name" id="div_name_select" style="margin-top: 5px;">
+            <option value="">All Division</option>
+            <!-- <option>Trivandrum</option> -->
+
+            {% for each_div in division_name %}
+                <option value="{{each_div}}" {% if area_div_name == each_div %} selected {% endif %}>{{each_div}}</option>
+            {% endfor %}
+        </select>
+        {% else %}
+        <div style="background-color: white; text-align:center;border-radius:5px ;height:35px ;width: 450px;" class="filter-range" id="filter-range">
+        {% endif %}
+        <label>Administrative Forest Range:</label>
+        <select name="range_name" id="range_name_select" style="margin-top: 5px;">
+            <option value="">All Ranges</option>
+            <!-- <option>Trivandrum</option> -->
+
+            {% for each_range in area_range %}
+                <option value="{{each_range}}" {% if area_range_name == each_range %} selected {% endif %}>{{each_range}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    </form>
+    {% endif %}
+<!--------------------------------------------------- Table 01 ---------------------------------------->
+    <button class="accordion accord_head" data-table-name="table_01" data-table-url="{% url 'no_of_applicantions' %}">1. Applications Received/Approved/Rejected(Transit Pass)</button>
+<div class="panel">
+    <input type="hidden" name="pie-data01" id="pie-data01">
+  <div class="accord_cont">
+        <div class="filter_row" data-table-name="table_01" data-table-url="{% url 'no_of_applicantions' %}">
+            <div class="select_range">
+                <div class="lbl">Select Range :</div>
+                <div class="range_sel_wrap">
+                <div class="range_sel" value='1' >1M</div>
+                <div class="range_sel" value='3'>3M</div>
+                <div class="range_sel " value='6'>6M</div>
+                <div class="range_sel" value='12'>1 Year</div>
+                <!-- <div class="range_sel">Last Year</div> -->
+                </div>
+            </div>
+            <div class="custome_range">
+                <div class="lbl">From - To Date :</div>
+                <input type="date" name="From Date" class='from-date date-range' data-table-name="table_01" data-table-url="{% url 'no_of_applicantions' %}"/>
+                <div class="lbl">-</div>
+                <input type="date"  name="To Date" class='to-date date-range' data-table-name="table_01" data-table-url="{% url 'no_of_applicantions' %}"/>
+            </div>
+            <div class="select_village">
+                <div class="lbl"> Village Type:</div>
+                <select name="village_type" id="village-type01" class="village_type" data-table-name="table_01" data-table-url="{% url 'no_of_applicantions' %}">
+                               <option value="both">Both</option>
+                               <option value="True">Notified</option>
+                               <option value="False">Non-Notified</option>
+                </select>
+            </div>
+        </div>
+    <div class="table_chart">
+        <div class="data_table">
+            <table id="table_01" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Sr .No.</th>
+                <th>Date</th>
+                <th>Received</th>
+                <th>Approved</th>
+                <th>Rejected</th>
+            </tr>
+        </thead>
+        <tbody id="tbody1">
+            <tr>
+                <td>01</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>02</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>03</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>04</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+            <tr>
+                <td>05</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>01</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>02</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>03</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>04</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+            <tr>
+                <td>05</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>01</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>02</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>03</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>04</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+            <tr>
+                <td>05</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>01</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>02</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>03</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>04</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+            <tr>
+                <td>05</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>01</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>02</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>03</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>04</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+            <tr>
+                <td>05</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>01</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>02</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>03</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+             <tr>
+                <td>04</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+            <tr>
+                <td>05</td>
+                <td>23/04/2021</td>
+                <td>750</td>
+                <td>650</td>
+                <td>100</td>
+            </tr>
+           
+        </tbody>
+        <tfoot>
+             <tr>
+                <th>Sr .No.</th>
+                <th>Date</th>
+                <th>Received</th>
+                <th>Approved</th>
+                <th>Rejected</th>
+            </tr>
+        </tfoot>
+    </table>
+        </div>
+        <div class="chart_box">
+            <!-- <div id="piechart_01"></div> -->
+            <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+        </div>
+    </div>
+    
+  </div>
+</div>
+
+<!--------------------------------------------------- Table 02 ---------------------------------------->
+<button class="accordion accord_head" data-table-name="table_02" data-table-url="{% url 'reject_reason' %}">2. Reasons for Rejection(Transit Pass)</button>
+<div class="panel">
+  <div class="accord_cont">
+        <div class="filter_row" data-table-name="table_02" data-table-url="{% url 'reject_reason' %}">
+            <div class="select_range" >
+                <div class="lbl">Select Range :</div>
+                <div class="range_sel_wrap">
+<!--                <div class="range_sel">1M</div>
+                <div class="range_sel">3M</div>
+                <div class="range_sel active">6M</div>
+                <div class="range_sel">1 Year</div>
+                <div class="range_sel">Last Year</div> -->
+                <div class="range_sel" value='1'  >1M</div>
+                <div class="range_sel" value='3'>3M</div>
+                <div class="range_sel " value='6'>6M</div>
+                <div class="range_sel" value='12'>1 Year</div>
+                <!-- <div class="range_sel">Last Year</div> -->
+                </div>
+            </div>
+            <div class="custome_range">
+                <div class="lbl">From - To Date :</div>
+                <input type="date" name="From Date" class='from-date date-range' data-table-name="table_02" data-table-url="{% url 'reject_reason' %}" />
+                <div class="lbl">-</div>
+                <input type="date"  name="To Date" class='to-date date-range' data-table-name="table_02" data-table-url="{% url 'reject_reason' %}"/>
+            </div>
+            <div class="select_village">
+                <div class="lbl"> Village Type:</div>
+                <select name="village_type" id="village-type01" class="village_type" data-table-name="table_02" data-table-url="{% url 'reject_reason' %}">
+                               <option value="both">Both</option>
+                               <option value="True">Notified</option>
+                               <option value="False">Non-Notified</option>
+                </select>
+            </div>
+        </div>
+    <div class="table_chart">
+        <div class="data_table">
+            <table id="table_02" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Sr .No.</th>
+                <th>Reasons for Rejection</th>
+                <th>Percentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>01</td>
+                <td>Blurred Images</td>
+                <td>20%</td>
+                
+            </tr>
+            <tr>
+                <td>02</td>
+                <td>Proof of ownership not submitted</td>
+                <td>25%</td>
+            </tr>
+            <tr>
+                <td>03</td>
+                <td>Unclear Destination Details</td>
+                <td>40%</td>
+            </tr>
+            <tr>
+                <td>04</td>
+                <td>Invalid Identity Proof</td>
+                <td>15%</td>
+            </tr>
+        </tfoot>
+    </table>
+        </div>
+        <div class="chart_box">
+            <!-- <div id="piechart_02"></div> -->
+            <canvas id="myChart2" style="width:100%;max-width:600px"></canvas>
+        </div>
+    </div>
+    
+  </div>
+</div>
+
+<!--------------------------------------------------- Table 03 ---------------------------------------->
+
+<button class="accordion accord_head" data-table-name="table_03" data-table-url="{% url 'species_wise_transport' %}">3. Species-wise Volume & Trees Transported(Transit Pass)</button>
+<div class="panel">
+  <div class="accord_cont">
+        <div class="filter_row" data-table-name="table_03" data-table-url="{% url 'species_wise_transport' %}">
+            <div class="select_range">
+                <div class="lbl">Select Range :</div>
+                <div class="range_sel_wrap">
+<!--                <div class="range_sel">1M</div>
+                <div class="range_sel">3M</div>
+                <div class="range_sel active">6M</div>
+                <div class="range_sel">1 Year</div>
+                <div class="range_sel">Last Year</div> -->
+                 <div class="range_sel" value='1'  >1M</div>
+                <div class="range_sel" value='3'>3M</div>
+                <div class="range_sel " value='6'>6M</div>
+                <div class="range_sel" value='12'>1 Year</div>
+                </div>
+            </div>
+            <div class="custome_range">
+                <div class="lbl">From - To Date :</div>
+                <input type="date" name="From Date" class='from-date date-range' data-table-name="table_03" 
+                data-table-url="{% url 'species_wise_transport' %}"/>
+                <div class="lbl">-</div>
+                <input type="date"  name="To Date" class='to-date date-range' data-table-name="table_03" 
+                data-table-url="{% url 'species_wise_transport' %}"/>
+            </div>
+      <div class="custome_range" >
+                <div class="lbl">Select Species:</div>
+                <!-- <div class="range_sel_wrap"> -->
+                <select name="species" id="species-list03" class="species">
+                                <option value="">Select Species</option>
+                               
+                                
+                </select>
+                <!-- </div> -->
+            </div>
+            <div class="select_village">
+                <div class="lbl"> Village Type:</div>
+                <select name="village_type"  class="village_type" data-table-name="table_03" data-table-url="{% url 'species_wise_transport' %}">
+                               <option value="both">Both</option>
+                               <option value="True">Notified</option>
+                               <option value="False">Non-Notified</option>
+                </select>
+            </div>
+        </div>
+        
+    <div class="table_chart">
+        
+        <div class="data_table">
+            <div class="tbl_title">Species wise total volume transported & total number of trees transported :</div>
+            <table id="table_03" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Sr .No.</th>
+                <th>Date</th>
+                <th>Species</th>
+                <th>Volume Transported</th>
+                <th>Number of Trees Transported</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>01</td>
+                <td>11/04/2021</td>
+                <th>Species</th>
+                <td>120</td>
+                <td>335</td>
+                
+            </tr>
+            <tr>
+                <td>02</td>
+                <td>12/04/2021</td>
+                <th>Species</th>
+                <td>420</td>
+                <td>150</td>
+                
+            </tr>
+            <tr>
+                <td>03</td>
+                <td>13/04/2021</td>
+                <th>Species</th>
+                <td>465</td>
+                <td>5640</td>
+                
+            </tr>
+            <tr>
+                <td>04</td>
+                <td>14/04/2021</td>
+                <th>Species</th>
+                <td>848</td>
+                <td>1364</td>
+                
+            </tr>
+        </tfoot>
+    </table>
+        </div>
+<!--        <div class="chart_box">
+            <div id="piechart_03"></div>
+        </div> -->
+        <!-- </div> -->
+        <div class="chart_box" style="margin-top:80px">
+            <canvas id="myChart_03" style="width:100%;max-width:600px"></canvas>
+        </div>
+    </div>
+    
+  </div>
+</div>
+<!--------------------------------------------------- Table 04 ---------------------------------------->
+<button class="accordion accord_head" data-table-name="table_04" data-table-url="{% url 'trees_transport' %}">4. Volume and no. of trees transported(Transit Pass) </button>
+<div class="panel">
+  <div class="accord_cont">
+        <div class="filter_row" data-table-name="table_04" data-table-url="{% url 'trees_transport' %}">
+            <div class="select_range">
+                <div class="lbl">Select Range :</div>
+                <div class="range_sel_wrap">
+                <!-- <div class="range_sel">1M</div>
+                <div class="range_sel">3M</div>
+                <div class="range_sel active">6M</div>
+                <div class="range_sel">1 Year</div>
+                <div class="range_sel">Last Year</div> -->
+                 <div class="range_sel" value='1'  >1M</div>
+                <div class="range_sel" value='3'>3M</div>
+                <div class="range_sel " value='6'>6M</div>
+                <div class="range_sel" value='12'>1 Year</div>
+                </div>
+            </div>
+            <div class="custome_range">
+                <div class="lbl">From - To Date :</div>
+                <input type="date" name="From Date" class='from-date date-range' data-table-name="table_04" 
+                data-table-url="{% url 'trees_transport' %}"/>
+                <div class="lbl">-</div>
+                <input type="date"  name="To Date" class='to-date date-range' data-table-name="table_04" 
+                data-table-url="{% url 'trees_transport' %}"/>
+            </div>
+            <div class="select_village">
+                <div class="lbl"> Village Type:</div>
+                <select name="village_type"  class="village_type" data-table-name="table_04" data-table-url="{% url 'trees_transport' %}">
+                               <option value="both">Both</option>
+                               <option value="True">Notified</option>
+                               <option value="False">Non-Notified</option>
+                </select>
+            </div>
+        </div>
+        
+    <div class="table_chart">
+        
+        <div class="data_table_max">
+            <div class="tbl_title">Total volume transported & Total number of trees transported :</div>
+            <table id="table_04" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Sr .No.</th>
+                <th>Date</th>
+                <th>Volume Transported</th>
+                <th>Number of Trees Transported</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>01</td>
+                <td>11/04/2021</td>
+                <td>120</td>
+                <td>335</td>
+                
+            </tr>
+            <tr>
+                <td>02</td>
+                <td>12/04/2021</td>
+                <td>420</td>
+                <td>150</td>
+                
+            </tr>
+            <tr>
+                <td>03</td>
+                <td>13/04/2021</td>
+                <td>465</td>
+                <td>5640</td>
+                
+            </tr>
+            <tr>
+                <td>04</td>
+                <td>14/04/2021</td>
+                <td>848</td>
+                <td>1364</td>
+                
+            </tr>
+        </tbody>
+    </table>
+        </div>
+        <!-- <div class="chart_box">
+            <div id="piechart_03"></div>
+        </div> -->
+    </div>
+    
+  </div>
+</div>
+
+
+
+<!--------------------------------------------------- Table 05 ---------------------------------------->
+
+<button class="accordion accord_head" data-table-name="table_05" data-table-url="{% url 'species_wise_dest_transport' %}">5. Species wise Total volume transported & Total number of trees transported to each destination(Transit Pass)</button>
+<div class="panel">
+  <div class="accord_cont">
+        <div class="filter_row" data-table-name="table_05" data-table-url="{% url 'species_wise_dest_transport' %}">
+            <div class="select_range">
+                <div class="lbl">Select Range :</div>
+                <div class="range_sel_wrap">
+                <!-- <div class="range_sel">1M</div>
+                <div class="range_sel">3M</div>
+                <div class="range_sel active">6M</div>
+                <div class="range_sel">1 Year</div>
+                <div class="range_sel">Last Year</div> -->
+                <div class="range_sel" value='1'  >1M</div>
+                <div class="range_sel" value='3'>3M</div>
+                <div class="range_sel " value='6'>6M</div>
+                <div class="range_sel" value='12'>1 Year</div>
+                </div>
+            </div>
+            <div class="custome_range">
+                <div class="lbl">From - To Date :</div>
+                <input type="date" name="From Date" class='from-date date-range' data-table-name="table_05" 
+                data-table-url="{% url 'species_wise_dest_transport' %}"/>
+                <div class="lbl">-</div>
+                <input type="date"  name="To Date" class='to-date date-range' data-table-name="table_05" 
+                data-table-url="{% url 'species_wise_dest_transport' %}"/>
+            </div>
+      <div class="custome_range" >
+                <div class="lbl">Select Species:</div>
+                <!-- <div class="range_sel_wrap"> -->
+                <select name="species" id="species-list05" class="species">
+                                <option value="">Select Species</option>
+                               
+                                
+                </select>
+                <!-- </div> -->
+            </div>
+            <div class="select_village">
+                <div class="lbl"> Village Type:</div>
+                <select name="village_type"  class="village_type" data-table-name="table_05" data-table-url="{% url 'species_wise_dest_transport' %}">
+                               <option value="both">Both</option>
+                               <option value="True">Notified</option>
+                               <option value="False">Non-Notified</option>
+                </select>
+            </div>
+        </div>
+        
+    <div class="table_chart">
+        
+        <div class="data_table_max">
+            <div class="tbl_title">Species wise Total volume transported & Total number of trees transported to each destination (which could be state or distirct):</div>
+            <table id="table_05" class="table table-striped table-bordered" style="width:100%">
+         <thead>
+            <tr>
+                <th>Sr .No.</th>
+                <th>Date</th>
+                <th>Species</th>
+                <th>Destination</th>
+                <th>Volume Transported</th>
+                <th>Number of Trees Transported</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>01</td>
+                <td>11/04/2021</td>
+                <td>Species</td>
+                <td>Maharashtra</td>
+                <td>120</td>
+                <td>335</td>
+                
+            </tr>
+            <tr>
+                <td>02</td>
+                <td>12/04/2021</td>
+                <td>Species</td>
+                <td>Utter Pradesh</td>
+                <td>420</td>
+                <td>150</td>
+                
+            </tr>
+            <tr>
+                <td>03</td>
+                <td>13/04/2021</td>
+                <td>Species</td>
+                <td>Goa</td>
+                <td>465</td>
+                <td>5640</td>
+                
+            </tr>
+            <tr>
+                <td>04</td>
+                <td>14/04/2021</td>
+                <td>Species</td>
+                <td>Jammu Kasmir</td>
+                <td>848</td>
+                <td>1364</td>
+                
+            </tr>
+            <tr>
+                <td>05</td>
+                <td>15/04/2021</td>
+                <td>Species</td>
+                <td>Panjab</td>
+                <td>848</td>
+                <td>1364</td>
+                
+            </tr>
+        </tbody>    
+    </table>
+        </div>
+        <!-- <div class="chart_box">
+            <div id="piechart_03"></div>
+        </div> -->
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+<!--------------------------------------------------- Table 06 ---------------------------------------->
+
+<button class="accordion accord_head" data-table-name="table_06" data-table-url="{% url 'total_volume_dest' %}">6. Total volume transported to each destination(Transit Pass)</button>
+<div class="panel">
+  <div class="accord_cont">
+        <div class="filter_row" data-table-name="table_06" data-table-url="{% url 'total_volume_dest' %}">
+            <div class="select_range">
+                <div class="lbl">Select Range :</div>
+                <div class="range_sel_wrap">
+                <div class="range_sel" value='1'  >1M</div>
+                <div class="range_sel" value='3'>3M</div>
+                <div class="range_sel " value='6'>6M</div>
+                <div class="range_sel" value='12'>1 Year</div>
+                </div>
+            </div>
+            <div class="custome_range">
+                <div class="lbl">From - To Date :</div>
+                <input type="date" name="From Date" class='from-date date-range' data-table-name="table_06" 
+                data-table-url="{% url 'total_volume_dest' %}"/>
+                <div class="lbl">-</div>
+                <input type="date"  name="To Date" class='to-date date-range' data-table-name="table_06" 
+                data-table-url="{% url 'total_volume_dest' %}"/>
+            </div>
+            <div class="select_village">
+                <div class="lbl"> Village Type:</div>
+                <select name="village_type"  class="village_type" data-table-name="table_06" data-table-url="{% url 'total_volume_dest' %}">
+                               <option value="both">Both</option>
+                               <option value="True">Notified</option>
+                               <option value="False">Non-Notified</option>
+                </select>
+            </div>
+      
+        </div>
+        
+    <div class="table_chart">
+        
+        <div class="data_table_max">
+            <div class="tbl_title">Total volume transported & Percentage (Total volume transported) to each destination (which could be state or distirct):</div>
+            <table id="table_06" class="table table-striped table-bordered" style="width:100%">
+         <thead>
+            <tr>
+                <th>Sr .No.</th>
+                <th>Date</th>
+                <th>Destination</th>
+                <th>Volume Transported</th>
+                <th>Percentage Volume Transported</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>01</td>
+                <td>11/04/2021</td>
+                <td>Maharashtra</td>
+                <td>120</td>
+                <td>20%</td>
+                
+            </tr>
+            <tr>
+                <td>02</td>
+                <td>12/04/2021</td>
+                <td>Utter Pradesh</td>
+                <td>410</td>
+                <td>55%</td>
+                
+            </tr>
+            <tr>
+                <td>03</td>
+                <td>13/04/2021</td>
+                <td>Goa</td>
+                <td>465</td>
+                <td>18%</td>
+                
+            </tr>
+            <tr>
+                <td>04</td>
+                <td>14/04/2021</td>
+                <td>Jammu Kasmir</td>
+                <td>848</td>
+                <td>36%</td>
+                
+            </tr>
+            <tr>
+                <td>05</td>
+                <td>15/04/2021</td>
+                <td>Panjab</td>
+                <td>1048</td>
+                <td>55</td>
+                
+            </tr>
+        </tbody>    
+    </table>
+        </div>
+        <!-- <div class="chart_box">
+            <div id="piechart_03"></div>
+        </div> -->
+    </div>
+    
+  </div>
+</div>
+
+
+<!--------------------------------------------------- Table 07 ---------------------------------------->
+
+
+<button class="accordion accord_head" data-table-name="table_07" data-table-url="{% url 'approval_time_report' %}">7. Time taken for applications(Transit Pass)</button>
+<div class="panel">
+  <div class="accord_cont">
+        <div class="filter_row" data-table-name="table_07" data-table-url="{% url 'approval_time_report' %}">
+            <div class="select_range">
+                <div class="lbl">Select Range :</div>
+                <div class="range_sel_wrap">
+                <div class="range_sel" value='1'  >1M</div>
+                <div class="range_sel" value='3'>3M</div>
+                <div class="range_sel " value='6'>6M</div>
+                <div class="range_sel" value='12'>1 Year</div>
+                </div>
+            </div>
+            <div class="custome_range">
+                <div class="lbl">From - To Date :</div>
+                <input type="date" name="From Date" class='from-date date-range' data-table-name="table_07" 
+                data-table-url="{% url 'approval_time_report' %}"/>
+                <div class="lbl">-</div>
+                <input type="date"  name="To Date" class='to-date date-range' data-table-name="table_07" 
+                data-table-url="{% url 'approval_time_report' %}"/>
+            </div>
+            <div class="select_village">
+                <div class="lbl"> Village Type:</div>
+                <select name="village_type"  class="village_type" data-table-name="table_07" data-table-url="{% url 'approval_time_report' %}">
+                               <option value="both">Both</option>
+                               <option value="True">Notified</option>
+                               <option value="False">Non-Notified</option>
+                </select>
+            </div>
+        </div>
+        
+    <div class="table_chart">
+        
+        <div class="data_table_max">
+            <div class="tbl_title">Time taken for Approval, Number and Percentage of applications :</div>
+            <table id="table_07" class="table table-striped table-bordered" style="width:100%">
+         <thead>
+            <tr>
+                <th>Sr .No.</th>
+                <th>Date</th>
+                <th>Time Taken for Approval</th>
+                <th>Number of Applications</th>
+                <th>Percentage of applications</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>01</td>
+                <td>11/04/2021</td>
+                <td>1 day</td>
+                <td>120</td>
+                <td>20%</td>
+                
+            </tr>
+            <tr>
+                <td>02</td>
+                <td>12/04/2021</td>
+                <td>2 Days</td>
+                <td>410</td>
+                <td>55%</td>
+                
+            </tr>
+            <tr>
+                <td>03</td>
+                <td>13/04/2021</td>
+                <td>4 Days</td>
+                <td>465</td>
+                <td>18%</td>
+                
+            </tr>
+            <tr>
+                <td>04</td>
+                <td>14/04/2021</td>
+                <td>5 Days</td>
+                <td>848</td>
+                <td>36%</td>
+                
+            </tr>
+            <tr>
+                <td>05</td>
+                <td>15/04/2021</td>
+                <td>2 Days</td>
+                <td>1048</td>
+                <td>55</td>
+                
+            </tr>
+        </tbody>    
+    </table>
+        </div>
+        <!-- <div class="chart_box">
+            <div id="piechart_03"></div>
+        </div> -->
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+<!--------------------------------------------------- Table 08 ---------------------------------------->
+
+
+<button class="accordion accord_head" data-table-name="table_08" data-table-url="{% url 'cutting_reasons_report' %}">8. Reasons for cutting trees(Transit Pass)</button>
+<div class="panel">
+  <div class="accord_cont">
+        <div class="filter_row" data-table-name="table_08" data-table-url="{% url 'cutting_reasons_report' %}">
+            <div class="select_range">
+                <div class="lbl">Select Range :</div>
+                <div class="range_sel_wrap">
+                <div class="range_sel" value='1'  >1M</div>
+                <div class="range_sel" value='3'>3M</div>
+                <div class="range_sel " value='6'>6M</div>
+                <div class="range_sel" value='12'>1 Year</div>
+                </div>
+            </div>
+            <div class="custome_range">
+                <div class="lbl">From - To Date :</div>
+                <input type="date" name="From Date" class='from-date date-range' data-table-name="table_08" 
+                data-table-url="{% url 'cutting_reasons_report' %}"/>
+                <div class="lbl">-</div>
+                <input type="date" name="To Date" class='to-date date-range' data-table-name="table_08" 
+                data-table-url="{% url 'cutting_reasons_report' %}"/>
+            </div>
+            <div class="select_village">
+                <div class="lbl"> Village Type:</div>
+                <select name="village_type"  class="village_type" data-table-name="table_08" data-table-url="{% url 'cutting_reasons_report' %}">
+                               <option value="both">Both</option>
+                               <option value="True">Notified</option>
+                               <option value="False">Non-Notified</option>
+                </select>
+            </div>
+        </div>
+        
+    <div class="table_chart">
+        
+        <div class="data_table_max">
+            <div class="tbl_title">Reasons for Cutting Tree, Number and Percentage of Applications :</div>
+            <table id="table_08" class="table table-striped table-bordered" style="width:100%">
+         <thead>
+            <tr>
+                <th>Sr .No.</th>
+                <th>Date</th>
+                <th>Reasons for Cutting Tree</th>
+                <th>Number of Applications</th>
+                <th>Percentage of Applications</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>01</td>
+                <td>11/04/2021</td>
+                <td>Reason Unknown</td>
+                <td>120</td>
+                <td>20%</td>
+                
+            </tr>
+            <tr>
+                <td>02</td>
+                <td>12/04/2021</td>
+                <td>Reason Unknown</td>
+                <td>410</td>
+                <td>55%</td>
+                
+            </tr>
+            <tr>
+                <td>03</td>
+                <td>13/04/2021</td>
+                <td>Reason Unknown</td>
+                <td>465</td>
+                <td>18%</td>
+                
+            </tr>
+            <tr>
+                <td>04</td>
+                <td>14/04/2021</td>
+                <td>Reason Unknown</td>
+                <td>848</td>
+                <td>36%</td>
+                
+            </tr>
+            <tr>
+                <td>05</td>
+                <td>15/04/2021</td>
+                <td>Reason Unknown</td>
+                <td>1048</td>
+                <td>55</td>
+                
+            </tr>
+        </tbody>    
+    </table>
+        </div>
+        <!-- <div class="chart_box">
+            <div id="piechart_03"></div>
+        </div> -->
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+<!--------------------------------------------------- Table 09 ---------------------------------------->
+
+<button class="accordion accord_head" data-table-name="table_09" data-table-url="{% url 'trees_cutted_report' %}">9. Number of applications received before & after cutting the tree(Transit Pass)</button>
+<div class="panel">
+  <div class="accord_cont">
+        <div class="filter_row" data-table-name="table_09" data-table-url="{% url 'trees_cutted_report' %}">
+            <div class="select_range">
+                <div class="lbl">Select Range :</div>
+                <div class="range_sel_wrap">
+                <div class="range_sel" value='1'  >1M</div>
+                <div class="range_sel" value='3'>3M</div>
+                <div class="range_sel " value='6'>6M</div>
+                <div class="range_sel" value='12'>1 Year</div>
+                </div>
+            </div>
+            <div class="custome_range">
+                <div class="lbl">From - To Date :</div>
+                <input type="date" name="From Date" class='from-date date-range' data-table-name="table_09" 
+                data-table-url="{% url 'trees_cutted_report' %}"/>
+                <div class="lbl">-</div>
+                <input type="date" name="To Date" class='to-date date-range' data-table-name="table_09" 
+                data-table-url="{% url 'trees_cutted_report' %}"/>
+            </div>
+            <div class="custome_range" >
+                <div class="lbl">Select Species:</div>
+                <!-- <div class="range_sel_wrap"> -->
+                <select name="species" id="species-list" class="species">
+                                <option value="">Select Species</option>
+                               
+                                
+                </select>
+                <!-- </div> -->
+            </div>
+            <div class="select_village">
+                <div class="lbl"> Village Type:</div>
+                <select name="village_type"  class="village_type" data-table-name="table_09" data-table-url="{% url 'trees_cutted_report' %}">
+                               <option value="both">Both</option>
+                               <option value="True">Notified</option>
+                               <option value="False">Non-Notified</option>
+                </select>
+            </div>
+        </div>
+        
+    <div class="table_chart">
+        
+        <!-- <div class="data_table"> -->
+        <div class="data_table_max">
+            <div class="tbl_title">Number of applications recived before & after cutting the tree, Percentage of applications and Species wise/Total :</div>
+            <table id="table_09" class="table table-striped table-bordered" style="width:100%">
+         <thead>
+            <tr>
+                <th>Sr .No.</th>
+                <th>Date</th>
+                <th>Species</th>
+                <th>App. Received Before Cutting Tree</th>
+                <th>App. Received After Cutting Tree</th>
+                <th>Percentage of Applications Received Before Cutting Tree</th>
+                <th>Percentage of Applications Received After Cutting Tree</th>
+                <th>Total Applications</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>01</td>
+                <td>11/04/2021</td>
+                <th>Species</th>
+                <td>80</td>
+                <td>120</td>
+                <td>20%</td>
+                <td>20%</td>
+                <td>200</td>
+            </tr>
+            <tr>
+                <td>02</td>
+                <td>12/04/2021</td>
+                <th>Species</th>
+                <td>100</td>
+                <td>300</td>
+                <td>55%</td>
+                <td>20%</td>
+                <td>400</td>
+            </tr>
+            <tr>
+                <td>03</td>
+                <td>13/04/2021</td>
+                <th>Species</th>
+                <td>100</td>
+                <td>300</td>
+                <td>55%</td>
+                <td>20%</td>
+                <td>400</td>
+            </tr>
+            <tr>
+                <td>04</td>
+                <td>14/04/2021</td>
+                <th>Species</th>
+                <td>100</td>
+                <td>300</td>
+                <td>55%</td>
+                <td>20%</td>
+                <td>400</td>
+            </tr>
+            <tr>
+                <td>05</td>
+                <td>15/04/2021</td>
+                <th>Species</th>
+                <td>100</td>
+                <td>300</td>
+                <td>55%</td>
+                <td>20%</td>
+                <td>400</td>
+            </tr>
+        </tbody>    
+    </table>
+        </div>
+        <!-- <div class="chart_box">
+            <div id="piechart_03"></div>
+        </div> -->
+    </div>
+    
+  </div>
+</div>
+
+
+<!--------------------------------------------------- Table 11 ---------------------------------------->
+
+<button class="accordion accord_head" data-table-name="table_11" data-table-url="{% url 'noc_report' %}">10. NOC Report</button>
+<div class="panel">
+  <div class="accord_cont">
+        <div class="filter_row" data-table-name="table_11" data-table-url="{% url 'noc_report' %}">
+            <div class="select_range">
+                <div class="lbl">Select Range :</div>
+                <div class="range_sel_wrap">
+                <div class="range_sel" value='1'  >1M</div>
+                <div class="range_sel" value='3'>3M</div>
+                <div class="range_sel " value='6'>6M</div>
+                <div class="range_sel" value='12'>1 Year</div>
+                </div>
+            </div>
+            <div class="custome_range">
+                <div class="lbl">From - To Date :</div>
+                <input type="date" name="From Date" class='from-date date-range' data-table-name="table_11" 
+                data-table-url="{% url 'noc_report' %}"/>
+                <div class="lbl">-</div>
+                <input type="date" name="To Date" class='to-date date-range' data-table-name="table_11" 
+                data-table-url="{% url 'noc_report' %}"/>
+            </div>
+             <div class="custome_range " >
+                <div class="lbl">Select Species:</div>
+                <select name="species" id="noc-species-list" class="species">
+                                <option value="">Select Species</option>
+                               
+                                
+                </select>
+            </div>
+        </div>
+        
+    <div class="table_chart">
+        
+        <!-- <div class="data_table"> -->
+        <div class="data_table_max">
+            <div class="tbl_title">NOC Applications</div>
+            <table id="table_11" class="table table-striped table-bordered" style="width:100%">
+         <thead>
+            <tr>
+                 <th>Sr .No.</th>
+                <th>Date</th>
+                <th>Species</th>
+                <th>Destination</th>
+                <th>Volume Transported</th>
+                <th>Number of Trees Transported</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>01</td>
+                <td>11/04/2021</td>
+                <td>Coconut</td>
+                <td>Kerala</td>
+                <td>700</td>
+                <td>200</td>
+            </tr>
+            <tr>
+                <td>02</td>
+                <td>12/04/2021</td>
+                <td>Coconut</td>
+                <td>Kerala</td>
+                <td>700</td>
+                <td>400</td>
+            </tr>
+            <tr>
+                <td>03</td>
+                <td>13/04/2021</td>
+                <td>Coconut</td>
+                <td>Kerala</td>
+                <td>700</td>
+                <td>400</td>
+            </tr>
+            <tr>
+                <td>04</td>
+                <td>14/04/2021</td>
+               <td>Coconut</td>
+               <td>Kerala</td>
+                <td>700</td>
+                <td>400</td>
+            </tr>
+            <tr>
+                <td>05</td>
+                <td>15/04/2021</td>
+                <td>Coconut</td>
+                <td>Kerala</td>
+                <td>700</td>
+                <td>400</td>
+            </tr>
+        </tbody>    
+    </table>
+        </div>
+        <!-- <div class="chart_box">
+            <div id="piechart_03"></div>
+        </div> -->
+    </div>
+    
+  </div>
+</div>
+
+<!--------------------------------------------------- Table 10 ---------------------------------------->
+
+<button class="accordion accord_head" id="tbl-10">10. Number of Permits for which destination has been verified & not verified by transporter</button>
+<div class="panel">
+  <div class="accord_cont">
+        <div class="filter_row">
+            <div class="select_range">
+                <div class="lbl">Select Range :</div>
+                <div class="range_sel_wrap">
+                <div class="range_sel">1M</div>
+                <div class="range_sel">3M</div>
+                <div class="range_sel active">6M</div>
+                <div class="range_sel">1 Year</div>
+                <div class="range_sel">Last Year</div>
+                </div>
+            </div>
+            <div class="custome_range">
+                <div class="lbl">From - To Date :</div>
+                <input type="date" value="From Date"/>
+                <div class="lbl">-</div>
+                <input type="date"  value="To Date"/>
+            </div>
+             <!-- <div class="select_village">
+                <div class="lbl"> Village Type:</div>
+                <select name="village_type"  class="village_type" data-table-name="table_10" data-table-url="{% url 'trees_cutted_report' %}">
+                               <option value="both">Both</option>
+                               <option value="True">Notified</option>
+                               <option value="False">Non-Notified</option>
+                </select>
+            </div> -->
+        </div>
+        
+    <div class="table_chart">
+        
+        <div class="data_table">
+            <div class="tbl_title">Number of Permits for which destination has been verified & not verified by transporter, Percentage of Permits and Species wise/Total:</div>
+            <table id="table_10" class="table table-striped table-bordered" style="width:100%">
+         <thead>
+            <tr>
+                <th>Sr .No.</th>
+                <th>Date</th>
+                <th>Destination Verified</th>
+                <th>Destination Not Verified</th>
+                <th>Percentage of Permits</th>
+                <th>Species wise/Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>01</td>
+                <td>11/04/2021</td>
+                <td>210</td>
+                <td>80</td>
+                <td>20%</td>
+                <td>200</td>
+            </tr>
+            <tr>
+                <td>02</td>
+                <td>12/04/2021</td>
+                <td>300</td>
+                <td>100</td>
+                <td>75%</td>
+                <td>400</td>
+            </tr>
+            <tr>
+                <td>03</td>
+                <td>13/04/2021</td>
+                <td>300</td>
+                <td>100</td>
+                <td>75%</td>
+                <td>400</td>
+            </tr>
+            <tr>
+                <td>04</td>
+                <td>14/04/2021</td>
+                <td>100</td>
+                <td>300</td>
+                <td>55%</td>
+                <td>400</td>
+            </tr>
+            <tr>
+                <td>05</td>
+                <td>15/04/2021</td>
+                <td>300</td>
+                <td>100</td>
+                <td>75%</td>
+                <td>400</td>
+            </tr>
+        </tbody>    
+    </table>
+        </div>
+        <div class="chart_box">
+            <div id="piechart_03"></div>
+        </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+</div>
+<input type="hidden" name="from_date" id="from_date"  value="{{from_date}}" class="date-value" />
+                <input type="hidden" name="to_date" id="to_date" value="{{to_date}}" class="date-value"/>
+<script>
+
+$(document).ready(function() {
+    $('#tbl-10').hide();
+    $("tfoot").hide();
+    $('#table_01').DataTable({
+        "scrollY": 250,
+        "scrollX": true,
+        "bDestroy": true,
+        // 'info': false,
+        "fixedHeader": {
+            header: false,
+            footer: false
+        },
+        "initComplete": function(settings, json) {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    },
+    "processing":true,
+    "dom": 'lBfrtip',
+        // "lengthMenu":[10,25,50,100],
+    'buttons': [
+            {
+             extend: 'csv',
+             text:'CSV',
+                'messageTop':'Applications Received/Approved/Rejected',   
+            // 'className': 'btn btn-success',
+            },
+            {
+             extend: 'excel',
+             text:'Excel',
+                'messageTop':'Applications Received/Approved/Rejected',   
+            // 'className': 'btn btn-success',
+            },
+            // 'print',
+            {
+             extend: 'pdf',
+             text:'Pdf',
+                'messageTop':'Applications Received/Approved/Rejected',   
+            // 'className': 'btn btn-success',
+            },
+            {   extend: 'print',
+                text:'Print',
+                'messageTop':'Applications Received/Approved/Rejected',
+            }
+        ],
+        // "buttons": [
+        //     {
+        //         extend: 'collection',
+        //         text: 'Export',
+        //         buttons: [
+        //             'copy',
+        //             'excel',
+        //             'csv',
+        //             'pdf',
+        //             'print'
+        //         ]
+        //     }
+        // ]
+
+    });
+    $('#table_02').DataTable({
+        "scrollY": 160,
+        "scrollX": true,
+        "bDestroy": true,
+        // 'info': false,
+        "fixedHeader": {
+            header: false,
+            footer: false
+        },
+        "initComplete": function(settings, json) {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    },
+    "processing":true,
+    "dom": 'lBfrtip',
+    'buttons': [
+            {
+             extend: 'csv',
+             text:'CSV',
+                'messageTop':'Reasons for Rejection',   
+            // 'className': 'btn btn-success',
+            },
+            {
+             extend: 'excel',
+             text:'Excel',
+                'messageTop':'Reasons for Rejection',   
+            // 'className': 'btn btn-success',
+            },
+            // 'print',
+            {
+             extend: 'pdf',
+             text:'Pdf',
+                'messageTop':'Reasons for Rejection',   
+            // 'className': 'btn btn-success',
+            },
+            {   extend: 'print',
+                text:'Print',
+                'messageTop':'Reasons for Rejection',
+            }
+        ],
+    }
+        );
+    $('#table_03').DataTable({
+        "scrollY": 160,
+        "scrollX": true,
+        "bDestroy": true,
+        // 'info': false,
+        "fixedHeader": {
+            header: false,
+            footer: false
+        },
+        "initComplete": function(settings, json) {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    },"processing":true,
+    "dom": 'lBfrtip',
+    'buttons': [
+            {
+             extend: 'csv',
+             text:'CSV',
+                'messageTop':'Species-wise Volume & Trees Transported',   
+            // 'className': 'btn btn-success',
+            },
+            {
+             extend: 'excel',
+             text:'Excel',
+                'messageTop':'Species-wise Volume & Trees Transported',   
+            // 'className': 'btn btn-success',
+            },
+            // 'print',
+            {
+             extend: 'pdf',
+             text:'Pdf',
+                'messageTop':'Species-wise Volume & Trees Transported',   
+            // 'className': 'btn btn-success',
+            },
+            {   extend: 'print',
+                text:'Print',
+                'messageTop':'Species-wise Volume & Trees Transported',
+            }
+        ],
+    });
+    $('#table_04').DataTable({
+        "scrollY": 160,
+        "scrollX": true,
+        "bDestroy": true,
+        // 'info': false,
+        "fixedHeader": {
+            header: false,
+            footer: false
+        },
+        "initComplete": function(settings, json) {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    },"processing":true,
+    "dom": 'lBfrtip',
+    'buttons': [
+            {
+             extend: 'csv',
+             text:'CSV',
+                'messageTop':'Volume and no. of trees transported',   
+            // 'className': 'btn btn-success',
+            },
+            {
+             extend: 'excel',
+             text:'Excel',
+                'messageTop':'Volume and no. of trees transported ',   
+            // 'className': 'btn btn-success',
+            },
+            // 'print',
+            {
+             extend: 'pdf',
+             text:'Pdf',
+                'messageTop':'Volume and no. of trees transported ',   
+            // 'className': 'btn btn-success',
+            },
+            {   extend: 'print',
+                text:'Print',
+                'messageTop':'Volume and no. of trees transported ',
+            }
+        ],
+    });
+    $('#table_05').DataTable({
+        "scrollY": 160,
+        "scrollX": true,
+        "bDestroy": true,
+        // 'info': false,
+        "fixedHeader": {
+            header: false,
+            footer: false
+        },
+        "initComplete": function(settings, json) {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    },
+    "processing":true,
+    "dom": 'lBfrtip',
+    'buttons': [
+            {
+             extend: 'csv',
+             text:'CSV',
+                'messageTop':'Species wise Total volume transported & Total number of trees transported to each destination',   
+            // 'className': 'btn btn-success',
+            },
+            {
+             extend: 'excel',
+             text:'Excel',
+                'messageTop':'Species wise Total volume transported & Total number of trees transported to each destination',   
+            // 'className': 'btn btn-success',
+            },
+            // 'print',
+            {
+             extend: 'pdf',
+             text:'Pdf',
+                'messageTop':'Species wise Total volume transported & Total number of trees transported to each destination',   
+            // 'className': 'btn btn-success',
+            },
+            {   extend: 'print',
+                text:'Print',
+                'messageTop':'Species wise Total volume transported & Total number of trees transported to each destination',
+            }
+        ],
+    });
+    $('#table_06').DataTable({
+        "scrollY": 160,
+        "scrollX": true,
+        "bDestroy": true,
+        // 'info': false,
+        "fixedHeader": {
+            header: false,
+            footer: false
+        },
+        "initComplete": function(settings, json) {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    },"processing":true,
+    "dom": 'lBfrtip',
+    'buttons': [
+            {
+             extend: 'csv',
+             text:'CSV',
+                'messageTop':'Total volume transported to each destination',   
+            // 'className': 'btn btn-success',
+            },
+            {
+             extend: 'excel',
+             text:'Excel',
+                'messageTop':'Total volume transported to each destination',   
+            // 'className': 'btn btn-success',
+            },
+            // 'print',
+            {
+             extend: 'pdf',
+             text:'Pdf',
+                'messageTop':'Total volume transported to each destination',   
+            // 'className': 'btn btn-success',
+            },
+            {   extend: 'print',
+                text:'Print',
+                'messageTop':'Total volume transported to each destination',
+            }
+        ],
+    });
+    $('#table_07').DataTable({
+        "scrollY": 160,
+        "scrollX": true,
+        "bDestroy": true,
+        // 'info': false,
+        "fixedHeader": {
+            header: false,
+            footer: false
+        },
+        "initComplete": function(settings, json) {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    },"processing":true,
+    "dom": 'lBfrtip',
+    'buttons': [
+            {
+             extend: 'csv',
+             text:'CSV',
+                'messageTop':'Time taken for applications',   
+            // 'className': 'btn btn-success',
+            },
+            {
+             extend: 'excel',
+             text:'Excel',
+                'messageTop':'Time taken for applications',   
+            // 'className': 'btn btn-success',
+            },
+            // 'print',
+            {
+             extend: 'pdf',
+             text:'Pdf',
+                'messageTop':'Time taken for applications',   
+            // 'className': 'btn btn-success',
+            },
+            {   extend: 'print',
+                text:'Print',
+                'messageTop':'7. Time taken for applications',
+            }
+        ],
+    });
+    $('#table_08').DataTable({
+        "scrollY": 160,
+        "scrollX": true,
+        "bDestroy": true,
+        // 'info': false,
+        "fixedHeader": {
+            header: false,
+            footer: false
+        },
+        "initComplete": function(settings, json) {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    },
+    "processing":true,
+    "dom": 'lBfrtip',
+    'buttons': [
+            {
+             extend: 'csv',
+             text:'CSV',
+                'messageTop':'Reasons for cutting trees',   
+            // 'className': 'btn btn-success',
+            },
+            {
+             extend: 'excel',
+             text:'Excel',
+                'messageTop':'Reasons for cutting trees',   
+            // 'className': 'btn btn-success',
+            },
+            // 'print',
+            {
+             extend: 'pdf',
+             text:'Pdf',
+                'messageTop':'Reasons for cutting trees',   
+            // 'className': 'btn btn-success',
+            },
+            {   extend: 'print',
+                text:'Print',
+                'messageTop':'Reasons for cutting trees',
+            }
+        ],
+    });
+    $('#table_09').DataTable(
+        {
+            "scrollY": 260,
+        "scrollX": true,
+        "bDestroy": true,
+        // 'info': false,
+        "fixedHeader": {
+            header: false,
+            footer: false
+        },
+        "initComplete": function(settings, json) {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    },
+         "language": {
+                "zeroRecords": "No records found!",
+            },
+"processing":true,
+    "dom": 'lBfrtip',
+    'buttons': [
+            {
+             extend: 'csv',
+             text:'CSV',
+                'messageTop':'Number of applications received before & after cutting the tree',   
+            // 'className': 'btn btn-success',
+            },
+            {
+             extend: 'excel',
+             text:'Excel',
+                'messageTop':'Number of applications received before & after cutting the tree',   
+            // 'className': 'btn btn-success',
+            },
+            // 'print',
+            {
+             extend: 'pdf',
+             text:'Pdf',
+                'messageTop':'Number of applications received before & after cutting the tree',   
+            // 'className': 'btn btn-success',
+            },
+            {   extend: 'print',
+                text:'Print',
+                'messageTop':'Number of applications received before & after cutting the tree',
+            }
+        ],
+        }
+        );
+} );
+$('#table_11').DataTable({
+        "scrollY": 160,
+        "scrollX": true,
+        "bDestroy": true,
+        // 'info': false,
+        "fixedHeader": {
+            header: false,
+            footer: false
+        },
+        "initComplete": function(settings, json) {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    },
+    "processing":true,
+    "dom": 'lBfrtip',
+    'buttons': [
+            {
+             extend: 'csv',
+             text:'CSV',
+                'messageTop':'NOC Applications',   
+            // 'className': 'btn btn-success',
+            },
+            {
+             extend: 'excel',
+             text:'Excel',
+                'messageTop':'NOC Applications',   
+            // 'className': 'btn btn-success',
+            },
+            // 'print',
+            {
+             extend: 'pdf',
+             text:'Pdf',
+                'messageTop':'NOC Applications',   
+            // 'className': 'btn btn-success',
+            },
+            {   extend: 'print',
+                text:'Print',
+                'messageTop':'NOC Applications',
+            }
+        ],
+    });
+
+    $('#table_10').DataTable();
+
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+// for (i = 0; i < acc.length; i++) {
+//   acc[i].addEventListener("click", function() {
+//     this.classList.toggle("active");
+//     var panel = this.nextElementSibling;
+//     if (panel.style.maxHeight) {
+//       panel.style.maxHeight = null;
+//     } else {
+//       panel.style.maxHeight = panel.scrollHeight + "px";
+//     } 
+//   });
+// }
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    console.log($(this).text());
+    var tbl_name=$(this).attr('data-table-name');
+    var tbl_url=$(this).attr('data-table-url');
+    var range_name=$('#range_name_select :selected').val();
+    var div_name=$('#div_name_select :selected').val();
+    var panel = this.nextElementSibling;
+    $(panel).find('.range_sel').siblings().removeClass('active');
+        $(panel).find('.range_sel').siblings('[value="6"]').addClass('active');
+   $.ajax({
+            // headers: { "X-CSRFToken": token },
+            url:tbl_url,//'{% url "reject_reason" %}',
+            data:{
+             'range_name':range_name,
+             'div_name':div_name,
+            },
+            type:'GET',
+            success:function(data){
+                // $('#table_01').DataTable({
+                // data: data.dict_of_percentages,
+
+                // });
+                // console.log(data.dict_of_percentages);
+                // $("#table_02").DataTable().clear();
+                $("#"+tbl_name).DataTable().clear().draw();
+                // var iter=1;
+                // for (const [key, value] of Object.entries(data.dict_of_percentages)) {
+                // $("#"+tbl_name).dataTable().fnAddData( [
+                // iter,
+                // key,
+                // value+'%',
+                // // customer.email_address
+                // ]);
+                // iter++;
+                // }
+                window[tbl_name](data,tbl_name);
+    }
+    // console.log(data.app_list);         }
+    // alert(data.app_list);
+         });
+    // $('#table_01').
+    // console.log(row);
+    console.log(this.nextElementSibling);
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
+
+var custom_data=[];
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+
+// Draw the chart and set the chart values
+function drawChart() {
+        console.log($('#pie-data01').val());
+    
+    if(custom_data.length>1){
+        var data = google.visualization.arrayToDataTable([
+  ['Task', 'Hours per Day'],
+  ['Approved', custom_data[0]],
+  ['Rejected', custom_data[1]],
+  // ['TV', 4],
+  // ['Gym', 2],
+  // ['Sleep', 8]
+  
+]);
+    }
+    else{
+
+  var data = google.visualization.arrayToDataTable([
+  ['Task', 'Hours per Day'],
+  ['Work', 8],
+  ['Eat', 2],
+  ['TV', 4],
+  ['Gym', 2],
+  ['Sleep', 8]
+  
+]);
+    }
+
+
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'', 'width':550, 'height':400};
+
+  // Display the chart inside the <div> element with id="piechart"
+  // var chart = new google.visualization.PieChart(document.getElementById('piechart_01'));
+  // var chart = new google.visualization.PieChart(document.getElementById('piechart_02'));
+  // chart.draw(data, options);
+
+}
+function table_01(data,tbl_name){
+    var iter=0;
+    console.log(data.applicantions);
+
+jQuery.each(data.applicantions, function(id) {
+   // html += "<td>" + row + "</td>"
+    $("#"+tbl_name).dataTable().fnAddData( [
+                iter+1,
+                data.applicantions[iter].created_date,
+                data.applicantions[iter].no_of_received,
+                data.applicantions[iter].no_of_approved,
+                data.applicantions[iter].no_of_rejected
+                // customer.email_address
+                ]);
+    iter++;
+})
+// var pie_data_list=[];
+// pie_data_list.push(data.total_rejected_applicant);
+// pie_data_list.push(data.total_approved_applicant);
+// $('#pie-data01').val(pie_data_list);
+// function drawChart2(){
+// google.charts.load('current', {'packages':['corechart']});
+// google.charts.setOnLoadCallback(drawChart2);
+//  var data1 = google.visualization.arrayToDataTable([
+//   ['Task', 'Hours per Day'],
+//   ['Approved', data.total_rejected_applicant],
+//   ['Rejected', data.total_approved_applicant],
+//   // ['TV', 4],
+//   // ['Gym', 2],
+//   // ['Sleep', 8]
+  
+// ]);
+
+// }
+// // drawChart2();
+// var options = {'title':'', 'width':550, 'height':400};
+
+//   // Display the chart inside the <div> element with id="piechart"
+//   // var chart = new google.visualization.PieChart(document.getElementById('piechart_01'));
+//   var chart = new google.visualization.PieChart(document.getElementById('piechart_01'));
+//   chart.draw(data1, options);
+var xValues = ["Approved applications", "Rejected Applications"];
+var yValues = [data.total_approved_applicant, data.total_rejected_applicant,];
+var barColors = [
+  "#00aba9",
+  "#b91d47",
+  // "#2b5797",
+  // "#e8c3b9",
+  // "#1e7145"
+];
+
+new Chart("myChart", {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "PieChart:- No. of Application Approved/Rejected"
+    }
+  }
+});
+
+
+}
+function table_02(data,tbl_name){
+    var iter=1;
+    var xValues2 =[];
+    var yValues2 =[];
+    var barColors2 =[];
+    var barColors2_list = [
+  "#00aba9",
+  "#b91d47",
+  "#2b5797",
+  "#e8c3b9",
+  "#1e7145"
+];
+    var colr='#00aba';
+for (const [key, value] of Object.entries(data.dict_of_percentages)) {
+                $("#"+tbl_name).dataTable().fnAddData( [
+                iter,
+                key,
+                value+'%',
+                // customer.email_address
+                ]);
+                xValues2.push(key);
+                yValues2.push(value);
+                barColors2.push(barColors2_list[iter]);
+                iter++;
+                }
+// var xValues = ["Approved applications", "Rejected Applications"];
+// var yValues = [data.total_approved_applicant, data.total_rejected_applicant,];
+// var barColors2 = [
+//   "#00aba9",
+//   "#b91d47",];
+//   // "#2b5797",
+//   // "#e8c3b9",
+//   // "#1e7145"
+// ];
+
+new Chart("myChart2", {
+  type: "pie",
+  data: {
+    labels: xValues2,
+    datasets: [{
+      backgroundColor: barColors2,
+      data: yValues2
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "PieChart:- Reasons for Rejection(In Percentage)"
+    }
+  }
+});
+}
+function table_03(data,tbl_name){
+    var iter=0;
+    var iter2=0;
+    console.log(data.applicantions);
+var xValues03 =[];
+var yValues03 =[];
+var barColors03_list = ["red", "green","blue","yellow","red","yellow"];
+var barColors03 =[];
+jQuery.each(data.applicantions, function(id) {
+   // html += "<td>" + row + "</td>"
+    $("#"+tbl_name).dataTable().fnAddData( [
+                iter+1,
+                data.applicantions[iter].appform__created_date,
+                data.applicantions[iter].species_of_tree,
+                data.applicantions[iter].volume_sum,
+                data.applicantions[iter].no_of_trees,
+                // customer.email_address
+                ]);
+    // xValues03.push(data.applicantions[iter].appform__created_date);
+    // yValues03.push(data.applicantions[iter].total_no_of_trees);
+    // barColors03.push(barColors03_list[iter]);
+    iter++;
+})
+
+jQuery.each(data.applications_list, function(id) {
+   // html += "<td>" + row + "</td>"
+    console.log(data.applications_list[iter2].total_trees);
+    xValues03.push(data.applications_list[iter2].created_date);
+    yValues03.push(data.applications_list[iter2].total_trees);
+    barColors03.push(barColors03_list[iter2]);
+    iter2++;
+})
+// var xValues03 = ["11/04/2021", "12/04/2021", "13/04/2021", "14/04/2021","12/04/2021", "13/04/2021", "14/04/2021",];
+// var yValues03 = [200, 180, 150, 120,180, 150, 120];
+
+new Chart("myChart_03", {
+  type: "bar",
+  data: {
+    labels: xValues03,
+    datasets: [{
+      backgroundColor: barColors03,
+      data: yValues03
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: " Total Number of Trees Transported "
+    }
+  }
+});
+var list ='';
+var val = document.getElementById("species-list03").length;
+    if(val<2){
+        console.log(data.trees_species);
+        for(var i=0;i<data.trees_species_length;i++){
+        list +='<option value='+data.trees_species[i].name+'> '+data.trees_species[i].name+'</option>';
+        }
+        $('#species-list03').append(list);
+    }
+}
+
+function table_04(data,tbl_name){
+    var iter=0;
+    console.log(data.applicantions);
+
+jQuery.each(data.applicantions, function(id) {
+   // html += "<td>" + row + "</td>"
+    $("#"+tbl_name).dataTable().fnAddData( [
+                iter+1,
+                data.applicantions[iter].appform__created_date,
+                data.applicantions[iter].volume_sum,
+                data.applicantions[iter].no_of_trees,
+                // customer.email_address
+                ]);
+    iter++;
+})
+}
+function table_05(data,tbl_name){
+    var iter=0;
+    console.log(data.applicantions);
+
+jQuery.each(data.applicantions, function(id) {
+   // html += "<td>" + row + "</td>"
+    $("#"+tbl_name).dataTable().fnAddData( [
+                iter+1,
+                data.applicantions[iter].appform__created_date,
+                data.applicantions[iter].species_of_tree,
+                data.applicantions[iter].appform__destination_details,
+                data.applicantions[iter].volume_sum,
+                data.applicantions[iter].no_of_trees,
+                // customer.email_address
+                ]);
+    iter++;
+})
+var list ='';
+var val = document.getElementById("species-list05").length;
+    if(val<2){
+        console.log(data.trees_species);
+        for(var i=0;i<data.trees_species_length;i++){
+        list +='<option value='+data.trees_species[i].name+'> '+data.trees_species[i].name+'</option>';
+        }
+        $('#species-list05').append(list);
+    }
+}
+function table_06(data,tbl_name){
+    var iter=0;
+    console.log(data.applicantions);
+
+jQuery.each(data.applicantions, function(id) {
+   // html += "<td>" + row + "</td>"
+    $("#"+tbl_name).dataTable().fnAddData( [
+                iter+1,
+                data.applicantions[iter].appform__created_date,
+                data.applicantions[iter].appform__destination_details,
+                data.applicantions[iter].volume_sum,
+                // data.applicantions[iter].volume_percentage,
+                parseFloat(data.applicantions[iter].volume_percentage).toFixed(2)+'%',
+                // 20,
+
+                // data.applicantions[iter].species_of_tree,
+                // customer.email_address
+                ]);
+    iter++;
+})
+}
+function table_07(data,tbl_name){
+    var iter=0;
+    console.log(data.applicantions);
+
+jQuery.each(data.applicantions, function(id) {
+   // html += "<td>" + row + "</td>"
+    $("#"+tbl_name).dataTable().fnAddData( [
+                iter+1,
+                data.applicantions[iter].created_date,
+                data.applicantions[iter].time_taken_applications+' Days',
+                data.applicantions[iter].no_of_applicantions,
+                // data.applicantions[iter].volume_percentage,
+                parseFloat(data.applicantions[iter].applications_percentage).toFixed(2)+'%',
+                // 20,
+
+                // data.applicantions[iter].species_of_tree,
+                // customer.email_address
+                ]);
+    iter++;
+})
+// var barColors7 = [
+//   "#00aba9",
+//   "#b91d47",];
+// //   // "#2b5797",
+// //   // "#e8c3b9",
+// //   // "#1e7145"
+// // ];
+
+// new Chart("myChart7", {
+//   type: "pie",
+//   data: {
+//     labels: xValues7,
+//     datasets: [{
+//       backgroundColor: barColors7,
+//       data: yValues7
+//     }]
+//   },
+//   options: {
+//     title: {
+//       display: true,
+//       text: "Reasons for Rejection"
+//     }
+//   }
+// });
+
+}
+function table_08(data,tbl_name){
+    var iter=0;
+    console.log(data.applicantions);
+
+jQuery.each(data.applicantions, function(id) {
+   // html += "<td>" + row + "</td>"
+    $("#"+tbl_name).dataTable().fnAddData( [
+                iter+1,
+                data.applicantions[iter].created_date,
+                data.applicantions[iter].purpose,
+                data.applicantions[iter].no_of_applicantions,
+                // data.applicantions[iter].volume_percentage,
+                parseFloat(data.applicantions[iter].applications_percentage).toFixed(2)+'%',
+                // 20,
+
+                // data.applicantions[iter].species_of_tree,
+                // customer.email_address
+                ]);
+    iter++;
+})
+}
+function table_11(data,tbl_name){
+    //     var iter=0;
+//     console.log(data.applicantions);
+
+// jQuery.each(data.applicantions, function(id) {
+
+//     $("#"+tbl_name).dataTable().fnAddData( [
+//                 iter+1,
+//                 data.applicantions[iter].created_date,
+//                 data.applicantions[iter].no_of_applicantions,
+               
+//                 ]);
+//     iter++;
+// })
+    var iter=0;
+    console.log(data.applicantions);
+
+jQuery.each(data.applicantions, function(id) {
+   // html += "<td>" + row + "</td>"
+    $("#"+tbl_name).dataTable().fnAddData( [
+                iter+1,
+                data.applicantions[iter].appform__created_date,
+                data.applicantions[iter].species_of_tree,
+                data.applicantions[iter].appform__destination_details,
+                data.applicantions[iter].volume_sum,
+                data.applicantions[iter].no_of_trees,
+                // customer.email_address
+                ]);
+    iter++;
+})
+
+var list ='';
+var val = document.getElementById("noc-species-list").length;
+    if(val<2){
+        console.log(data.trees_species);
+        for(var i=0;i<data.trees_species_length;i++){
+        list +='<option value='+data.trees_species[i].name+'> '+data.trees_species[i].name+'</option>';
+        }
+        $('#noc-species-list').append(list);
+    }
+}
+function table_09(data,tbl_name){
+    var iter=0;
+    console.log(data.applicantions);
+if (data.len_aplist<1){
+    $("#"+tbl_name).DataTable().clear();
+}
+jQuery.each(data.applicantions, function(id) {
+   // html += "<td>" + row + "</td>"
+    $("#"+tbl_name).dataTable().fnAddData( [
+                iter+1,
+                data.applicantions[iter].appform__created_date,
+                data.applicantions[iter].species_of_tree,
+                // 'Species',
+                data.applicantions[iter].no_before_cutting,
+                data.applicantions[iter].no_after_cutting,
+                // data.applicantions[iter].volume_percentage,
+                parseFloat(data.applicantions[iter].before_cutting_percentage).toFixed(2)+'%',
+                parseFloat(data.applicantions[iter].after_cutting_percentage).toFixed(2)+'%',
+                // '20%',
+                data.applicantions[iter].no_of_applicantions,
+
+                // data.applicantions[iter].species_of_tree,
+                // customer.email_address
+                ]);
+    iter++;
+})
+var list ='';
+var val = document.getElementById("species-list").length;
+    if(val<2){
+        console.log(data.trees_species);
+        for(var i=0;i<data.trees_species_length;i++){
+        list +='<option value='+data.trees_species[i].name+'> '+data.trees_species[i].name+'</option>';
+        }
+        $('#species-list').append(list);
+    }
+
+}
+$('#noc-species-list').on('change',function(e){
+var range_name=$('#range_name_select :selected').val();
+    e.preventDefault();
+     $(this).parent().parent().find('.range_sel').removeClass('active');
+    var sel_sp=$(this).val();
+     $.ajax({
+            // headers: { "X-CSRFToken": token },
+            url:'{% url "noc_report" %}',
+            data:{
+             'sel_sp':sel_sp,
+             'range_name':range_name,
+            },
+            type:'GET',
+            success:function(data){
+
+                $("#"+"table_11").DataTable().clear().draw();
+               
+                window["table_11"](data,"table_11");
+    },error:function(data){
+        // $("#"+"table_11").DataTable().clear();
+        console.log(data);
+    }
+    // console.log(data.app_list);         }
+    // alert(data.app_list);
+         });
+});
+$('#species-list').on('change',function(e){
+var range_name=$('#range_name_select :selected').val();
+    e.preventDefault();
+     $(this).parent().parent().find('.range_sel').removeClass('active');
+    var sel_sp=$(this).val();
+     $.ajax({
+            // headers: { "X-CSRFToken": token },
+            url:'{% url "trees_cutted_report" %}',
+            data:{
+             'sel_sp':sel_sp,
+             'range_name':range_name,
+            },
+            type:'GET',
+            success:function(data){
+
+                $("#"+"table_09").DataTable().clear().draw();
+               
+                window["table_09"](data,"table_09");
+    },error:function(data){
+        // $("#"+"table_09").DataTable().clear();
+        console.log(data);
+    }
+    // console.log(data.app_list);         }
+    // alert(data.app_list);
+         });
+});
+$('#species-list03').on('change',function(e){
+var range_name=$('#range_name_select :selected').val();
+    e.preventDefault();
+     $(this).parent().parent().find('.range_sel').removeClass('active');
+    var sel_sp=$(this).val();
+     $.ajax({
+            // headers: { "X-CSRFToken": token },
+            url:'{% url "species_wise_transport" %}',
+            data:{
+             'sel_sp':sel_sp,
+             'range_name':range_name,
+            },
+            type:'GET',
+            success:function(data){
+
+                $("#"+"table_03").DataTable().clear().draw();
+               
+                window["table_03"](data,"table_03");
+    },error:function(data){
+        // $("#"+"table_09").DataTable().clear();
+        console.log(data);
+    }
+    // console.log(data.app_list);         }
+    // alert(data.app_list);
+         });
+});
+$('#species-list05').on('change',function(e){
+var range_name=$('#range_name_select :selected').val();
+    e.preventDefault();
+     $(this).parent().parent().find('.range_sel').removeClass('active');
+    var sel_sp=$(this).val();
+     $.ajax({
+            // headers: { "X-CSRFToken": token },
+            url:'{% url "species_wise_dest_transport" %}',
+            data:{
+             'sel_sp':sel_sp,
+             'range_name':range_name,
+            },
+            type:'GET',
+            success:function(data){
+
+                $("#"+"table_05").DataTable().clear().draw();
+               
+                window["table_05"](data,"table_05");
+    },error:function(data){
+        // $("#"+"table_09").DataTable().clear();
+        console.log(data);
+    }
+    // console.log(data.app_list);         }
+    // alert(data.app_list);
+         });
+});
+$('.range_sel').on('click',function(e){
+
+        e.preventDefault();
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+        $(this).parent().parent().parent().find('.date-range').val('');
+        // console.log($(this).parent().parent().parent().find('.date-range'));
+        // $(this).closest('.filter_row').find('.date-range').attr('value','');
+        $(".date-value").val('');
+         var tbl_name=$(this).parent().parent().parent().attr('data-table-name');
+    var tbl_url=$(this).parent().parent().parent().attr('data-table-url');
+    var range_name=$('#range_name_select :selected').val();
+            var select_mon=$(this).attr('value');
+            console.log($(this).attr('value'));
+             $.ajax({
+            // headers: { "X-CSRFToken": token },
+            url:tbl_url,
+            data:{
+             'select_mon':select_mon,
+             'range_name':range_name
+            },
+            type:'GET',
+            success:function(data){
+                // $('#table_01').DataTable({
+                // data: data.dict_of_percentages,
+
+                // });
+                // console.log(data.dict_of_percentages);
+                // $("#table_02").DataTable().clear();
+                // var iter=1;
+                // for (const [key, value] of Object.entries(data.dict_of_percentages)) {
+                // $('#table_02').dataTable().fnAddData( [
+                $("#"+tbl_name).DataTable().clear().draw();
+                // var iter=1;
+                // for (const [key, value] of Object.entries(data.dict_of_percentages)) {
+                // $("#"+tbl_name).dataTable().fnAddData( [
+                // iter,
+                // key,
+                // value+'%',
+                // // customer.email_address
+                // ]);
+                // iter++;
+                // }
+                window[tbl_name](data,tbl_name);
+    }
+    // console.log(data.app_list);         }
+    // alert(data.app_list);
+         });
+        });
+$('.date-range').on('change',function(e){
+        e.preventDefault();
+            // var select_mon=$(this).attr('value');
+        // $('#select_mon ').val('');
+        // if(sel_mon){
+        // $('.range_sel [value='+sel_mon+']').removeClass('active');
+        // }   
+        $(this).parent().parent().find('.range_sel').removeClass('active');
+            var date_val=$(this).val();
+             var tbl_name=$(this).attr('data-table-name');
+    var tbl_url=$(this).attr('data-table-url');
+    var range_name=$('#range_name_select :selected').val();
+        if($(this).attr('name')=='From Date'){
+            $('#from_date').attr('value',date_val);
+
+            }
+            else{
+            $('#to_date').attr('value',date_val);
+            }
+            console.log(date_val);
+        // e.preventDefault();
+        // $(".date-value").val('');
+            // console.log($(this).attr('value'));
+             $.ajax({
+            // headers: { "X-CSRFToken": token },
+            url:tbl_url,
+            data:{
+             'from_date':$('#from_date').val(),
+             'to_date':$('#to_date').val(),
+             'select_mon':'',
+             'range_name':range_name,
+            },
+            type:'GET',
+            success:function(data){
+                // $('#table_01').DataTable({
+                // data: data.dict_of_percentages,
+
+                // });
+                console.log(data);
+                // $("#table_02").DataTable().clear();
+                // var iter=1;
+                // for (const [key, value] of Object.entries(data.dict_of_percentages)) {
+                // $('#table_02').dataTable().fnAddData( [
+                    $("#"+tbl_name).DataTable().clear().draw();
+                // var iter=1;
+                // for (const [key, value] of Object.entries(data.dict_of_percentages)) {
+                // $("#"+tbl_name).dataTable().fnAddData( [
+                // iter,
+                // key,
+                // value+'%',
+                // // customer.email_address
+                // ]);
+                // iter++;
+                // }
+                window[tbl_name](data,tbl_name);
+                // table_02(data.dict_of_percentages,tbl_name);
+    },
+
+    // console.log(data.app_list);         }
+    // alert(data.app_list);
+         });
+        });
+
+$('.village_type').on('change',function(e){
+        e.preventDefault();
+            var date_val=$(this).val();
+             var tbl_name=$(this).attr('data-table-name');
+    var tbl_url=$(this).attr('data-table-url');
+    var range_name=$('#range_name_select:selected').val();
+    var village_type=$(this).val();
+    // var  =$(this).find('option:selected').val();
+        if($(this).attr('name')=='From Date'){
+            $('#from_date').attr('value',date_val);
+
+            }
+            else{
+            $('#to_date').attr('value',date_val);
+            }
+            console.log(date_val);
+        
+             $.ajax({
+            url:tbl_url,
+            data:{
+             // 'from_date':$('#from_date').val(),
+             // 'to_date':$('#to_date').val(),
+             'select_mon':'',
+             'range_name':range_name,
+             'village_type':village_type,
+            },
+            type:'GET',
+            success:function(data){
+                console.log(data);
+                    $("#"+tbl_name).DataTable().clear().draw();
+                window[tbl_name](data,tbl_name);
+            },
+        });
+});
+$(document).ready(function(){
+    // $("#slide-toggle").toggleClass('fa-filter');
+   // {% if area_range_name == '' %}
+   //  $("#filter-range").hide();
+   //  {% else %}
+   //  $("#slide-toggle").toggleClass('fa-filter fa-remove');
+   //  {% endif %}
+   //      $(".slide-toggle").click(function(){
+   //          $(".filter-range").animate({
+   //              width: "toggle"
+   //          });
+            
+   //          $("#slide-toggle").toggleClass('fa-filter fa-remove');
+   //      });
+         $('#range_name_select').on('change',function(){
+            $('#select-form').submit();
+        });
+          $('#div_name_select').on('change',function(){
+            $('#select-form').submit();
+        });
+    // $('#div_name_select').on('change',function(e){
+    //                     var division = $(this).val();
+    //                     if ($(this).val()==''){
+    //                         $('#range_name_select').val('');    
+    //                     }
+    //                     $.ajax({
+    //                         url: "../admin/load_range/",
+    //                         type:'GET', 
+    //                         'data':{
+    //                             'division_id':division},
+    //                         success: function(data){
+    //                         console.log(data);
+    //                         var select_drop='<option value="">All Ranges</option>';
+    //                         for (var i = 0;i<data.range_list.length; i++) {
+    //                                 select_drop+='<option value='+data.range_list[i].id+'>'+data.range_list[i].name+'</option>';
+    //                             }
+
+    //                             $('#range_name_select').html(select_drop); 
+    //                     }});
+    //                        $('#select-form').submit();
+
+    //                 })
+    });
+// var xValues03 = ["11/04/2021", "12/04/2021", "13/04/2021", "14/04/2021","12/04/2021", "13/04/2021", "14/04/2021",];
+// var yValues03 = [200, 180, 150, 120,180, 150, 120];
+// var barColors03 = ["red", "green","blue","yellow","red","yellow"];
+
+// new Chart("myChart_03", {
+//   type: "bar",
+//   data: {
+//     labels: xValues03,
+//     datasets: [{
+//       backgroundColor: barColors03,
+//       data: yValues03
+//     }]
+//   },
+//   options: {
+//     legend: {display: false},
+//     title: {
+//       display: true,
+//       text: " Total Number of Trees Transported "
+//     }
+//   }
+// });
+</script>
+</body>
+
+</html>
+{% endblock %}

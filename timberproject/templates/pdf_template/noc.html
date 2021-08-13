@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <style type="text/css">
+     table,th,tr,td{
+    /* border:1px ; */
+    /* border-solid; */
+    background-color:  #ffffff; 
+    border-collapse: collapse;
+    padding:2px;
+    /* padding-left: 10px; */
+}
+.table1{
+    width: 100%;
+    /* margin-left:auto; */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    /* border:none; */
+}
+.table2{
+    width: 100%;
+    margin-left:auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    background-color:  rgba(255,255,255,0.9);
+    border:1px solid black;
+}
+.table3{
+    width: 100%;
+    margin-left:auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    background-color:  rgba(255,255,255,0.9);
+    border:1px solid black;
+}
+#qr{
+    height: 120px;
+}
+.layout{
+    display: none;
+}
+#main{
+    height: 100px;
+}
+span{
+    display: inline;
+    text-align: center;
+}
+#th1{
+    width:150px;
+    height: 120px;
+}
+.head{
+    font-size: 16px;
+    text-align: left;
+    padding-top: 7px;
+}
+.tb_cont{
+    font-size: 16px;
+    text-align: left;
+    padding-top: 7px;
+    
+}
+.tb_cont span{
+    display: inline;
+    text-align: left;
+}
+.headl{
+    margin-left: 0px;
+    /* width:400px; */
+    /* padding:8px; */
+}
+.sig{
+    padding-top: 80px;
+    padding-right:20px;
+    float:right;
+    border:none;
+}
+.head1{
+    height: 100px;
+}
+.sig2{
+    float:right;
+    padding-right:30px;
+}
+.auth{
+    float:right;
+    padding-right: 30px;
+}
+#end{
+    font-size: 20px;
+    font-weight: bold;
+}
+.table4{
+    width:100%;
+}
+.col2{
+    font-weight: bold;
+    font-weight:700;
+    font-size: 80px;
+}
+.sign_img{
+    width:300px !important;
+}
+.qr_img{
+    width:200px !important;
+}
+
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 30pt; height: 150pt;
+        }
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 150pt; height: 632pt;
+        }
+
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 792pt; height: 20pt;
+        }
+    }
+
+    </style>
+</head>
+
+<body>
+<div id="header_content">
+    <table class="table1" style="margin:0px; padding:0px;">
+        <!-- <tr class="layout">
+            <th id="th1"><img src="{{logo1}}" width="70" /></th>
+            <th id="col2">TIGRAM</th>
+            <th></th>
+            <th id="th1"><img src="{{logo1}}" width="70" /></th>
+        </tr> -->
+         <tr id="main" style="display:flex; justify-content:space-between; margin:0px; padding:0px;">
+                            <td style="width:33.33%; text-align:left;" id="th1"><img src="{{logo1}}" width="180px" height="90px" style="width:180px; height:90px"/></td>
+           
+            <td   style="width:33.33%; text-align:center;" id="col2"><img src="{{logo3}}" width="190px" height="40px" style="width:190px; height:40px;" /></td>
+            <td style="width:33.33%; text-align:right;" id="th1"><img src="{{logo2}}" width="120px" height="80px" style="width:120px; height:80px;" /></td>
+        </tr>
+    </table>
+ 
+    <!-- <table class="table2">
+        <tr id="qr">
+            <td colspan="4"></td>
+        </tr>
+    </table> 
+    <table>
+    <tr><td width="100%" color="#012a6c" size="5" style="margin:0px; border-radius:0px; width:100%; display:block; background:#012a6c; height:5px;" >&nbsp;</td></tr>
+<tr><td width="100%" color="#c4113b" size="5" style="margin:0px; border-radius:0px; background:#c4113b; width:100%; display:block; height:5px;" >&nbsp;</td></tr>
+</table>--> 
+<hr width="100%" color="#012a6c" size="5" style="margin:0px; padding:0px;" />
+<hr width="100%" color="#c4113b" size="5" style="margin:0px; padding:0px;" />
+
+</div>
+<div id="content_frame">
+<h1 style="font-size: 30px; font-weight: bold; margin-bottom: 0px; margin-top: 15px; color: #c4113b; text-align:center;"">NOC for Exempted Species</h1>
+ 
+<h1 style="font-size: 20px; font-weight: bold; margin-bottom: 0px; margin-top: 15px; color: #c4113b; padding-left:10px;">User Details</h1>
+    <table style="margin-left: 30px;margin-right: 30px;width:150px;border:1px solid rgb(231, 228, 228);">
+   
+        <tr>
+            <td class="head" style="border:1px solid #ccc; padding:0px 10px; min-width:35%;"><p style="font-weight:lighter;color:#615f5f;">Name:</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{application.0.name}}</p></td>
+          
+        </tr>
+        <tr>
+            <td class="head" style="border:1px solid #ccc; padding:0px 10px; min-width:35%;"><p style="font-weight:lighter;color:#615f5f;">Address:</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{application.0.address}}</p></td>
+        </tr>
+        <tr>
+            <td class="head" style="border:1px solid #ccc; padding:0px 10px; min-width:35%;"><p style="font-weight:lighter;color:#615f5f;">Destination Address:</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{application.0.destination_details}}</p></td>
+        </tr>
+        <tr>
+            <td class="head" style="border:1px solid #ccc;word-wrap: break-word; padding:0px 10px; min-width:45%;"><p style="font-weight:lighter;color:#615f5f;">List showing the species of tree or
+                trees proposed to be cut,etc:</p></td>
+                
+   
+               <td class="head" style="overflow-wrap: break-word;word-wrap: break-word;"><p style="font-weight:bold;overflow-wrap: break-word;word-wrap: break-word; color:#012a6c;">{{application.0.species_of_trees}}</p></td>
+        </tr>
+
+        <tr>
+            <td class="head" style="border:1px solid #ccc; padding:0px 10px; min-width:35%;" ><p style="font-weight:lighter;color:#615f5f;">NOC Number:</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{application.0.transit_pass_id}}</p></td>
+        </tr>
+        <tr>
+            <td class="head" style="border:1px solid #ccc; padding:0px 10px; min-width:35%;"><p style="font-weight:lighter;color:#615f5f;">Purpose for which trees are proposed to be cut,etc</p> </td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{application.0.purpose}}</p></td>
+        </tr>
+        <tr>
+            <td class="head" style="border:1px solid #ccc; padding:0px 10px; min-width:35%;"><p style="font-weight:lighter;color:#615f5f;">Details of Regeneration proposed</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">N/A</p></td>
+        </tr>
+        <tr>
+            <td class="head" style="border:1px solid #ccc; padding:0px 10px; min-width:35%;"><p style="font-weight:lighter;color:#615f5f;">Place:</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{application.0.village}}</p></td>
+        </tr>
+        <tr>
+            <td class="head" style="border:1px solid #ccc; padding:0px 10px; min-width:35%;"><p style="font-weight:lighter;color:#615f5f;">Application Date:</p></td>
+            <td class="tb_cont"><p style="font-weight:bold; color:#012a6c;">{{application.0.created_date}}</p></td>
+        </tr>
+        <tr>
+            <td class="head" style="border:1px solid #ccc; padding:0px 10px; min-width:35%;"><p style="font-weight:bold;color:#012a6c;"><br>Signature:<br></p>
+                <img class="sign_img" width="200px" height="70px" src="{{signature_img}}" /> 
+            </td>
+            <td class="head" style="border:1px solid #ccc; padding:0px 10px; min-width:35%;"><p style="font-weight:bold;color:#012a6c;"><br><br>Qrcode:</p>
+                <img class="qr_img" width="150px" src="{{qr_img}}" /><br></td>
+            
+
+        </tr>
+    
+      </table>
+    <br>
+<br>
+<br>
+<br>
+<br>
+
+<h1 style="font-size: 20px; font-weight: bold; margin-bottom: 0px; margin-top: 35px; color: #c4113b; padding-left:10px;">Wood Log Description</h1>
+
+    <table style="border: 1px solid gray;">
+        <tr>
+         
+          <th  style="width: 45px;padding-top: 7px; background-color: #012a6c;font-size: 15px;"><p style="color: white;">Sr.NO</p></th>
+          <th style="width: 300px; padding-top: 7px; background-color: #012a6c;font-size: 15px"><p style="color: white;">Species of Log</p></th>
+          <th style="padding-top: 7px; background-color: #012a6c;font-size: 15px"><p style="color: white;">Length(cm)</p></th>
+          <th style="padding-top: 7px; background-color: #012a6c;font-size: 15px"><p style="color: white;">Girth(cm)</p></th>
+          <th style="padding-top: 7px; background-color: #012a6c;font-size: 15px"><p style="color: white;">Volume(cm<sup>3</sup>)</p></th>
+        </tr>
+        {% for each in log_details %}
+        <tr>
+        
+          <td style="text-align: center;font-size: 16px;color:#615f5f">{{forloop.counter}}</td>
+          <td style="width :300px !important; text-align: center;font-size: 16px;color:#615f5f">{{each.species_of_tree}}</td>
+          <td style="text-align: center;font-size: 16px;color:#615f5f">{{each.length}}</td>
+          <td style="text-align: center;font-size: 16px;color:#615f5f">{{each.breadth}}</td>
+          <td style="text-align: center;font-size: 16px;color:#615f5f">{{each.volume}}</td>
+          
+        </tr>
+        {% endfor %}
+
+
+      </table>
+<br>
+
+    </div>
+  <div id="footer_content">Page <pdf:pagenumber>
+        of <pdf:pagecount>
+    </div>
+</body>
+
+</html>
